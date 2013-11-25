@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B5366391-EFA3-482D-8990-D28F745005BF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WeiboSDKLibDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5124ADAE-B4AF-4D64-8849-9D8D3A8BA302</key>
+		<string>https://svn.intra.sina.com.cn/wap/trunk/client/project/cocoalibrary/WeiboSDK/trunk</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WeiboSDKDemo/WeiboSDKLibDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5124ADAE-B4AF-4D64-8849-9D8D3A8BA302</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>5124ADAE-B4AF-4D64-8849-9D8D3A8BA302</key>
+		<string>https://svn.intra.sina.com.cn/wap</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://svn.intra.sina.com.cn/wap/trunk/client/project/cocoalibrary/WeiboSDK/trunk/WeiboSDKDemo/WeiboSDKLibDemo.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5124ADAE-B4AF-4D64-8849-9D8D3A8BA302</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
+			<string>trunk/client/project/cocoalibrary/WeiboSDK/branches</string>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
+			<string>trunk/client/project/cocoalibrary/WeiboSDK/trunk</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5124ADAE-B4AF-4D64-8849-9D8D3A8BA302</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WeiboSDK (trunk)</string>
+		</dict>
+	</array>
+</dict>
+</plist>
