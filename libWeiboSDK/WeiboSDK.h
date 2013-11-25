@@ -114,7 +114,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  取消授权，登出接口
  调用此接口后，token将失效
  @param token 第三方应用之前申请的Token
- @param delegate WeiboSDKJSONDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  
  */
 + (void)logOutWithToken:(NSString *)token delegate:(id<WBHttpRequestDelegate>)delegate;
@@ -130,7 +130,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     invite_logo	string	false	邀请Card展示时的图标地址，大小必须为80px X 80px，仅支持PNG、JPG格式。默认为当前应用logo地址。
  @param uid  被邀请人，需为当前用户互粉好友。
  @param access_token 第三方应用之前申请的Token
- @param delegate WeiboSDKJSONDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  */
 +(void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate;
 
@@ -165,12 +165,33 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  */
 @protocol WBHttpRequestDelegate <NSObject>
 
+/**
+ 收到一个来自微博Http请求的响应
+ 
+ @param response 具体的响应对象
+ */
 - (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response;
-//- (void)request:(WBHttpRequest *)request didReceiveRawData:(NSData *)data;
+
+/**
+ 收到一个来自微博Http请求失败的响应
+ 
+ @param error 错误信息
+ */
 - (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
+
+/**
+ 收到一个来自微博Http请求的网络返回
+ 
+ @param result 请求返回结果
+ */
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result;
 @end
 
+
+/**
+ 微博封装Http请求的消息结构
+ 
+ */
 @interface WBHttpRequest : NSObject
 {
     NSString                        *url;
@@ -183,11 +204,29 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     id<WBHttpRequestDelegate>    delegate;
 }
 
+/**
+ 统一HTTP请求接口
+ 调用此接口后，将发送一个HTTP网络请求
+ @param url 请求url地址
+ @param httpMethod  支持"GET" "POST"
+ @param params 向接口传递的参数结构
+ @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ */
 + (void)requestWithURL:(NSString *)url
             httpMethod:(NSString *)httpMethod
                 params:(NSDictionary *)params
               delegate:(id<WBHttpRequestDelegate>)delegate;
 
+
+/**
+ 统一微博Open API HTTP请求接口
+ 调用此接口后，将发送一个HTTP网络请求（用于访问微博open api）
+ @param accessToken 应用获取到的accessToken，用于身份验证
+ @param url 请求url地址
+ @param httpMethod  支持"GET" "POST"
+ @param params 向接口传递的参数结构
+ @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ */
 + (void)requestWithAccessToken:(NSString *)accessToken
                            url:(NSString *)url
                     httpMethod:(NSString *)httpMethod
