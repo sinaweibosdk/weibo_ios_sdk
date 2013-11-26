@@ -118,4 +118,8 @@
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [ WeiboSDK handleOpenURL:url delegate:self ];
+}
 @end

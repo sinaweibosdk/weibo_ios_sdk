@@ -115,9 +115,10 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  调用此接口后，token将失效
  @param token 第三方应用之前申请的Token
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
- 
+ @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
+
  */
-+ (void)logOutWithToken:(NSString *)token delegate:(id<WBHttpRequestDelegate>)delegate;
++ (void)logOutWithToken:(NSString *)token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
 
 /**
  邀请好友使用应用
@@ -131,8 +132,10 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param uid  被邀请人，需为当前用户互粉好友。
  @param access_token 第三方应用之前申请的Token
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
+
  */
-+(void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate;
++(void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
 
 @end
 
@@ -205,17 +208,26 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 }
 
 /**
+ 用户自定义TAG
+ 
+ 用于区分回调Request
+ */
+@property (nonatomic, retain) NSString* tag;
+
+/**
  统一HTTP请求接口
  调用此接口后，将发送一个HTTP网络请求
  @param url 请求url地址
  @param httpMethod  支持"GET" "POST"
  @param params 向接口传递的参数结构
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  */
 + (void)requestWithURL:(NSString *)url
             httpMethod:(NSString *)httpMethod
                 params:(NSDictionary *)params
-              delegate:(id<WBHttpRequestDelegate>)delegate;
+              delegate:(id<WBHttpRequestDelegate>)delegate
+               withTag:(NSString *)tag;
 
 
 /**
@@ -226,12 +238,14 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param httpMethod  支持"GET" "POST"
  @param params 向接口传递的参数结构
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  */
 + (void)requestWithAccessToken:(NSString *)accessToken
                            url:(NSString *)url
                     httpMethod:(NSString *)httpMethod
                         params:(NSDictionary *)params
-                      delegate:(id<WBHttpRequestDelegate>)delegate;
+                      delegate:(id<WBHttpRequestDelegate>)delegate
+                       withTag:(NSString *)tag;
 
 @end
 

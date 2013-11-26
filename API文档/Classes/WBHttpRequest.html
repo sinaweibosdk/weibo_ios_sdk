@@ -37,13 +37,18 @@
 	
 	
 	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/tag">&nbsp;&nbsp;&nbsp;&nbsp;tag</option>
+	
+	
 	
 	
 	<option value="class_methods">Class Methods</option>
 	
-	<option value="//api/name/requestWithAccessToken:url:httpMethod:params:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithAccessToken:url:httpMethod:params:delegate:</option>
+	<option value="//api/name/requestWithAccessToken:url:httpMethod:params:delegate:withTag:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithAccessToken:url:httpMethod:params:delegate:withTag:</option>
 	
-	<option value="//api/name/requestWithURL:httpMethod:params:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithURL:httpMethod:params:delegate:</option>
+	<option value="//api/name/requestWithURL:httpMethod:params:delegate:withTag:">&nbsp;&nbsp;&nbsp;&nbsp;+ requestWithURL:httpMethod:params:delegate:withTag:</option>
 	
 	
 	
@@ -69,13 +74,19 @@
 
 
 
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/tag">tag</a></span></li>
+	
+</ul></li>
+
 
 
 <li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithAccessToken:url:httpMethod:params:delegate:">requestWithAccessToken:url:httpMethod:params:delegate:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithAccessToken:url:httpMethod:params:delegate:withTag:">requestWithAccessToken:url:httpMethod:params:delegate:withTag:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithURL:httpMethod:params:delegate:">requestWithURL:httpMethod:params:delegate:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/requestWithURL:httpMethod:params:delegate:withTag:">requestWithURL:httpMethod:params:delegate:withTag:</a></span></li>
 	
 </ul></li>
 
@@ -134,13 +145,19 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/requestWithURL:httpMethod:params:delegate:">+&nbsp;requestWithURL:httpMethod:params:delegate:</a></code>
+		<code><a href="#//api/name/tag">&nbsp;&nbsp;tag</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/requestWithURL:httpMethod:params:delegate:withTag:">+&nbsp;requestWithURL:httpMethod:params:delegate:withTag:</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/requestWithAccessToken:url:httpMethod:params:delegate:">+&nbsp;requestWithAccessToken:url:httpMethod:params:delegate:</a></code>
+		<code><a href="#//api/name/requestWithAccessToken:url:httpMethod:params:delegate:withTag:">+&nbsp;requestWithAccessToken:url:httpMethod:params:delegate:withTag:</a></code>
 	</span>
 	
 	
@@ -153,6 +170,53 @@
 					
 					
 					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/tag" title="tag"></a>
+	<h3 class="subsubtitle method-title">tag</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>用户自定义TAG</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, retain) NSString *tag</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>用于区分回调Request</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">WeiboSDK.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
 					
 					
 					<div class="section section-methods">
@@ -160,8 +224,8 @@
 						<h2 class="subtitle subtitle-methods">Class Methods</h2>
 						
 						<div class="section-method">
-	<a name="//api/name/requestWithAccessToken:url:httpMethod:params:delegate:" title="requestWithAccessToken:url:httpMethod:params:delegate:"></a>
-	<h3 class="subsubtitle method-title">requestWithAccessToken:url:httpMethod:params:delegate:</h3>
+	<a name="//api/name/requestWithAccessToken:url:httpMethod:params:delegate:withTag:" title="requestWithAccessToken:url:httpMethod:params:delegate:withTag:"></a>
+	<h3 class="subsubtitle method-title">requestWithAccessToken:url:httpMethod:params:delegate:withTag:</h3>
 	
 	
 	
@@ -172,7 +236,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)requestWithAccessToken:(NSString *)<em>accessToken</em> url:(NSString *)<em>url</em> httpMethod:(NSString *)<em>httpMethod</em> params:(NSDictionary *)<em>params</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)requestWithAccessToken:(NSString *)<em>accessToken</em> url:(NSString *)<em>url</em> httpMethod:(NSString *)<em>httpMethod</em> params:(NSDictionary *)<em>params</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em> withTag:(NSString *)<em>tag</em></code></div>
 
     
 	
@@ -204,6 +268,11 @@
 			<dd><p>WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应</p></dd>
 		</dl>
 		
+		<dl class="argument-def parameter-def">
+			<dt><em>tag</em></dt>
+			<dd><p>用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回</p></dd>
+		</dl>
+		
 	</div>
 	
 	
@@ -227,8 +296,8 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/requestWithURL:httpMethod:params:delegate:" title="requestWithURL:httpMethod:params:delegate:"></a>
-	<h3 class="subsubtitle method-title">requestWithURL:httpMethod:params:delegate:</h3>
+	<a name="//api/name/requestWithURL:httpMethod:params:delegate:withTag:" title="requestWithURL:httpMethod:params:delegate:withTag:"></a>
+	<h3 class="subsubtitle method-title">requestWithURL:httpMethod:params:delegate:withTag:</h3>
 	
 	
 	
@@ -239,7 +308,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)requestWithURL:(NSString *)<em>url</em> httpMethod:(NSString *)<em>httpMethod</em> params:(NSDictionary *)<em>params</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)requestWithURL:(NSString *)<em>url</em> httpMethod:(NSString *)<em>httpMethod</em> params:(NSDictionary *)<em>params</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em> withTag:(NSString *)<em>tag</em></code></div>
 
     
 	
@@ -264,6 +333,11 @@
 		<dl class="argument-def parameter-def">
 			<dt><em>delegate</em></dt>
 			<dd><p>WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tag</em></dt>
+			<dd><p>用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回</p></dd>
 		</dl>
 		
 	</div>
@@ -305,7 +379,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-11-14)</span><br />
+						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-11-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						

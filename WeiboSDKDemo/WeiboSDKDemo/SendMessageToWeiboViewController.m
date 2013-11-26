@@ -65,7 +65,7 @@
 - (void)ssoOutButtonPressed
 {
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self];
+    [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self withTag:@"user1"];
 }
 
 - (void)inviteFriendButtonPressed
@@ -91,7 +91,7 @@
     NSLog(@"%@",myDelegate.wbtoken);
     NSString *jsonData = @"{\"text\": \"新浪新闻是新浪网官方出品的新闻客户端，用户可以第一时间获取新浪网提供的高品质的全球资讯新闻，随时随地享受专业的资讯服务，加入一起吧\",\"url\": \"http://app.sina.com.cn/appdetail.php?appID=84475\",\"invite_logo\":\"http://sinastorage.com/appimage/iconapk/1b/75/76a9bb371f7848d2a7270b1c6fcf751b.png\"}";
 
-    [WeiboSDK inviteFriend:jsonData withUid:[textField text] withToken:myDelegate.wbtoken delegate:self];
+    [WeiboSDK inviteFriend:jsonData withUid:[textField text] withToken:myDelegate.wbtoken delegate:self withTag:@"invite1"];
 }
 
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result

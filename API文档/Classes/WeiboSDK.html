@@ -51,11 +51,11 @@
 	
 	<option value="//api/name/handleOpenURL:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ handleOpenURL:delegate:</option>
 	
-	<option value="//api/name/inviteFriend:withUid:withToken:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ inviteFriend:withUid:withToken:delegate:</option>
+	<option value="//api/name/inviteFriend:withUid:withToken:delegate:withTag:">&nbsp;&nbsp;&nbsp;&nbsp;+ inviteFriend:withUid:withToken:delegate:withTag:</option>
 	
 	<option value="//api/name/isWeiboAppInstalled">&nbsp;&nbsp;&nbsp;&nbsp;+ isWeiboAppInstalled</option>
 	
-	<option value="//api/name/logOutWithToken:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ logOutWithToken:delegate:</option>
+	<option value="//api/name/logOutWithToken:delegate:withTag:">&nbsp;&nbsp;&nbsp;&nbsp;+ logOutWithToken:delegate:withTag:</option>
 	
 	<option value="//api/name/openWeiboApp">&nbsp;&nbsp;&nbsp;&nbsp;+ openWeiboApp</option>
 	
@@ -103,11 +103,11 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleOpenURL:delegate:">handleOpenURL:delegate:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/inviteFriend:withUid:withToken:delegate:">inviteFriend:withUid:withToken:delegate:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/inviteFriend:withUid:withToken:delegate:withTag:">inviteFriend:withUid:withToken:delegate:withTag:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isWeiboAppInstalled">isWeiboAppInstalled</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/logOutWithToken:delegate:">logOutWithToken:delegate:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/logOutWithToken:delegate:withTag:">logOutWithToken:delegate:withTag:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/openWeiboApp">openWeiboApp</a></span></li>
 	
@@ -234,13 +234,13 @@
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/logOutWithToken:delegate:">+&nbsp;logOutWithToken:delegate:</a></code>
+		<code><a href="#//api/name/logOutWithToken:delegate:withTag:">+&nbsp;logOutWithToken:delegate:withTag:</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/inviteFriend:withUid:withToken:delegate:">+&nbsp;inviteFriend:withUid:withToken:delegate:</a></code>
+		<code><a href="#//api/name/inviteFriend:withUid:withToken:delegate:withTag:">+&nbsp;inviteFriend:withUid:withToken:delegate:withTag:</a></code>
 	</span>
 	
 	
@@ -499,8 +499,8 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/inviteFriend:withUid:withToken:delegate:" title="inviteFriend:withUid:withToken:delegate:"></a>
-	<h3 class="subsubtitle method-title">inviteFriend:withUid:withToken:delegate:</h3>
+	<a name="//api/name/inviteFriend:withUid:withToken:delegate:withTag:" title="inviteFriend:withUid:withToken:delegate:withTag:"></a>
+	<h3 class="subsubtitle method-title">inviteFriend:withUid:withToken:delegate:withTag:</h3>
 	
 	
 	
@@ -511,7 +511,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)inviteFriend:(NSString *)<em>data</em> withUid:(NSString *)<em>uid</em> withToken:(NSString *)<em>access_token</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)inviteFriend:(NSString *)<em>data</em> withUid:(NSString *)<em>uid</em> withToken:(NSString *)<em>access_token</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em> withTag:(NSString *)<em>tag</em></code></div>
 
     
 	
@@ -541,6 +541,11 @@ data参数支持的参数：
 		<dl class="argument-def parameter-def">
 			<dt><em>delegate</em></dt>
 			<dd><p>WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tag</em></dt>
+			<dd><p>用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回</p></dd>
 		</dl>
 		
 	</div>
@@ -607,8 +612,8 @@ data参数支持的参数：
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/logOutWithToken:delegate:" title="logOutWithToken:delegate:"></a>
-	<h3 class="subsubtitle method-title">logOutWithToken:delegate:</h3>
+	<a name="//api/name/logOutWithToken:delegate:withTag:" title="logOutWithToken:delegate:withTag:"></a>
+	<h3 class="subsubtitle method-title">logOutWithToken:delegate:withTag:</h3>
 	
 	
 	
@@ -619,7 +624,7 @@ data参数支持的参数：
 	
     
 
-	<div class="method-subsection method-declaration"><code>+ (void)logOutWithToken:(NSString *)<em>token</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em></code></div>
+	<div class="method-subsection method-declaration"><code>+ (void)logOutWithToken:(NSString *)<em>token</em> delegate:(id&lt;WBHttpRequestDelegate&gt;)<em>delegate</em> withTag:(NSString *)<em>tag</em></code></div>
 
     
 	
@@ -634,6 +639,11 @@ data参数支持的参数：
 		<dl class="argument-def parameter-def">
 			<dt><em>delegate</em></dt>
 			<dd><p>WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tag</em></dt>
+			<dd><p>用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回</p></dd>
 		</dl>
 		
 	</div>
@@ -889,7 +899,7 @@ data参数支持的参数：
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-11-14)</span><br />
+						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-11-26)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
 						
