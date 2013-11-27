@@ -118,8 +118,12 @@
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
+/*
+不建议使用
+Will be deprecated at some point, please replace with application:openURL:sourceApplication:annotation:
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return [ WeiboSDK handleOpenURL:url delegate:self ];
 }
+*/
 @end
