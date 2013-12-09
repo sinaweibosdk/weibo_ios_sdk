@@ -188,6 +188,14 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param result 请求返回结果
  */
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result;
+
+/**
+ 收到一个来自微博Http请求的网络返回
+ 
+ @param data 请求返回结果
+ */
+- (void)request:(WBHttpRequest *)request didFinishLoadingWithDataResult:(NSData *)data;
+
 @end
 
 
