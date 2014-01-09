@@ -117,8 +117,11 @@
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
+/*
+ * 推荐实现上面的方法，两个方法二选一实现即可
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return [ WeiboSDK handleOpenURL:url delegate:self ];
 }
+ */
 @end
