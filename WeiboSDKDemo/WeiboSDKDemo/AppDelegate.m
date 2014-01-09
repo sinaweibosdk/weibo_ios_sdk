@@ -38,7 +38,8 @@
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[SendMessageToWeiboViewController alloc] initWithNibName:nil bundle:nil] autorelease];
+    self.viewController = [[[SendMessageToWeiboViewController alloc] init] autorelease];
+    
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -85,8 +86,7 @@
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
         NSString *title = @"发送结果";
-        NSString *message = [NSString stringWithFormat:@"响应状态: %d\n响应UserInfo数据: %@\n原请求UserInfo数据: %@",
-                             response.statusCode, response.userInfo, response.requestUserInfo];
+        NSString *message = [NSString stringWithFormat:@"响应状态: %d\n响应UserInfo数据: %@\n原请求UserInfo数据: %@",(int)response.statusCode, response.userInfo, response.requestUserInfo];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil
@@ -98,8 +98,7 @@
     else if ([response isKindOfClass:WBAuthorizeResponse.class])
     {
         NSString *title = @"认证结果";
-        NSString *message = [NSString stringWithFormat:@"响应状态: %d\nresponse.userId: %@\nresponse.accessToken: %@\n响应UserInfo数据: %@\n原请求UserInfo数据: %@",
-                             response.statusCode, [(WBAuthorizeResponse *)response userID], [(WBAuthorizeResponse *)response accessToken], response.userInfo, response.requestUserInfo];
+        NSString *message = [NSString stringWithFormat:@"响应状态: %d\nresponse.userId: %@\nresponse.accessToken: %@\n响应UserInfo数据: %@\n原请求UserInfo数据: %@",(int)response.statusCode,[(WBAuthorizeResponse *)response userID], [(WBAuthorizeResponse *)response accessToken], response.userInfo, response.requestUserInfo];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                         message:message
                                                        delegate:nil
@@ -118,12 +117,8 @@
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-/*
-不建议使用
-Will be deprecated at some point, please replace with application:openURL:sourceApplication:annotation:
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return [ WeiboSDK handleOpenURL:url delegate:self ];
 }
-*/
 @end

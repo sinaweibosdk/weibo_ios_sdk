@@ -19,6 +19,6 @@
 
 @property (strong, nonatomic) SendMessageToWeiboViewController *viewController;
 
-@property (strong, retain) NSString* wbtoken;
+@property (strong, nonatomic) NSString *wbtoken;
 
 @end

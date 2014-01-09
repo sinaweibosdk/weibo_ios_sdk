@@ -173,6 +173,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  
  @param response 具体的响应对象
  */
+@optional
 - (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response;
 
 /**
@@ -180,6 +181,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  
  @param error 错误信息
  */
+@optional
 - (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
 
 /**
@@ -187,6 +189,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  
  @param result 请求返回结果
  */
+@optional
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result;
 
 /**
@@ -194,6 +197,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  
  @param data 请求返回结果
  */
+@optional
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithDataResult:(NSData *)data;
 
 @end
