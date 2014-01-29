@@ -162,6 +162,8 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 @end
 
+#pragma mark - WBHttpRequest and WBHttpRequestDelegate
+
 /**
  接收并处理来自微博sdk对于网络请求接口的调用响应 以及openAPI
  如inviteFriend、logOutWithToken的请求
@@ -209,15 +211,31 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  */
 @interface WBHttpRequest : NSObject
 {
-    NSString                        *url;
-    NSString                        *httpMethod;
-    NSDictionary                    *params;
-    
     NSURLConnection                 *connection;
     NSMutableData                   *responseData;
-    
-    id<WBHttpRequestDelegate>    delegate;
 }
+
+/**
+ 用户自定义请求地址URL
+ */
+@property (nonatomic, retain) NSString *url;
+
+/**
+ 用户自定义请求方式
+ 
+ 支持"GET" "POST"
+ */
+@property (nonatomic, retain) NSString *httpMethod;
+
+/**
+ 用户自定义请求参数字典
+ */
+@property (nonatomic, retain) NSDictionary *params;
+
+/**
+ WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
+ */
+@property (nonatomic, assign) id<WBHttpRequestDelegate> delegate;
 
 /**
  用户自定义TAG
@@ -235,7 +253,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  */
-+ (void)requestWithURL:(NSString *)url
++ (WBHttpRequest *)requestWithURL:(NSString *)url
             httpMethod:(NSString *)httpMethod
                 params:(NSDictionary *)params
               delegate:(id<WBHttpRequestDelegate>)delegate
@@ -252,12 +270,17 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  */
-+ (void)requestWithAccessToken:(NSString *)accessToken
++ (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
                            url:(NSString *)url
                     httpMethod:(NSString *)httpMethod
                         params:(NSDictionary *)params
                       delegate:(id<WBHttpRequestDelegate>)delegate
                        withTag:(NSString *)tag;
+/**
+ 取消网络请求接口
+ 调用此接口后，将取消当前网络请求，建议同时[WBHttpRequest setDelegate:nil];
+ */
+- (void)disconnect;
 
 @end
 
@@ -569,6 +592,8 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 @end
 
+#pragma mark - Message Video Objects
+
 /**
  消息中包含的视频数据对象
  */
@@ -603,6 +628,8 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 @property (nonatomic, retain) NSString *videoLowBandStreamUrl;
 
 @end
+
+#pragma mark - Message Music Objects
 
 /**
  消息中包含的音乐数据对象
@@ -639,6 +666,8 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 @property (nonatomic, retain) NSString *musicLowBandStreamUrl;
 
 @end
+
+#pragma mark - Message WebPage Objects
 
 /**
  消息中包含的网页数据对象
