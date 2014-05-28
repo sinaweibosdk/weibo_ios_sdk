@@ -13,6 +13,8 @@
 #API文档
 [http://sinaweibosdk.github.io/weibo_ios_sdk/index.html](http://sinaweibosdk.github.io/weibo_ios_sdk/index.html)
 
+#常见问题 FAQ
+[https://github.com/sinaweibosdk/weibo_ios_sdk/blob/master/FAQ.md](https://github.com/sinaweibosdk/weibo_ios_sdk/blob/master/FAQ.md)
 # 名词解释
 | 名词        | 注解    | 
 | --------    | :-----  | 
