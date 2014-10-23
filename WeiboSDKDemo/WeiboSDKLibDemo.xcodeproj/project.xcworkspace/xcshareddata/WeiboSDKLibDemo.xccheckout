@@ -12,22 +12,34 @@
 	<dict>
 		<key>5AB20627-5111-4605-B50E-270BFF379FEE</key>
 		<string>https://github.com/sinaweibosdk/weibo_ios_sdk.git</string>
+		<key>607455898F648DBE5169CC7F626C6A329CE4179E</key>
+		<string>https://github.com/sinaweibosdk/weibo_ios_sdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>WeiboSDKDemo/WeiboSDKLibDemo.xcodeproj/project.xcworkspace</string>
+	<string>WeiboSDKDemo/WeiboSDKLibDemo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5AB20627-5111-4605-B50E-270BFF379FEE</key>
+		<string>../../../../weibo_ios_sdk_git</string>
+		<key>607455898F648DBE5169CC7F626C6A329CE4179E</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/sinaweibosdk/weibo_ios_sdk.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5AB20627-5111-4605-B50E-270BFF379FEE</string>
+	<string>607455898F648DBE5169CC7F626C6A329CE4179E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>607455898F648DBE5169CC7F626C6A329CE4179E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>weibo_ios_sdk</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

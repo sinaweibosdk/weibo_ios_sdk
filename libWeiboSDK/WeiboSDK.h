@@ -12,10 +12,12 @@
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
-    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消发送
+    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消
     WeiboSDKResponseStatusCodeSentFail              = -2,//发送失败
     WeiboSDKResponseStatusCodeAuthDeny              = -3,//授权失败
     WeiboSDKResponseStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端
+    
+    WeiboSDKResponseStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
 };
@@ -38,6 +40,18 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @return 已安装返回YES，未安装返回NO
  */
 + (BOOL)isWeiboAppInstalled;
+
+/**
+ 检查用户是否可以通过微博客户端进行分享
+ @return 可以使用返回YES，不可以使用返回NO
+ */
++ (BOOL)isCanShareInWeiboAPP;
+
+/**
+ 检查用户是否可以使用微博客户端进行SSO授权
+ @return 可以使用返回YES，不可以使用返回NO
+ */
++ (BOOL)isCanSSOInWeiboApp;
 
 /**
  打开微博客户端程序
@@ -394,6 +408,17 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  */
 @property (nonatomic, retain) NSString *scope;
 
+/**
+ 当用户没有安装微博客户端或微博客户端过低无法支持SSO的时候是否弹出SDK自带的Webview进行授权
+ 
+ 如果设置为YES，当用户没有安装微博客户端或微博客户端过低无法支持SSO的时候会自动弹出SDK自带的Webview进行授权。
+
+ 如果设置为NO，会根据 shouldOpenWeiboAppInstallPageIfNotInstalled 属性判断是否弹出安装/更新微博的对话框
+ 
+ 默认为YES
+ */
+@property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
+
 @end
 
 
@@ -463,10 +488,27 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 /**
  返回一个 WBSendMessageToWeiboRequest 对象
- @param message 需要发送给微博客户端程序的消息对象
+ 此方法生成对象被[WeiboSDK sendRequest:]会唤起微博客户端的发布器进行分享，如果未安装微博客户端或客户端版本太低
+ 会根据 shouldOpenWeiboAppInstallPageIfNotInstalled 属性判断是否弹出安装/更新微博的对话框
+ @param message 需要发送给微博客户端的消息对象
  @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
  */
 + (id)requestWithMessage:(WBMessageObject *)message;
+
+/**
+ 返回一个 WBSendMessageToWeiboRequest 对象
+ 
+ 当用户安装了可以支持微博客户端內分享的微博客户端时,会自动唤起微博并分享
+ 当用户没有安装微博客户端或微博客户端过低无法支持通过客户端內分享的时候会自动唤起SDK內微博发布器
+ 
+ @param message 需要发送给微博的消息对象
+ @param authRequest 授权相关信息,与access_token二者至少有一个不为空,当access_token为空并且需要弹出SDK內发布器时会通过此信息先进行授权后再分享
+ @param access_token 第三方应用之前申请的Token,当此值不为空并且无法通过客户端分享的时候,会使用此token进行分享。
+ @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
+ */
++ (id)requestWithMessage:(WBMessageObject *)message
+                authInfo:(WBAuthorizeRequest *)authRequest
+            access_token:(NSString *)access_token;
 
 @end
 
@@ -475,6 +517,10 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  */
 @interface WBSendMessageToWeiboResponse : WBBaseResponse
 
+/**
+ 可能在分享过程中用户进行了授权操作，当此值不为空时，为用户相应授权信息
+ */
+@property (nonatomic,retain) WBAuthorizeResponse *authResponse;
 @end
 
 #pragma mark - MessageObject / ImageObject
