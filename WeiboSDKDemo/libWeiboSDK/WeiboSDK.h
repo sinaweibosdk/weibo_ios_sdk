@@ -9,18 +9,27 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "WBHttpRequest.h"
+#import "WBHttpRequest+WeiboUser.h"
+#import "WBHttpRequest+WeiboShare.h"
+#import "WBHttpRequest+WeiboToken.h"
+#import "WBSDKRelationshipButton.h"
+#import "WBSDKCommentButton.h"
+
+
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
-    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消
+    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消发送
     WeiboSDKResponseStatusCodeSentFail              = -2,//发送失败
     WeiboSDKResponseStatusCodeAuthDeny              = -3,//授权失败
     WeiboSDKResponseStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端
-    
+    WeiboSDKResponseStatusCodePayFail               = -5,//支付失败
     WeiboSDKResponseStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
 };
+
 
 @protocol WeiboSDKDelegate;
 @protocol WBHttpRequestDelegate;
@@ -30,6 +39,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 @class WBImageObject;
 @class WBBaseMediaObject;
 @class WBHttpRequest;
+@class WBOrderObject;
 /**
  微博SDK接口类
  */
@@ -76,6 +86,19 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @return 当前微博SDK的版本号
  */
 + (NSString *)getSDKVersion;
+
+
+extern NSString * const WeiboSDKGetAidSucessNotification;
+extern NSString * const WeiboSDKGetAidFailNotification;
+/**
+ 获取当前微博SDK的aid
+ 返回的aid值可能为 nil ,当值为 nil 时会尝试获取 aid 值。
+ 当获取成功（ aid 值变为有效值）时，SDK会发出名为 WeiboSDKGetAidSucessNotification 的通知，通知中带有 aid 值。
+ 当获取失败时，SDK会发出名为 WeiboSDKGetAidFailNotification 的通知，通知中带有 NSError 对象。
+ @return aid 用于广告的与设备信息相关的标识符
+ */
++ (NSString *)getWeiboAid;
+
 
 /**
  向微博客户端程序注册第三方应用
@@ -130,7 +153,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @param token 第三方应用之前申请的Token
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
-
+ 
  */
 + (void)logOutWithToken:(NSString *)token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
 
@@ -139,15 +162,15 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  调用此接口后，将发送私信至好友，成功将返回微博标准私信结构
  @param data 邀请数据。必须为json字串的形式，必须做URLEncode，采用UTF-8编码。
  data参数支持的参数：
-    参数名称	值的类型	是否必填	说明描述
-    text	string	true	要回复的私信文本内容。文本大小必须小于300个汉字。
-    url	string	false	邀请点击后跳转链接。默认为当前应用地址。
-    invite_logo	string	false	邀请Card展示时的图标地址，大小必须为80px X 80px，仅支持PNG、JPG格式。默认为当前应用logo地址。
+ 参数名称	值的类型	是否必填	说明描述
+ text	string	true	要回复的私信文本内容。文本大小必须小于300个汉字。
+ url	string	false	邀请点击后跳转链接。默认为当前应用地址。
+ invite_logo	string	false	邀请Card展示时的图标地址，大小必须为80px X 80px，仅支持PNG、JPG格式。默认为当前应用logo地址。
  @param uid  被邀请人，需为当前用户互粉好友。
  @param access_token 第三方应用之前申请的Token
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
-
+ 
  */
 +(void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
 
@@ -176,127 +199,6 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 @end
 
-#pragma mark - WBHttpRequest and WBHttpRequestDelegate
-
-/**
- 接收并处理来自微博sdk对于网络请求接口的调用响应 以及openAPI
- 如inviteFriend、logOutWithToken的请求
- */
-@protocol WBHttpRequestDelegate <NSObject>
-
-/**
- 收到一个来自微博Http请求的响应
- 
- @param response 具体的响应对象
- */
-@optional
-- (void)request:(WBHttpRequest *)request didReceiveResponse:(NSURLResponse *)response;
-
-/**
- 收到一个来自微博Http请求失败的响应
- 
- @param error 错误信息
- */
-@optional
-- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
-
-/**
- 收到一个来自微博Http请求的网络返回
- 
- @param result 请求返回结果
- */
-@optional
-- (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result;
-
-/**
- 收到一个来自微博Http请求的网络返回
- 
- @param data 请求返回结果
- */
-@optional
-- (void)request:(WBHttpRequest *)request didFinishLoadingWithDataResult:(NSData *)data;
-
-@end
-
-
-/**
- 微博封装Http请求的消息结构
- 
- */
-@interface WBHttpRequest : NSObject
-{
-    NSURLConnection                 *connection;
-    NSMutableData                   *responseData;
-}
-
-/**
- 用户自定义请求地址URL
- */
-@property (nonatomic, retain) NSString *url;
-
-/**
- 用户自定义请求方式
- 
- 支持"GET" "POST"
- */
-@property (nonatomic, retain) NSString *httpMethod;
-
-/**
- 用户自定义请求参数字典
- */
-@property (nonatomic, retain) NSDictionary *params;
-
-/**
- WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
- */
-@property (nonatomic, assign) id<WBHttpRequestDelegate> delegate;
-
-/**
- 用户自定义TAG
- 
- 用于区分回调Request
- */
-@property (nonatomic, retain) NSString* tag;
-
-/**
- 统一HTTP请求接口
- 调用此接口后，将发送一个HTTP网络请求
- @param url 请求url地址
- @param httpMethod  支持"GET" "POST"
- @param params 向接口传递的参数结构
- @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
- @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
- */
-+ (WBHttpRequest *)requestWithURL:(NSString *)url
-            httpMethod:(NSString *)httpMethod
-                params:(NSDictionary *)params
-              delegate:(id<WBHttpRequestDelegate>)delegate
-               withTag:(NSString *)tag;
-
-
-/**
- 统一微博Open API HTTP请求接口
- 调用此接口后，将发送一个HTTP网络请求（用于访问微博open api）
- @param accessToken 应用获取到的accessToken，用于身份验证
- @param url 请求url地址
- @param httpMethod  支持"GET" "POST"
- @param params 向接口传递的参数结构
- @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
- @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
- */
-+ (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
-                           url:(NSString *)url
-                    httpMethod:(NSString *)httpMethod
-                        params:(NSDictionary *)params
-                      delegate:(id<WBHttpRequestDelegate>)delegate
-                       withTag:(NSString *)tag;
-/**
- 取消网络请求接口
- 调用此接口后，将取消当前网络请求，建议同时[WBHttpRequest setDelegate:nil];
- */
-- (void)disconnect;
-
-@end
 
 #pragma mark - DataTransferObject and Base Request/Response
 
@@ -330,6 +232,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  如果设置为YES，当用户未安装微博时会弹出Alert询问用户是否要打开微博App的安装页面。默认为YES
  */
 @property (nonatomic, assign) BOOL shouldOpenWeiboAppInstallPageIfNotInstalled;
+
 
 @end
 
@@ -391,7 +294,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 /**
  微博开放平台第三方应用授权回调页地址，默认为`http://`
-
+ 
  参考 http://open.weibo.com/wiki/%E6%8E%88%E6%9D%83%E6%9C%BA%E5%88%B6%E8%AF%B4%E6%98%8E#.E5.AE.A2.E6.88.B7.E7.AB.AF.E9.BB.98.E8.AE.A4.E5.9B.9E.E8.B0.83.E9.A1.B5
  
  @warning 必须保证和在微博开放平台应用管理界面配置的“授权回调页”地址一致，如未进行配置则默认为`http://`
@@ -443,6 +346,11 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  认证过期时间
  */
 @property (nonatomic, retain) NSDate *expirationDate;
+
+/**
+ 当认证口令过期时用于换取认证口令的更新口令
+ */
+@property (nonatomic, retain) NSString *refreshToken;
 
 @end
 
@@ -523,6 +431,44 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 @property (nonatomic,retain) WBAuthorizeResponse *authResponse;
 @end
 
+#pragma mark - Payment Request/Response
+
+/**
+ 第三方应用发送消息至微博客户端程序的消息结构体
+ */
+@interface WBPaymentRequest : WBBaseRequest
+
+/**
+ 发送给微博客户端的订单
+ */
+@property (nonatomic, retain) WBOrderObject *order;
+
+/**
+ 返回一个 WBPaymentRequest 对象
+ @param message 需要发送给微博客户端程序的消息对象
+ @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
+ */
++ (id)requestWithOrder:(WBOrderObject *)order;
+
+@end
+
+/**
+ WBPaymentResponse
+ */
+@interface WBPaymentResponse : WBBaseResponse
+
+/**
+ 支付返回状态码
+ */
+@property (nonatomic, retain) NSString *payStatusCode;
+
+/**
+ 支付返回状态信息
+ */
+@property (nonatomic, retain) NSString *payStatusMessage;
+
+@end
+
 #pragma mark - MessageObject / ImageObject
 
 /**
@@ -541,7 +487,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 
 /**
  消息的图片内容
-
+ 
  @see WBImageObject
  */
 @property (nonatomic, retain) WBImageObject *imageObject;
@@ -726,5 +672,27 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  @warning 不能为空且长度不能超过255
  */
 @property (nonatomic, retain) NSString *webpageUrl;
+
+@end
+
+#pragma mark - OrderObject
+
+/**
+ 微博客户端程序和第三方应用之间传递的订单结构
+ */
+@interface WBOrderObject : NSObject
+
+/**
+ 订单编号
+ */
+@property (nonatomic, retain) NSString *orderString;
+
+
+/**
+ 返回一个 WBOrderObject 对象
+ 
+ @return 返回一个*自动释放的*WBOrderObject对象
+ */
++ (id)order;
 
 @end
