@@ -47,7 +47,7 @@
 ##FAQ  平台接口
 
 - Q:SDK用户授权后，如何获得用户的头像等基本信息，好像没有看到API
-- A:http://open.weibo.com/wiki/2/users/show
+- A:http://open.weibo.com/wiki/2/users/show , 此外，WBHttpRequest+WeiboUser.h、WBHttpRequest+WeiboShare.h、WBHttpRequest+WeiboToken.h中提供了部分OpenAPI接口的封装，可方便开发者调用。
 
 ##授权后不返回应用
 
