@@ -5,6 +5,6 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '6.0'
   s.requires_arc = false
   s.source_files = 'libWeiboSDK/*.{h,m}'
-  s.resources = 'libWeiboSDK/WeiboSDK.bundle'
+  s.resource     = 'libWeiboSDK/WeiboSDK.bundle'
   s.vendored_libraries  = 'libWeiboSDK/libWeiboSDK.a'
 end
