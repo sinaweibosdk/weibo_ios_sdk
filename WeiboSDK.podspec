@@ -7,4 +7,5 @@ Pod::Spec.new do |s|
   s.source_files = 'libWeiboSDK/*.{h,m}'
   s.resource     = 'libWeiboSDK/WeiboSDK.bundle'
   s.vendored_libraries  = 'libWeiboSDK/libWeiboSDK.a'
+  s.frameworks   = 'ImageIO', 'SystemConfiguration'
 end
