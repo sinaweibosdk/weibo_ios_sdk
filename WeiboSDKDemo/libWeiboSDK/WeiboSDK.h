@@ -16,7 +16,6 @@
 #import "WBSDKRelationshipButton.h"
 #import "WBSDKCommentButton.h"
 
-
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
@@ -29,7 +28,6 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
 };
-
 
 @protocol WeiboSDKDelegate;
 @protocol WBHttpRequestDelegate;
@@ -98,7 +96,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @return aid 用于广告的与设备信息相关的标识符
  */
 + (NSString *)getWeiboAid;
-
 
 /**
  向微博客户端程序注册第三方应用
@@ -172,8 +169,13 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  
  */
-+(void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
++ (void)inviteFriend:(NSString* )data withUid:(NSString *)uid withToken:(NSString *)access_token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
 
+/*
+ 第三方调用微博短信注册或者登陆
+ @param navTitle 为登陆页navigationBar的title，如果为空的话，默认为“验证码登陆”
+*/
++ (void)messageRegister:(NSString *)navTitle;
 @end
 
 /**

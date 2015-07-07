@@ -9,6 +9,7 @@
 #import "SendMessageToWeiboViewController.h"
 #import "HttpRequestDemoTableViewController.h"
 #import "AppDelegate.h"
+#import "WeiboSDK.h"
 
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
 {
@@ -182,8 +183,19 @@
     checkCommentButton.frame = CGRectMake(180, 500, 140, 30);
     [scrollView addSubview:checkCommentButton];
     
-    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 540)];
+    UIButton *messageRegisterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [messageRegisterButton setTitle:@"test短信注册" forState:UIControlStateNormal];
+    [messageRegisterButton addTarget:self action:@selector(messageRegisterPressed) forControlEvents:UIControlEventTouchUpInside];
+    messageRegisterButton.frame = CGRectMake(20, 530, 280, 50);
+    [scrollView addSubview:messageRegisterButton];
     
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 580)];
+    
+}
+
+- (void) messageRegisterPressed
+{
+    [WeiboSDK messageRegister:@"验证码登陆"];
 }
 
 - (void)shareButtonPressed

@@ -75,31 +75,31 @@
 /**
  用户自定义请求地址URL
  */
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong) NSString *url;
 
 /**
  用户自定义请求方式
  
  支持"GET" "POST"
  */
-@property (nonatomic, retain) NSString *httpMethod;
+@property (nonatomic, strong) NSString *httpMethod;
 
 /**
  用户自定义请求参数字典
  */
-@property (nonatomic, retain) NSDictionary *params;
+@property (nonatomic, strong) NSDictionary *params;
 
 /**
  WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  */
-@property (nonatomic, assign) id<WBHttpRequestDelegate> delegate;
+@property (nonatomic, weak) id<WBHttpRequestDelegate> delegate;
 
 /**
  用户自定义TAG
  
  用于区分回调Request
  */
-@property (nonatomic, retain) NSString* tag;
+@property (nonatomic, strong) NSString* tag;
 
 /**
  统一HTTP请求接口
@@ -126,22 +126,12 @@
  @param delegate WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  */
-#ifdef COMPANY_INTERNAL
-+ (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
-                                      url:(NSString *)url
-                               httpMethod:(NSString *)httpMethod
-                                   params:(NSDictionary *)params
-                                 delegate:(id<WBHttpRequestDelegate>)delegate
-                                  withTag:(NSString *)tag
-                                  isGuest:(BOOL)isGuest;
-#else
 + (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
                                       url:(NSString *)url
                                httpMethod:(NSString *)httpMethod
                                    params:(NSDictionary *)params
                                  delegate:(id<WBHttpRequestDelegate>)delegate
                                   withTag:(NSString *)tag;
-#endif
 
 
 /**
@@ -182,21 +172,11 @@ typedef void (^WBRequestHandler)(WBHttpRequest *httpRequest,
  @param queue 发起请求的NSOperationQueue对象，如queue为nil,则在主线程（[NSOperationQueue mainQueue]）发起请求。
  @param handler 接口请求返回调用的block方法
  */
-#ifdef COMPANY_INTERNAL
-+ (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
-                                      url:(NSString *)url
-                               httpMethod:(NSString *)httpMethod
-                                   params:(NSDictionary *)params
-                                    queue:(NSOperationQueue*)queue
-                    withCompletionHandler:(WBRequestHandler)handler
-                                  isGuest:(BOOL)isGuest;
-#else
 + (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
                                       url:(NSString *)url
                                httpMethod:(NSString *)httpMethod
                                    params:(NSDictionary *)params
                                     queue:(NSOperationQueue*)queue
                     withCompletionHandler:(WBRequestHandler)handler;
-#endif
 
 @end

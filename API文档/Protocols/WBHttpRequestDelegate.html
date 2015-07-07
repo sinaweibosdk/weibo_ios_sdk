@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 858)" />
+		<meta name="generator" content="appledoc 2.2.1 (build 1333)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -51,6 +51,8 @@
 	
 	<option value="//api/name/request:didReceiveResponse:">&nbsp;&nbsp;&nbsp;&nbsp;- request:didReceiveResponse:</option>
 	
+	<option value="//api/name/request:didReciveRedirectResponseWithURI:">&nbsp;&nbsp;&nbsp;&nbsp;- request:didReciveRedirectResponseWithURI:</option>
+	
 	
 	
 </select>
@@ -87,6 +89,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/request:didReceiveResponse:">request:didReceiveResponse:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/request:didReciveRedirectResponseWithURI:">request:didReciveRedirectResponseWithURI:</a></span></li>
+	
 </ul></li>
 
 
@@ -114,7 +118,7 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">WeiboSDK.h</td>
+	<td class="specification-value">WBHttpRequest.h</td>
 </tr>
 						</tbody></table></div>
 					
@@ -146,25 +150,31 @@
 		<code><a href="#//api/name/request:didReceiveResponse:">&ndash;&nbsp;request:didReceiveResponse:</a></code>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/request:didFailWithError:">&ndash;&nbsp;request:didFailWithError:</a></code>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/request:didFinishLoadingWithResult:">&ndash;&nbsp;request:didFinishLoadingWithResult:</a></code>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/request:didFinishLoadingWithDataResult:">&ndash;&nbsp;request:didFinishLoadingWithDataResult:</a></code>
 	</span>
 	
-	<span class="task-item-suffix">required method</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/request:didReciveRedirectResponseWithURI:">&ndash;&nbsp;request:didReciveRedirectResponseWithURI:</a></code>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -222,7 +232,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">WeiboSDK.h</code><br />
+		<code class="declared-in-ref">WBHttpRequest.h</code><br />
 	</div>				
 	
 	
@@ -268,7 +278,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">WeiboSDK.h</code><br />
+		<code class="declared-in-ref">WBHttpRequest.h</code><br />
 	</div>				
 	
 	
@@ -314,7 +324,7 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">WeiboSDK.h</code><br />
+		<code class="declared-in-ref">WBHttpRequest.h</code><br />
 	</div>				
 	
 	
@@ -360,7 +370,48 @@
 	
 	<div class="method-subsection declared-in-section">
 		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">WeiboSDK.h</code><br />
+		<code class="declared-in-ref">WBHttpRequest.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/request:didReciveRedirectResponseWithURI:" title="request:didReciveRedirectResponseWithURI:"></a>
+	<h3 class="subsubtitle method-title">request:didReciveRedirectResponseWithURI:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>收到快速SSO授权的重定向</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)request:(WBHttpRequest *)<em>request</em> didReciveRedirectResponseWithURI:(NSURL *)<em>redirectUrl</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>@param URI</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">WBHttpRequest.h</code><br />
 	</div>				
 	
 	
@@ -371,6 +422,9 @@
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -381,9 +435,9 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-12-09)</span><br />
+						<p><span class="copyright">&copy; 2015 WEIBO. All rights reserved. (Last updated: 2015-03-27)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</span></p>
 						
 					</div>
 				</div>

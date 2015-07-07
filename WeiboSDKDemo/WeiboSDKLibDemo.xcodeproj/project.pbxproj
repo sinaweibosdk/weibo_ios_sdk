@@ -28,6 +28,8 @@
 		64A7C22719D3B323005463C3 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 64A7C22319D3B323005463C3 /* WeiboSDK.bundle */; };
 		64AC051D1A19D95E00CF0568 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AC051C1A19D95E00CF0568 /* QuartzCore.framework */; };
 		64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */; };
+		64CDFE541A84739A0044960D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CDFE531A84739A0044960D /* CoreText.framework */; };
+		64CDFE561A8473BA0044960D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CDFE551A8473BA0044960D /* CoreTelephony.framework */; };
 		64FB915019D1168B00DA7598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64FB915219D1168B00DA7598 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		64AC051C1A19D95E00CF0568 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		64CC07F7194DCDED00F94BB8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		64CDFE531A84739A0044960D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		64CDFE551A8473BA0044960D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		64FB915119D1168B00DA7598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		64FB915319D1169700DA7598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64CDFE561A8473BA0044960D /* CoreTelephony.framework in Frameworks */,
+				64CDFE541A84739A0044960D /* CoreText.framework in Frameworks */,
 				64AC051D1A19D95E00CF0568 /* QuartzCore.framework in Frameworks */,
 				642FFB7D19C0321A003BAA50 /* ImageIO.framework in Frameworks */,
 				64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */,
@@ -114,6 +120,8 @@
 		18E67EB217057D9000DFAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				64CDFE551A8473BA0044960D /* CoreTelephony.framework */,
+				64CDFE531A84739A0044960D /* CoreText.framework */,
 				64AC051C1A19D95E00CF0568 /* QuartzCore.framework */,
 				642FFB7C19C0321A003BAA50 /* ImageIO.framework */,
 				64CC07F7194DCDED00F94BB8 /* AdSupport.framework */,

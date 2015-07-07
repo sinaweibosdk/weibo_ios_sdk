@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 858)" />
+		<meta name="generator" content="appledoc 2.2.1 (build 1333)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -45,6 +45,8 @@
 	
 	<option value="//api/name/getSDKVersion">&nbsp;&nbsp;&nbsp;&nbsp;+ getSDKVersion</option>
 	
+	<option value="//api/name/getWeiboAid">&nbsp;&nbsp;&nbsp;&nbsp;+ getWeiboAid</option>
+	
 	<option value="//api/name/getWeiboAppInstallUrl">&nbsp;&nbsp;&nbsp;&nbsp;+ getWeiboAppInstallUrl</option>
 	
 	<option value="//api/name/getWeiboAppSupportMaxSDKVersion">&nbsp;&nbsp;&nbsp;&nbsp;+ getWeiboAppSupportMaxSDKVersion</option>
@@ -52,6 +54,10 @@
 	<option value="//api/name/handleOpenURL:delegate:">&nbsp;&nbsp;&nbsp;&nbsp;+ handleOpenURL:delegate:</option>
 	
 	<option value="//api/name/inviteFriend:withUid:withToken:delegate:withTag:">&nbsp;&nbsp;&nbsp;&nbsp;+ inviteFriend:withUid:withToken:delegate:withTag:</option>
+	
+	<option value="//api/name/isCanSSOInWeiboApp">&nbsp;&nbsp;&nbsp;&nbsp;+ isCanSSOInWeiboApp</option>
+	
+	<option value="//api/name/isCanShareInWeiboAPP">&nbsp;&nbsp;&nbsp;&nbsp;+ isCanShareInWeiboAPP</option>
 	
 	<option value="//api/name/isWeiboAppInstalled">&nbsp;&nbsp;&nbsp;&nbsp;+ isWeiboAppInstalled</option>
 	
@@ -97,6 +103,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getSDKVersion">getSDKVersion</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getWeiboAid">getWeiboAid</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getWeiboAppInstallUrl">getWeiboAppInstallUrl</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getWeiboAppSupportMaxSDKVersion">getWeiboAppSupportMaxSDKVersion</a></span></li>
@@ -104,6 +112,10 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/handleOpenURL:delegate:">handleOpenURL:delegate:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/inviteFriend:withUid:withToken:delegate:withTag:">inviteFriend:withUid:withToken:delegate:withTag:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isCanSSOInWeiboApp">isCanSSOInWeiboApp</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isCanShareInWeiboAPP">isCanShareInWeiboAPP</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/isWeiboAppInstalled">isWeiboAppInstalled</a></span></li>
 	
@@ -180,6 +192,18 @@
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/isCanShareInWeiboAPP">+&nbsp;isCanShareInWeiboAPP</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/isCanSSOInWeiboApp">+&nbsp;isCanSSOInWeiboApp</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/openWeiboApp">+&nbsp;openWeiboApp</a></code>
 	</span>
 	
@@ -199,6 +223,12 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getSDKVersion">+&nbsp;getSDKVersion</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getWeiboAid">+&nbsp;getWeiboAid</a></code>
 	</span>
 	
 	
@@ -331,6 +361,50 @@
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>当前微博SDK的版本号</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">WeiboSDK.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getWeiboAid" title="getWeiboAid"></a>
+	<h3 class="subsubtitle method-title">getWeiboAid</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>获取当前微博SDK的aid
+返回的aid值可能为 nil ,当值为 nil 时会尝试获取 aid 值。
+当获取成功（ aid 值变为有效值）时，SDK会发出名为 WeiboSDKGetAidSucessNotification 的通知，通知中带有 aid 值。
+当获取失败时，SDK会发出名为 WeiboSDKGetAidFailNotification 的通知，通知中带有 NSError 对象。</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSString *)getWeiboAid</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>aid 用于广告的与设备信息相关的标识符</p>
 	</div>
 	
 	
@@ -522,10 +596,10 @@
 			<dt><em>data</em></dt>
 			<dd><p>邀请数据。必须为json字串的形式，必须做URLEncode，采用UTF-8编码。
 data参数支持的参数：
-    参数名称    值的类型    是否必填    说明描述
-    text    string  true    要回复的私信文本内容。文本大小必须小于300个汉字。
-    url string  false   邀请点击后跳转链接。默认为当前应用地址。
-    invite_logo string  false   邀请Card展示时的图标地址，大小必须为80px X 80px，仅支持PNG、JPG格式。默认为当前应用logo地址。</p></dd>
+参数名称    值的类型    是否必填    说明描述
+text    string  true    要回复的私信文本内容。文本大小必须小于300个汉字。
+url string  false   邀请点击后跳转链接。默认为当前应用地址。
+invite_logo string  false   邀请Card展示时的图标地址，大小必须为80px X 80px，仅支持PNG、JPG格式。默认为当前应用logo地址。</p></dd>
 		</dl>
 		
 		<dl class="argument-def parameter-def">
@@ -551,6 +625,88 @@ data参数支持的参数：
 	</div>
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">WeiboSDK.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isCanSSOInWeiboApp" title="isCanSSOInWeiboApp"></a>
+	<h3 class="subsubtitle method-title">isCanSSOInWeiboApp</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>检查用户是否可以使用微博客户端进行SSO授权</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)isCanSSOInWeiboApp</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>可以使用返回YES，不可以使用返回NO</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">WeiboSDK.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/isCanShareInWeiboAPP" title="isCanShareInWeiboAPP"></a>
+	<h3 class="subsubtitle method-title">isCanShareInWeiboAPP</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>检查用户是否可以通过微博客户端进行分享</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (BOOL)isCanShareInWeiboAPP</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>可以使用返回YES，不可以使用返回NO</p>
+	</div>
 	
 	
 	
@@ -889,6 +1045,9 @@ data参数支持的参数：
 					
                     
                     
+                    
+                    
+
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -899,9 +1058,9 @@ data参数支持的参数：
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 WEIBO. All rights reserved. (Last updated: 2013-12-09)</span><br />
+						<p><span class="copyright">&copy; 2015 WEIBO. All rights reserved. (Last updated: 2015-03-27)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2.1 (build 1333)</a>.</span></p>
 						
 					</div>
 				</div>

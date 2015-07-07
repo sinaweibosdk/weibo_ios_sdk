@@ -33,9 +33,9 @@ typedef NSUInteger WBSDKRelationshipButtonState;
          followUser:(NSString*)followerUserID
   completionHandler:(WBSDKButtonHandler)handler;
 
-@property (nonatomic, retain)NSString* accessToken;
-@property (nonatomic, retain)NSString* currentUserID;
-@property (nonatomic, retain)NSString* followUserID;
+@property (nonatomic, strong)NSString* accessToken;
+@property (nonatomic, strong)NSString* currentUserID;
+@property (nonatomic, strong)NSString* followUserID;
 
 
 @property (nonatomic, assign)WBSDKRelationshipButtonState currentRelationShip;
