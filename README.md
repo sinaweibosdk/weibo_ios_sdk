@@ -11,10 +11,10 @@
 # 概述
 微博 iOS 平台 SDK 为第三方应用提供了简单易用的微博API调用服务，使第三方客户端无需了解复杂的验证机制即可进行授权登陆，并提供微博分享功能，可直接通过微博官方客户端分享微博。
 
-#使用Cocoapods集成
-请在Podfile中添加以下语句：
+#快速集成
+WeiboSDK支持使用Cocoapods集成，请在Podfile中添加以下语句：
 ```ruby
-pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk 
+pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk" 
 ```
 #API文档
 [http://sinaweibosdk.github.io/weibo_ios_sdk/index.html](http://sinaweibosdk.github.io/weibo_ios_sdk/index.html)
