@@ -50,3 +50,65 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 - 已选择应用为iOS平台，并正确填写Bundle id和appple id
 
 注: 关于授权回调页对移动客户端应用来说对用户是不可见的，所以定义为何种形式都将不影响，但是没有定义将无法使用SDK认证登录。建议使用默认回调页 https://api.weibo.com/oauth2/default.html 
+
+# iOS9的适配问题
+由于iOS9的发布影响了微博SDK与应用的集成方式，为了确保好的应用体验，我们需要采取如下措施：
+###1.对传输安全的支持
+在新一代的iOS系统中，默认需要为每次网络传输建立SSL。解决这个问题有两种方法：
+
+- A.建立白名单并添加到你的app的plsit中
+- 
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>sina.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>weibo.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>weibo.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+
+如果没有添加可能会遇到"An SSL error has occurred and a secure connection tothe server cannot be made."这样的问题。
+
+- B.强制将NSAllowsArbitraryLoads属性设置为YES，并添加到你应用的plist中
+- 
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSAllowsArbitraryLoads</key>
+	</true>
+	</dict>
+
+###2.对应用跳转的支持
+如果你需要用到微博的相关功能，如登陆，分享等。并且需要实现跳转到微博的功能，在iOS9系统中就需要在你的app的plist中添加下列键值对。否则在canOpenURL函数执行时，就会返回NO。了解详情请至[https://developer.apple.com/videos/wwdc/2015/?id=703](https://developer.apple.com/videos/wwdc/2015/?id=703)
+
+-
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sinaweibohd</string>
+		<string>sinaweibo</string>
+		<string>weibosdk</string>
+		<string>weibosdk2.5</string>
+	</array>
+
+###3.应用瘦身与bitcode
+苹果在iOS9的SDK中添加了对应用的瘦身的支持，其中就包括bitcode。我们目前也在添加微博SDK对bitcode的支持。但是目前为了正常使用微博SDK你需要在你的应用中禁用它。（通过设置编译标志ENABLE_BITCODE=NO，或者修改工程的构建设置（build settings））
