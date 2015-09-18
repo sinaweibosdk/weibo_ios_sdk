@@ -14,7 +14,7 @@
 #快速集成
 WeiboSDK支持使用Cocoapods集成，请在Podfile中添加以下语句：
 ```ruby
-pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk" 
+pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 ```
 #API文档
 [http://sinaweibosdk.github.io/weibo_ios_sdk/index.html](http://sinaweibosdk.github.io/weibo_ios_sdk/index.html)
@@ -88,7 +88,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 		</dict>
 	</dict>
 
-如果没有添加可能会遇到"An SSL error has occurred and a secure connection tothe server cannot be made."这样的问题。
+如果没有添加可能会遇到"An SSL error has occurred and a secure connection to
+the server cannot be made."这样的问题。
 
 - B.强制将NSAllowsArbitraryLoads属性设置为YES，并添加到你应用的plist中
 - 
