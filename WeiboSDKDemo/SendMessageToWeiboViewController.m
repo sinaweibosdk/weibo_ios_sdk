@@ -8,11 +8,8 @@
 
 #import "SendMessageToWeiboViewController.h"
 #import "HttpRequestDemoTableViewController.h"
-#import "StatisticsDemoRootViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
-#import "WeiboSDK+Statistics.h"
-
 
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
 {
