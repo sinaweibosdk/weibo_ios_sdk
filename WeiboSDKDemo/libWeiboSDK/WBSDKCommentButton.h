@@ -26,9 +26,9 @@
            category:(NSString*)category
   completionHandler:(WBSDKButtonHandler)handler;
 
-@property (nonatomic, retain)NSString* keyWord;
-@property (nonatomic, retain)NSString* accessToken;
-@property (nonatomic, retain)NSString* urlString;
-@property (nonatomic, retain)NSString* category;
+@property (nonatomic, strong)NSString* keyWord;
+@property (nonatomic, strong)NSString* accessToken;
+@property (nonatomic, strong)NSString* urlString;
+@property (nonatomic, strong)NSString* category;
 
 @end

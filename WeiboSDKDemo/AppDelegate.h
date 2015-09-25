@@ -21,7 +21,7 @@
 @property (strong, nonatomic) SendMessageToWeiboViewController *viewController;
 
 @property (strong, nonatomic) NSString *wbtoken;
-@property (strong, nonatomic) NSString *wbCurrentUserID;
 @property (strong, nonatomic) NSString *wbRefreshToken;
+@property (strong, nonatomic) NSString *wbCurrentUserID;
 
 @end

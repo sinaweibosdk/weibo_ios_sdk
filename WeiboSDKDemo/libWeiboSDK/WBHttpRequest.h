@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark - WBHttpRequest and WBHttpRequestDelegate
-
 @class WBHttpRequest;
 
 /**
@@ -75,31 +74,31 @@
 /**
  用户自定义请求地址URL
  */
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong) NSString *url;
 
 /**
  用户自定义请求方式
  
  支持"GET" "POST"
  */
-@property (nonatomic, retain) NSString *httpMethod;
+@property (nonatomic, strong) NSString *httpMethod;
 
 /**
  用户自定义请求参数字典
  */
-@property (nonatomic, retain) NSDictionary *params;
+@property (nonatomic, strong) NSDictionary *params;
 
 /**
  WBHttpRequestDelegate对象，用于接收微博SDK对于发起的接口请求的请求的响应
  */
-@property (nonatomic, assign) id<WBHttpRequestDelegate> delegate;
+@property (nonatomic, weak) id<WBHttpRequestDelegate> delegate;
 
 /**
  用户自定义TAG
  
  用于区分回调Request
  */
-@property (nonatomic, retain) NSString* tag;
+@property (nonatomic, strong) NSString* tag;
 
 /**
  统一HTTP请求接口
@@ -132,6 +131,7 @@
                                    params:(NSDictionary *)params
                                  delegate:(id<WBHttpRequestDelegate>)delegate
                                   withTag:(NSString *)tag;
+
 
 
 /**

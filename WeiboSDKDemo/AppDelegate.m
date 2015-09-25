@@ -23,7 +23,7 @@
 
 @synthesize wbtoken;
 @synthesize wbCurrentUserID;
-
+@synthesize wbRefreshToken;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -33,9 +33,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[SendMessageToWeiboViewController alloc] init];
+    SendMessageToWeiboViewController* vc = [[SendMessageToWeiboViewController alloc] init];
+    self.viewController = vc;
     
-    self.window.rootViewController = self.viewController;
+    UINavigationController* navi = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -13,8 +13,10 @@
 #import "WBHttpRequest+WeiboUser.h"
 #import "WBHttpRequest+WeiboShare.h"
 #import "WBHttpRequest+WeiboToken.h"
+#import "WBHttpRequest+WeiboGame.h"
 #import "WBSDKRelationshipButton.h"
 #import "WBSDKCommentButton.h"
+
 
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
@@ -217,7 +219,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @warning userInfo中的数据必须是实现了 `NSCoding` 协议的对象，必须保证能序列化和反序列化
  @warning 序列化后的数据不能大于10M
  */
-@property (nonatomic, retain) NSDictionary *userInfo;
+@property (nonatomic, strong) NSDictionary *userInfo;
 
 
 /**
@@ -225,7 +227,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  如果数据对象是自己生成的，则sdkVersion为当前SDK的版本号；如果是接收到的数据对象，则sdkVersion为数据发送方SDK版本号
  */
-@property (nonatomic, readonly) NSString *sdkVersion;
+@property (strong, nonatomic, readonly) NSString *sdkVersion;
 
 
 /**
@@ -266,7 +268,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @see WBBaseRequest.userInfo
  */
-@property (nonatomic, readonly) NSDictionary *requestUserInfo;
+@property (strong, nonatomic, readonly) NSDictionary *requestUserInfo;
 
 /**
  响应状态码
@@ -302,7 +304,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @warning 必须保证和在微博开放平台应用管理界面配置的“授权回调页”地址一致，如未进行配置则默认为`http://`
  @warning 不能为空，长度小于1K
  */
-@property (nonatomic, retain) NSString *redirectURI;
+@property (nonatomic, strong) NSString *redirectURI;
 
 /**
  微博开放平台第三方应用scope，多个scrope用逗号分隔
@@ -311,7 +313,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 长度小于1K
  */
-@property (nonatomic, retain) NSString *scope;
+@property (nonatomic, strong) NSString *scope;
 
 /**
  当用户没有安装微博客户端或微博客户端过低无法支持SSO的时候是否弹出SDK自带的Webview进行授权
@@ -337,22 +339,22 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  用户ID
  */
-@property (nonatomic, retain) NSString *userID;
+@property (nonatomic, strong) NSString *userID;
 
 /**
  认证口令
  */
-@property (nonatomic, retain) NSString *accessToken;
+@property (nonatomic, strong) NSString *accessToken;
 
 /**
  认证过期时间
  */
-@property (nonatomic, retain) NSDate *expirationDate;
+@property (nonatomic, strong) NSDate *expirationDate;
 
 /**
  当认证口令过期时用于换取认证口令的更新口令
  */
-@property (nonatomic, retain) NSString *refreshToken;
+@property (nonatomic, strong) NSString *refreshToken;
 
 @end
 
@@ -373,7 +375,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  提供给微博客户端的消息
  */
-@property (nonatomic, retain) WBMessageObject *message;
+@property (nonatomic, strong) WBMessageObject *message;
 
 /**
  返回一个 WBProvideMessageForWeiboResponse 对象
@@ -394,7 +396,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  发送给微博客户端的消息
  */
-@property (nonatomic, retain) WBMessageObject *message;
+@property (nonatomic, strong) WBMessageObject *message;
 
 /**
  返回一个 WBSendMessageToWeiboRequest 对象
@@ -430,7 +432,60 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  可能在分享过程中用户进行了授权操作，当此值不为空时，为用户相应授权信息
  */
-@property (nonatomic,retain) WBAuthorizeResponse *authResponse;
+@property (nonatomic,strong) WBAuthorizeResponse *authResponse;
+@end
+
+#pragma mark - AppRecomend Request/Response
+
+/**
+ 第三方应用私信好友推荐app的请求
+ */
+@interface WBSDKAppRecommendRequest : WBBaseRequest
+/**
+ 返回一个 WBSDKAppRecommendRequest 对象
+ 
+ @param uids 为推荐的好友列表，为空时跳转到用户自选的页面
+ @param access_token 第三方应用之前申请的Token,当此值不为空并且无法通过客户端分享的时候,会使用此token私信。
+ @return 返回一个*自动释放的*WBSDKAppRecommendRequest对象
+ */
++ (id)requestWithUIDs:(NSArray *)uids access_token:(NSString *)access_token;
+
+/**
+ 私信对象列表
+ */
+@property (nonatomic, strong) NSArray* uids;
+/**
+ 用于认证的Token
+ */
+@property (nonatomic, strong) NSString *access_token;
+@end
+
+/**
+ 第三方应用私信好友推荐app的响应
+ 
+ WBSDKAppRecommendResponse 结构中仅包含常用的 userID 、accessToken 和 expirationDate 信息，其他的认证信息（比如部分应用可以获取的 refresh_token 信息）会统一存放到 userInfo 中
+ */
+@interface WBSDKAppRecommendResponse : WBBaseResponse
+@property (nonatomic,strong) WBAuthorizeResponse *authResponse;
+/**
+ 用户ID
+ */
+@property (nonatomic, strong) NSString *userID;
+
+/**
+ 认证口令
+ */
+@property (nonatomic, strong) NSString *accessToken;
+
+/**
+ 认证过期时间
+ */
+@property (nonatomic, strong) NSDate *expirationDate;
+
+/**
+ 当认证口令过期时用于换取认证口令的更新口令
+ */
+@property (nonatomic, strong) NSString *refreshToken;
 @end
 
 #pragma mark - Payment Request/Response
@@ -443,7 +498,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  发送给微博客户端的订单
  */
-@property (nonatomic, retain) WBOrderObject *order;
+@property (nonatomic, strong) WBOrderObject *order;
 
 /**
  返回一个 WBPaymentRequest 对象
@@ -462,12 +517,12 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  支付返回状态码
  */
-@property (nonatomic, retain) NSString *payStatusCode;
+@property (nonatomic, strong) NSString *payStatusCode;
 
 /**
  支付返回状态信息
  */
-@property (nonatomic, retain) NSString *payStatusMessage;
+@property (nonatomic, strong) NSString *payStatusMessage;
 
 @end
 
@@ -485,21 +540,21 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 长度小于140个汉字
  */
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, strong) NSString *text;
 
 /**
  消息的图片内容
  
  @see WBImageObject
  */
-@property (nonatomic, retain) WBImageObject *imageObject;
+@property (nonatomic, strong) WBImageObject *imageObject;
 
 /**
  消息的多媒体内容
  
  @see WBBaseMediaObject
  */
-@property (nonatomic, retain) WBBaseMediaObject *mediaObject;
+@property (nonatomic, strong) WBBaseMediaObject *mediaObject;
 
 /**
  返回一个 WBMessageObject 对象
@@ -520,7 +575,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 大小不能超过10M
  */
-@property (nonatomic, retain) NSData *imageData;
+@property (nonatomic, strong) NSData *imageData;
 
 /**
  返回一个 WBImageObject 对象
@@ -551,31 +606,31 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  当第三方应用分享多媒体内容到微博时，应该将此参数设置为被分享的内容在自己的系统中的唯一标识
  @warning 不能为空，长度小于255
  */
-@property (nonatomic, retain) NSString *objectID;
+@property (nonatomic, strong) NSString *objectID;
 
 /**
  多媒体内容标题
  @warning 不能为空且长度小于1k
  */
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, strong) NSString *title;
 
 /**
  多媒体内容描述
  @warning 长度小于1k
  */
-@property (nonatomic, retain) NSString *description;
+@property (nonatomic, strong) NSString *description;
 
 /**
  多媒体内容缩略图
  @warning 大小小于32k
  */
-@property (nonatomic, retain) NSData *thumbnailData;
+@property (nonatomic, strong) NSData *thumbnailData;
 
 /**
  点击多媒体内容之后呼起第三方应用特定页面的scheme
  @warning 长度小于255
  */
-@property (nonatomic, retain) NSString *scheme;
+@property (nonatomic, strong) NSString *scheme;
 
 /**
  返回一个 WBBaseMediaObject 对象
@@ -598,28 +653,28 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 不能为空且长度不能超过255
  */
-@property (nonatomic, retain) NSString *videoUrl;
+@property (nonatomic, strong) NSString *videoUrl;
 
 /**
  视频lowband网页的url
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *videoLowBandUrl;
+@property (nonatomic, strong) NSString *videoLowBandUrl;
 
 /**
  视频数据流url
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *videoStreamUrl;
+@property (nonatomic, strong) NSString *videoStreamUrl;
 
 /**
  视频lowband数据流url
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *videoLowBandStreamUrl;
+@property (nonatomic, strong) NSString *videoLowBandStreamUrl;
 
 @end
 
@@ -635,21 +690,21 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 不能为空且长度不能超过255
  */
-@property (nonatomic, retain) NSString *musicUrl;
+@property (nonatomic, strong) NSString *musicUrl;
 
 /**
  音乐lowband网页url地址
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *musicLowBandUrl;
+@property (nonatomic, strong) NSString *musicLowBandUrl;
 
 /**
  音乐数据流url
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *musicStreamUrl;
+@property (nonatomic, strong) NSString *musicStreamUrl;
 
 
 /**
@@ -657,7 +712,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 长度不能超过255
  */
-@property (nonatomic, retain) NSString *musicLowBandStreamUrl;
+@property (nonatomic, strong) NSString *musicLowBandStreamUrl;
 
 @end
 
@@ -673,7 +728,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 不能为空且长度不能超过255
  */
-@property (nonatomic, retain) NSString *webpageUrl;
+@property (nonatomic, strong) NSString *webpageUrl;
 
 @end
 
@@ -687,7 +742,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  订单编号
  */
-@property (nonatomic, retain) NSString *orderString;
+@property (nonatomic, strong) NSString *orderString;
 
 
 /**

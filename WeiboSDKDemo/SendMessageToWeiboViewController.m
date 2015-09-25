@@ -8,8 +8,10 @@
 
 #import "SendMessageToWeiboViewController.h"
 #import "HttpRequestDemoTableViewController.h"
+#import "StatisticsDemoRootViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
+#import "WeiboSDK+Statistics.h"
 
 
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
@@ -127,8 +129,14 @@
     openAPIButton.frame = CGRectMake(20, 410, 280, 40);
     [scrollView addSubview:openAPIButton];
     
+    UILabel *otherLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 520, 290, 20)];
+    otherLabel.text = NSLocalizedString(@"Others:", nil);
+    otherLabel.backgroundColor = [UIColor clearColor];
+    otherLabel.textAlignment = NSTextAlignmentLeft;
+    [scrollView addSubview:otherLabel];
+    
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    relationshipButton = [[WBSDKRelationshipButton alloc] initWithFrame:CGRectMake(20, 460, 140, 30) accessToken:myDelegate.wbtoken currentUser:myDelegate.wbCurrentUserID followUser:@"2002619624" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
+    relationshipButton = [[WBSDKRelationshipButton alloc] initWithFrame:CGRectMake(20, 550, 140, 30) accessToken:myDelegate.wbtoken currentUser:myDelegate.wbCurrentUserID followUser:@"2002619624" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
         
         NSString* accessToken = [resultDict objectForKey:@"access_token"];
         if (accessToken)
@@ -149,11 +157,11 @@
     UIButton *checkRelationShipButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [checkRelationShipButton setTitle:NSLocalizedString(@"刷新关注状态", nil) forState:UIControlStateNormal];
     [checkRelationShipButton addTarget:self action:@selector(checkRelationShipButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    checkRelationShipButton.frame = CGRectMake(180, 460, 140, 30);
+    checkRelationShipButton.frame = CGRectMake(180, 550, 140, 30);
     [scrollView addSubview:checkRelationShipButton];
     
     
-    commentButton = [[WBSDKCommentButton alloc] initWithFrame:CGRectMake(20, 500, 140, 30) accessToken:myDelegate.wbtoken keyword:@"后会无期" urlString:@"" category:@"1001" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
+    commentButton = [[WBSDKCommentButton alloc] initWithFrame:CGRectMake(20, 580, 140, 30) accessToken:myDelegate.wbtoken keyword:@"后会无期" urlString:@"" category:@"1001" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
         
         NSString* accessToken = [resultDict objectForKey:@"access_token"];
         if (accessToken)
@@ -172,31 +180,43 @@
     UIButton *checkCommentButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [checkCommentButton setTitle:NSLocalizedString(@"刷新评论按钮", nil) forState:UIControlStateNormal];
     [checkCommentButton addTarget:self action:@selector(checkCommentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    checkCommentButton.frame = CGRectMake(180, 500, 140, 30);
+    checkCommentButton.frame = CGRectMake(180, 580, 140, 30);
     [scrollView addSubview:checkCommentButton];
     
     
     
     UIButton *appRecomendButton1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [appRecomendButton1 setTitle:@"私信app推荐1" forState:UIControlStateNormal];
+    [appRecomendButton1 setTitle:NSLocalizedString(@"私信app推荐1", nil) forState:UIControlStateNormal];
     [appRecomendButton1 addTarget:self action:@selector(appRecommendButton1Pressed) forControlEvents:UIControlEventTouchUpInside];
-    appRecomendButton1.frame = CGRectMake(20, 530, 130, 50);
+    appRecomendButton1.frame = CGRectMake(20, 610, 130, 50);
     [scrollView addSubview:appRecomendButton1];
     
     UIButton *appRecomendButton2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [appRecomendButton2 setTitle:@"私信app推荐2" forState:UIControlStateNormal];
+    [appRecomendButton2 setTitle:NSLocalizedString(@"私信app推荐2", nil) forState:UIControlStateNormal];
     [appRecomendButton2 addTarget:self action:@selector(appRecommendButton2Pressed) forControlEvents:UIControlEventTouchUpInside];
-    appRecomendButton2.frame = CGRectMake(170, 530, 130, 50);
+    appRecomendButton2.frame = CGRectMake(170, 610, 130, 50);
     [scrollView addSubview:appRecomendButton2];
     
     UIButton *messageRegisterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [messageRegisterButton setTitle:@"短信注册测试" forState:UIControlStateNormal];
+    [messageRegisterButton setTitle:NSLocalizedString(@"短信注册测试", nil) forState:UIControlStateNormal];
     [messageRegisterButton addTarget:self action:@selector(messageRegisterPressed) forControlEvents:UIControlEventTouchUpInside];
-    messageRegisterButton.frame = CGRectMake(20, 580, 130, 50);
+    messageRegisterButton.frame = CGRectMake(20, 660, 130, 50);
     [scrollView addSubview:messageRegisterButton];
     
-    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 630)];
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 700)];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = YES;
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = NO;
+    [super viewWillDisappear:animated];
 }
 
 - (void) messageRegisterPressed

@@ -85,6 +85,33 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
+			<key>sinaimg.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>sinajs.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>sina.com.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 		</dict>
 	</dict>
 
@@ -112,4 +139,4 @@ the server cannot be made."这样的问题。
 	</array>
 
 ###3.应用瘦身与bitcode
-苹果在iOS9的SDK中添加了对应用的瘦身的支持，其中就包括bitcode。我们目前也在添加微博SDK对bitcode的支持。但是目前为了正常使用微博SDK你需要在你的应用中禁用它。（通过设置编译标志ENABLE_BITCODE=NO，或者修改工程的构建设置（build settings））
+苹果在iOS9的SDK中添加了对应用的瘦身的支持，其中就包括bitcode。我们也在最新的代码中添加了对bitcode的支持

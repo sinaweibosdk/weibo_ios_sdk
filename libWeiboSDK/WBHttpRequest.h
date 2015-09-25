@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark - WBHttpRequest and WBHttpRequestDelegate
-
 @class WBHttpRequest;
 
 /**
@@ -132,6 +131,7 @@
                                    params:(NSDictionary *)params
                                  delegate:(id<WBHttpRequestDelegate>)delegate
                                   withTag:(NSString *)tag;
+
 
 
 /**
