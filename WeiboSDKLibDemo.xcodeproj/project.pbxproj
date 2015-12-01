@@ -32,7 +32,6 @@
 		649B8EEF19D160EC00A398A4 /* HttpRequestDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649B8EEE19D160EC00A398A4 /* HttpRequestDemoTableViewController.m */; };
 		64AC051D1A19D95E00CF0568 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AC051C1A19D95E00CF0568 /* QuartzCore.framework */; };
 		64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */; };
-		64CC07F8194DCDED00F94BB8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CC07F7194DCDED00F94BB8 /* AdSupport.framework */; };
 		64FB915019D1168B00DA7598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64FB915219D1168B00DA7598 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +95,6 @@
 				64984F991AC54D3500E8D02F /* CoreText.framework in Frameworks */,
 				64AC051D1A19D95E00CF0568 /* QuartzCore.framework in Frameworks */,
 				642FFB7D19C0321A003BAA50 /* ImageIO.framework in Frameworks */,
-				64CC07F8194DCDED00F94BB8 /* AdSupport.framework in Frameworks */,
 				64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */,
 				6439569B194AEE33005C9443 /* Security.framework in Frameworks */,
 				18E67EB417057D9000DFAD63 /* UIKit.framework in Frameworks */,
@@ -318,7 +316,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -349,7 +346,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -366,7 +362,6 @@
 			buildSettings = {
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
-				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
@@ -391,7 +386,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
-				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
