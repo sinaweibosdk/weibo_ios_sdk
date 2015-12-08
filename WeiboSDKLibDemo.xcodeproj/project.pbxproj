@@ -71,7 +71,6 @@
 		64247CBE1B09D679000CE2B8 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		642FFB7C19C0321A003BAA50 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		6439569A194AEE33005C9443 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		6445F6B2194FD97900D86FAD /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		64984F981AC54D3500E8D02F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		64984F9A1AC54D4100E8D02F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		649B8EED19D160EC00A398A4 /* HttpRequestDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequestDemoTableViewController.h; sourceTree = "<group>"; };
@@ -160,7 +159,6 @@
 		18E67EBA17057D9000DFAD63 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6445F6B2194FD97900D86FAD /* WeiboSDK.bundle */,
 				18E66A3C170BCEB700E0740F /* icon.png */,
 				18E66A3D170BCEB700E0740F /* icon@2x.png */,
 				18CD553B1709E5CF00ECF584 /* image_1.jpg */,
