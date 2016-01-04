@@ -69,6 +69,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 			<key>weibo.cn</key>
 			<dict>
@@ -76,6 +78,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 			<key>weibo.com</key>
 			<dict>
@@ -85,6 +89,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 			<key>sinaimg.cn</key>
 			<dict>
@@ -94,6 +100,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 			<key>sinajs.cn</key>
 			<dict>
@@ -103,6 +111,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 			<key>sina.com.cn</key>
 			<dict>
@@ -112,6 +122,8 @@ OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://ope
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
+				<key>NSThirdPartyExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
 			</dict>
 		</dict>
 	</dict>
