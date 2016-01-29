@@ -141,3 +141,12 @@ the server cannot be made."这样的问题。
 
 ###3.应用瘦身与bitcode
 苹果在iOS9的SDK中添加了对应用的瘦身的支持，其中就包括bitcode。我们也在最新的代码中添加了对bitcode的支持
+
+# 关于ADSupport集成的问题
+
+关于第三方应用开发者是否集成ADSupport.framework的问题：
+ 
+1. 如果开发者希望集成ADSupport.framework，在进行ipa提交store时候勾选用于跟踪用户广告效果的选项即可。具体操作可参照友盟
+[http://bbs.umeng.com/forum.php？mod=viewthread&tid=6242&aid=1611&from=album&page=1&mobile=2](http://bbs.umeng.com/forum.php?mod=viewthread&tid=6242&aid=1611&from=album&page=1&mobile=2)
+
+2. 如果开发者希望不集成ADSupport.framework，直接删去即可，微博SDK的使用并非强制要求第三方开发者集成ADSupport.framework。不集成ADSupport.framework不会影响WeiboSDK的正常使用。
