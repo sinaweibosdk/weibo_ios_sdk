@@ -200,7 +200,13 @@
     messageRegisterButton.frame = CGRectMake(20, 660, 130, 50);
     [scrollView addSubview:messageRegisterButton];
     
-    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 700)];
+    UIButton *shareMessageToContactButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [shareMessageToContactButton setTitle:NSLocalizedString(@"分享到私信", nil) forState:UIControlStateNormal];
+    [shareMessageToContactButton addTarget:self action:@selector(shareMessageToContactPressed) forControlEvents:UIControlEventTouchUpInside];
+    shareMessageToContactButton.frame = CGRectMake(20, 710, 130, 50);
+    [scrollView addSubview:shareMessageToContactButton];
+    
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 750)];
     
 }
 
@@ -235,6 +241,22 @@
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
     //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
+    [WeiboSDK sendRequest:request];
+}
+
+- (void)shareMessageToContactPressed
+{
+    WBMessageObject *message = [WBMessageObject message];
+    WBWebpageObject *webpage = [WBWebpageObject object];
+    webpage.objectID = @"";
+    webpage.title = NSLocalizedString(@"分享网页标题", nil);
+    webpage.description = [NSString stringWithFormat:NSLocalizedString(@"分享网页内容简介-%.0f", nil), [[NSDate date] timeIntervalSince1970]];
+    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
+    webpage.webpageUrl = @"http://tech.sina.com.cn/i/2015-11-19/doc-ifxkwuxx1517374.shtml";
+    message.mediaObject = webpage;
+    
+    WBShareMessageToContactRequest *request = [WBShareMessageToContactRequest requestWithMessage:message];
+    request.userInfo = @{@"SendMessageFrom": @"SendMessageToWeiboViewController"};
     [WeiboSDK sendRequest:request];
 }
 
