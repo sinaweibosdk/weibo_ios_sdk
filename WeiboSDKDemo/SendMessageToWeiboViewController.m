@@ -10,6 +10,8 @@
 #import "HttpRequestDemoTableViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
+#import "WeiboSDK+Statistics.h"
+#import "StatisticsDemoRootViewController.h"
 
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
 {
@@ -125,6 +127,18 @@
     [openAPIButton addTarget:self action:@selector(requestOpenAPI) forControlEvents:UIControlEventTouchUpInside];
     openAPIButton.frame = CGRectMake(20, 410, 280, 40);
     [scrollView addSubview:openAPIButton];
+    
+    UILabel *statisticsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 460, 290, 20)];
+    statisticsLabel.text = NSLocalizedString(@"统计相关API:", nil);
+    statisticsLabel.backgroundColor = [UIColor clearColor];
+    statisticsLabel.textAlignment = NSTextAlignmentLeft;
+    [scrollView addSubview:statisticsLabel];
+    
+    UIButton *statisticsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [statisticsButton setTitle:NSLocalizedString(@"统计相关API Demo", nil) forState:UIControlStateNormal];
+    [statisticsButton addTarget:self action:@selector(statisticsAPI) forControlEvents:UIControlEventTouchUpInside];
+    statisticsButton.frame = CGRectMake(20, 480, 280, 40);
+    [scrollView addSubview:statisticsButton];
     
     UILabel *otherLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 520, 290, 20)];
     otherLabel.text = NSLocalizedString(@"Others:", nil);
@@ -323,6 +337,23 @@
     [self presentViewController:httpRequestDemoVC animated:YES completion:^{
     }];
     
+}
+
+- (void)statisticsAPI
+{
+    [WeiboSDK setStatisticsEnabled:YES];
+    //    [WeiboSDK setChannelID:@"SomeChannel"]; //Fill your own data or use default value
+    //    [WeiboSDK setVersion:@"1.0"];        //Fill your own data or use default value
+    
+#ifdef DEBUG
+    [WeiboSDK setStatisticsLogEnabled:YES];
+#else
+    [WeiboSDK setStatisticsLogEnabled:NO];
+#endif
+    
+    StatisticsDemoRootViewController* statisticDemoRootVC = [[StatisticsDemoRootViewController alloc] init];
+    
+    [self.navigationController pushViewController:statisticDemoRootVC animated:YES];
 }
 
 - (void)checkCommentButtonPressed
