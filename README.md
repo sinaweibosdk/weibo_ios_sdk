@@ -150,3 +150,7 @@ the server cannot be made."这样的问题。
 [http://bbs.umeng.com/forum.php？mod=viewthread&tid=6242&aid=1611&from=album&page=1&mobile=2](http://bbs.umeng.com/forum.php?mod=viewthread&tid=6242&aid=1611&from=album&page=1&mobile=2)
 
 2. 如果开发者希望不集成ADSupport.framework，直接删去即可，微博SDK的使用并非强制要求第三方开发者集成ADSupport.framework。不集成ADSupport.framework不会影响WeiboSDK的正常使用。
+
+# 关于ipv6支持的问题
+
+由于苹果商店6月1日起，强制app需要支持ipv6-only的网络。微博sdk这边也做了支持，更新了使用的底层网络代码，包括reachability库。
