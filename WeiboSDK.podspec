@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "WeiboSDK"
-  s.version      = "3.1.3"
-  s.source       = { :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => "3.1.3" }
+  s.version      = "3.1.4"
+  s.source       = { :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => "3.1.4" }
   s.platform     = :ios, '6.0'
   s.requires_arc = false
   s.source_files = 'libWeiboSDK/*.{h,m}'
