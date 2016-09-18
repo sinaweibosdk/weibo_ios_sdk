@@ -154,3 +154,23 @@ the server cannot be made."这样的问题。
 # 关于ipv6支持的问题
 
 由于苹果商店6月1日起，强制app需要支持ipv6-only的网络。微博sdk这边也做了支持，更新了使用的底层网络代码，包括reachability库。
+
+
+# iOS10的适配问题
+
+由于iOS10的发布，原有ATS设置在iOS10上会出现https网络访问限制的问题，为了确保好的应用体验，我们需要采取如下措施：
+
+-
+			<key>sina.com.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+
+需要在每一个域名下添加NSExceptionMinimumTLSVersion这样的key，值的部分为TLSv1.0
