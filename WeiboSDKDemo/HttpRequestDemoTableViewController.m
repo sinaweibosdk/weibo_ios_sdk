@@ -22,7 +22,7 @@
 @implementation HttpRequestDemoTableViewController
 
 
-void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
+void DemoRequestHandler(WBHttpRequest *httpRequest, id result, NSError *error)
 {
     NSString *title = nil;
     UIAlertView *alert = nil;
@@ -298,7 +298,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     
     [WBHttpRequest requestForFriendsListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:extraParaDict queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
     
@@ -309,7 +309,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForFriendsUserIDListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -319,7 +319,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForCommonFriendsListBetweenUser:myDelegate.wbCurrentUserID andUser:aTestUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -329,7 +329,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForBilateralFriendsListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -339,7 +339,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForFollowersListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -349,7 +349,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForFollowersUserIDListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -359,7 +359,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForActiveFollowersListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -369,7 +369,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForBilateralFollowersListOfUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -379,7 +379,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForFriendshipDetailBetweenTargetUser:aTestUserID andSourceUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -389,7 +389,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForFollowAUser:aTestUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -399,7 +399,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForCancelFollowAUser:anotherTestUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -409,7 +409,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForRemoveFollowerUser:aTestUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -419,7 +419,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForInviteBilateralFriend:aTestUserID withAccessToken:myDelegate.wbtoken inviteText:@"这个好玩Test!" inviteUrl:@"http://www.weibo.com/u/2002619624" inviteLogoUrl:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -429,7 +429,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForUserProfile:aTestUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -439,7 +439,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForStatusIDsFromCurrentUser:myDelegate.wbCurrentUserID withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -449,7 +449,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForRepostAStatus:aTestStatusID repostText:@"" withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -459,7 +459,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForShareAStatus:@"test" contatinsAPicture:nil orPictureUrl:nil withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -473,7 +473,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     
     [WBHttpRequest requestForShareAStatus:@"test" contatinsAPicture:image orPictureUrl:nil withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -483,7 +483,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForShareAStatus:@"test" contatinsAPicture:nil orPictureUrl:aTestPictureUrl withAccessToken:myDelegate.wbtoken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -493,7 +493,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     [WBHttpRequest requestForRenewAccessTokenWithRefreshToken:myDelegate.wbRefreshToken queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         
-        DemoRequestHanlder(httpRequest, result, error);
+        DemoRequestHandler(httpRequest, result, error);
         
     }];
 }
@@ -525,7 +525,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                            queue:nil
            withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-               DemoRequestHanlder(httpRequest, result, error);
+               DemoRequestHandler(httpRequest, result, error);
                
            }];
 }
@@ -557,7 +557,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                                       queue:nil
                       withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                          DemoRequestHanlder(httpRequest, result, error);
+                          DemoRequestHandler(httpRequest, result, error);
                
                       }];
 }
@@ -582,7 +582,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                                     queue:nil
                     withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                        DemoRequestHanlder(httpRequest, result, error);
+                        DemoRequestHandler(httpRequest, result, error);
                
                     }];
 }
@@ -608,7 +608,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                               queue:nil
               withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                  DemoRequestHanlder(httpRequest, result, error);
+                  DemoRequestHandler(httpRequest, result, error);
                
               }];
 }
@@ -627,7 +627,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                                  queue:nil
                  withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                     DemoRequestHanlder(httpRequest, result, error);
+                     DemoRequestHandler(httpRequest, result, error);
                
                  }];
 }
@@ -646,7 +646,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                                         queue:nil
                         withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                            DemoRequestHanlder(httpRequest, result, error);
+                            DemoRequestHandler(httpRequest, result, error);
                
                         }];
 }
@@ -665,7 +665,7 @@ void DemoRequestHanlder(WBHttpRequest *httpRequest, id result, NSError *error)
                                            queue:nil
                            withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
                
-                               DemoRequestHanlder(httpRequest, result, error);
+                               DemoRequestHandler(httpRequest, result, error);
                
                            }];
 }
