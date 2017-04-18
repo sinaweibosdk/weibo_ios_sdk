@@ -30,10 +30,10 @@
 		6439569B194AEE33005C9443 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6439569A194AEE33005C9443 /* Security.framework */; };
 		64984F991AC54D3500E8D02F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64984F981AC54D3500E8D02F /* CoreText.framework */; };
 		64984F9B1AC54D4100E8D02F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64984F9A1AC54D4100E8D02F /* CoreTelephony.framework */; };
-		649B8EEF19D160EC00A398A4 /* HttpRequestDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649B8EEE19D160EC00A398A4 /* HttpRequestDemoTableViewController.m */; };
 		64AC051D1A19D95E00CF0568 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64AC051C1A19D95E00CF0568 /* QuartzCore.framework */; };
 		64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */; };
 		64FB915019D1168B00DA7598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64FB915219D1168B00DA7598 /* Localizable.strings */; };
+		8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,13 +78,13 @@
 		6445F6B2194FD97900D86FAD /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		64984F981AC54D3500E8D02F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		64984F9A1AC54D4100E8D02F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		649B8EED19D160EC00A398A4 /* HttpRequestDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequestDemoTableViewController.h; sourceTree = "<group>"; };
-		649B8EEE19D160EC00A398A4 /* HttpRequestDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequestDemoTableViewController.m; sourceTree = "<group>"; };
 		64AC051C1A19D95E00CF0568 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		64CC07F7194DCDED00F94BB8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		64FB915119D1168B00DA7598 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		64FB915319D1169700DA7598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8834C3DC1EA5B93F009E59EF /* LinkToWeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkToWeiboViewController.h; sourceTree = "<group>"; };
+		8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkToWeiboViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,10 +153,10 @@
 				18E67EC217057D9000DFAD63 /* AppDelegate.h */,
 				18E67EC317057D9000DFAD63 /* AppDelegate.m */,
 				3E4E09801C60A0DA004FEB52 /* StatisticsDemo */,
-				649B8EED19D160EC00A398A4 /* HttpRequestDemoTableViewController.h */,
-				649B8EEE19D160EC00A398A4 /* HttpRequestDemoTableViewController.m */,
 				18E67ECB17057D9000DFAD63 /* SendMessageToWeiboViewController.h */,
 				18E67ECC17057D9000DFAD63 /* SendMessageToWeiboViewController.m */,
+				8834C3DC1EA5B93F009E59EF /* LinkToWeiboViewController.h */,
+				8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */,
 				18E67EBA17057D9000DFAD63 /* Supporting Files */,
 			);
 			path = WeiboSDKDemo;
@@ -241,7 +241,7 @@
 				ORGANIZATIONNAME = "SINA iOS Team";
 				TargetAttributes = {
 					18E67EAF17057D8F00DFAD63 = {
-						DevelopmentTeam = 93KUUP9B5K;
+						DevelopmentTeam = MPXZ3AAD6Q;
 					};
 				};
 			};
@@ -288,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				649B8EEF19D160EC00A398A4 /* HttpRequestDemoTableViewController.m in Sources */,
+				8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */,
 				3E4E09831C60A11D004FEB52 /* StatisticsDemoRootViewController.m in Sources */,
 				18E67EC017057D9000DFAD63 /* main.m in Sources */,
 				18E67EC417057D9000DFAD63 /* AppDelegate.m in Sources */,
@@ -330,7 +330,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -360,7 +361,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -379,6 +381,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
@@ -389,8 +392,10 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
 				PRODUCT_NAME = SDKDemo;
-				PROVISIONING_PROFILE = "888aea8f-75ed-438c-a546-829aa2f53b19";
+				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
+				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_InHouse_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s i386 arm64 x86_64";
@@ -404,6 +409,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
@@ -413,9 +419,11 @@
 					"$(PROJECT_DIR)/libWeiboSDK",
 				);
 				OTHER_LDFLAGS = "-all_load";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
 				PRODUCT_NAME = SDKDemo;
-				PROVISIONING_PROFILE = "68651D66-3D0A-4B4B-9223-B15F00149092";
+				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68651D66-3D0A-4B4B-9223-B15F00149092";
+				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_InHouse_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s i386 arm64 x86_64";

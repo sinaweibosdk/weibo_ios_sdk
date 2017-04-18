@@ -16,6 +16,6 @@
 
 //com.sina.weibo.SNWeiboSDKDemo
 #define kAppKey         @"2045436852"
-#define kRedirectURI    @"http://www.sina.com"
+#define kRedirectURI    @"https://www.sina.com"
 
 #endif

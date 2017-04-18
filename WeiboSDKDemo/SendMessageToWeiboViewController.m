@@ -7,17 +7,24 @@
 //
 
 #import "SendMessageToWeiboViewController.h"
-#import "HttpRequestDemoTableViewController.h"
+#import "StatisticsDemoRootViewController.h"
+#import "LinkToWeiboViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
 #import "WeiboSDK+Statistics.h"
-#import "StatisticsDemoRootViewController.h"
+
+@interface WBDataTransferObject ()
+//@property (nonatomic, readonly) WeiboSDK3rdApp *app;
+- (NSString *)validate;
+- (void)storeToDictionary:(NSMutableDictionary *)dict;
+- (void)loadFromDictionary:(NSDictionary *)dict;
++ (id)mappedObjectWithDictionary:(NSDictionary *)dict;
+#ifdef WeiboSDKDebug
+- (void)debugPrint;
+#endif
+@end
 
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
-{
-    WBSDKRelationshipButton *relationshipButton;
-    WBSDKCommentButton *commentButton;
-}
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *shareButton;
@@ -104,31 +111,7 @@
     self.shareButton.frame = CGRectMake(210, 200, 90, 110);
     [scrollView addSubview:self.shareButton];
     
-    UILabel *paymentTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 320, 290, 20)];
-    paymentTextLabel.text = NSLocalizedString(@"支付:", nil);
-    paymentTextLabel.backgroundColor = [UIColor clearColor];
-    paymentTextLabel.textAlignment = NSTextAlignmentLeft;
-    [scrollView addSubview:paymentTextLabel];
-    
-    UIButton *payButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [payButton setTitle:NSLocalizedString(@"支付", nil) forState:UIControlStateNormal];
-    [payButton addTarget:self action:@selector(payButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    payButton.frame = CGRectMake(20, 340, 280, 40);
-    [scrollView addSubview:payButton];
-    
-    UILabel *httpRequestLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 390, 290, 20)];
-    httpRequestLabel.text = NSLocalizedString(@"Open API:", nil);
-    httpRequestLabel.backgroundColor = [UIColor clearColor];
-    httpRequestLabel.textAlignment = NSTextAlignmentLeft;
-    [scrollView addSubview:httpRequestLabel];
-    
-    UIButton *openAPIButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [openAPIButton setTitle:NSLocalizedString(@"调用OpenAPI", nil) forState:UIControlStateNormal];
-    [openAPIButton addTarget:self action:@selector(requestOpenAPI) forControlEvents:UIControlEventTouchUpInside];
-    openAPIButton.frame = CGRectMake(20, 410, 280, 40);
-    [scrollView addSubview:openAPIButton];
-    
-    UILabel *statisticsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 460, 290, 20)];
+    UILabel *statisticsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 330, 290, 20)];
     statisticsLabel.text = NSLocalizedString(@"统计相关API:", nil);
     statisticsLabel.backgroundColor = [UIColor clearColor];
     statisticsLabel.textAlignment = NSTextAlignmentLeft;
@@ -137,90 +120,22 @@
     UIButton *statisticsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [statisticsButton setTitle:NSLocalizedString(@"统计相关API Demo", nil) forState:UIControlStateNormal];
     [statisticsButton addTarget:self action:@selector(statisticsAPI) forControlEvents:UIControlEventTouchUpInside];
-    statisticsButton.frame = CGRectMake(20, 480, 280, 40);
+    statisticsButton.frame = CGRectMake(20, 350, 280, 40);
     [scrollView addSubview:statisticsButton];
     
-    UILabel *otherLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 520, 290, 20)];
-    otherLabel.text = NSLocalizedString(@"Others:", nil);
-    otherLabel.backgroundColor = [UIColor clearColor];
-    otherLabel.textAlignment = NSTextAlignmentLeft;
-    [scrollView addSubview:otherLabel];
+    UILabel *linkWeiboLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 400, 290, 20)];
+    linkWeiboLabel.text = NSLocalizedString(@"链接到微博API:", nil);
+    linkWeiboLabel.backgroundColor = [UIColor clearColor];
+    linkWeiboLabel.textAlignment = NSTextAlignmentLeft;
+    [scrollView addSubview:linkWeiboLabel];
     
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    relationshipButton = [[WBSDKRelationshipButton alloc] initWithFrame:CGRectMake(20, 550, 140, 30) accessToken:myDelegate.wbtoken currentUser:myDelegate.wbCurrentUserID followUser:@"2002619624" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
-        
-        NSString* accessToken = [resultDict objectForKey:@"access_token"];
-        if (accessToken)
-        {
-            myDelegate.wbtoken = accessToken;
-        }
-        NSString* uid = [resultDict objectForKey:@"uid"];
-        if (uid)
-        {
-            myDelegate.wbCurrentUserID = uid;
-        }
-        
-        
-    }];
+    UIButton *linkWeiboButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [linkWeiboButton setTitle:NSLocalizedString(@"链接到微博API Demo", nil) forState:UIControlStateNormal];
+    [linkWeiboButton addTarget:self action:@selector(linkToWeiboAPI) forControlEvents:UIControlEventTouchUpInside];
+    linkWeiboButton.frame = CGRectMake(20, 430, 280, 40);
+    [scrollView addSubview:linkWeiboButton];
     
-    [scrollView addSubview:relationshipButton];
-    
-    UIButton *checkRelationShipButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [checkRelationShipButton setTitle:NSLocalizedString(@"刷新关注状态", nil) forState:UIControlStateNormal];
-    [checkRelationShipButton addTarget:self action:@selector(checkRelationShipButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    checkRelationShipButton.frame = CGRectMake(180, 550, 140, 30);
-    [scrollView addSubview:checkRelationShipButton];
-    
-    
-    commentButton = [[WBSDKCommentButton alloc] initWithFrame:CGRectMake(20, 580, 140, 30) accessToken:myDelegate.wbtoken keyword:@"后会无期" urlString:@"" category:@"1001" completionHandler:^(WBSDKBasicButton *button, BOOL isSuccess, NSDictionary *resultDict) {
-        
-        NSString* accessToken = [resultDict objectForKey:@"access_token"];
-        if (accessToken)
-        {
-            myDelegate.wbtoken = accessToken;
-        }
-        NSString* uid = [resultDict objectForKey:@"uid"];
-        if (uid)
-        {
-            myDelegate.wbCurrentUserID = uid;
-        }
-        
-    }];
-    [scrollView addSubview:commentButton];
-    
-    UIButton *checkCommentButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [checkCommentButton setTitle:NSLocalizedString(@"刷新评论按钮", nil) forState:UIControlStateNormal];
-    [checkCommentButton addTarget:self action:@selector(checkCommentButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    checkCommentButton.frame = CGRectMake(180, 580, 140, 30);
-    [scrollView addSubview:checkCommentButton];
-    
-    
-    
-    UIButton *appRecomendButton1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [appRecomendButton1 setTitle:NSLocalizedString(@"私信app推荐1", nil) forState:UIControlStateNormal];
-    [appRecomendButton1 addTarget:self action:@selector(appRecommendButton1Pressed) forControlEvents:UIControlEventTouchUpInside];
-    appRecomendButton1.frame = CGRectMake(20, 610, 130, 50);
-    [scrollView addSubview:appRecomendButton1];
-    
-    UIButton *appRecomendButton2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [appRecomendButton2 setTitle:NSLocalizedString(@"私信app推荐2", nil) forState:UIControlStateNormal];
-    [appRecomendButton2 addTarget:self action:@selector(appRecommendButton2Pressed) forControlEvents:UIControlEventTouchUpInside];
-    appRecomendButton2.frame = CGRectMake(170, 610, 130, 50);
-    [scrollView addSubview:appRecomendButton2];
-    
-    UIButton *messageRegisterButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [messageRegisterButton setTitle:NSLocalizedString(@"短信注册测试", nil) forState:UIControlStateNormal];
-    [messageRegisterButton addTarget:self action:@selector(messageRegisterPressed) forControlEvents:UIControlEventTouchUpInside];
-    messageRegisterButton.frame = CGRectMake(20, 660, 130, 50);
-    [scrollView addSubview:messageRegisterButton];
-    
-    UIButton *shareMessageToContactButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [shareMessageToContactButton setTitle:NSLocalizedString(@"分享到私信", nil) forState:UIControlStateNormal];
-    [shareMessageToContactButton addTarget:self action:@selector(shareMessageToContactPressed) forControlEvents:UIControlEventTouchUpInside];
-    shareMessageToContactButton.frame = CGRectMake(20, 710, 130, 50);
-    [scrollView addSubview:shareMessageToContactButton];
-    
-    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 750)];
+    [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 530)];
     
 }
 
@@ -234,11 +149,6 @@
 {
     self.navigationController.navigationBarHidden = NO;
     [super viewWillDisappear:animated];
-}
-
-- (void) messageRegisterPressed
-{
-    [WeiboSDK messageRegister:@"验证码登陆"];
 }
 
 - (void)shareButtonPressed
@@ -255,51 +165,6 @@
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
     //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-    [WeiboSDK sendRequest:request];
-}
-
-- (void)shareMessageToContactPressed
-{
-    WBMessageObject *message = [WBMessageObject message];
-    WBWebpageObject *webpage = [WBWebpageObject object];
-    webpage.objectID = @"";
-    webpage.title = NSLocalizedString(@"分享网页标题", nil);
-    webpage.description = [NSString stringWithFormat:NSLocalizedString(@"分享网页内容简介-%.0f", nil), [[NSDate date] timeIntervalSince1970]];
-    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
-    webpage.webpageUrl = @"http://tech.sina.com.cn/i/2015-11-19/doc-ifxkwuxx1517374.shtml";
-    message.mediaObject = webpage;
-    
-    WBShareMessageToContactRequest *request = [WBShareMessageToContactRequest requestWithMessage:message];
-    request.userInfo = @{@"SendMessageFrom": @"SendMessageToWeiboViewController"};
-    [WeiboSDK sendRequest:request];
-}
-
-- (void)appRecommendButton1Pressed
-{
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    NSArray* uids = nil;//[[NSArray alloc]initWithObjects:@"1111",@"2222",@"3333",nil];
-    
-    WBSDKAppRecommendRequest *request = [WBSDKAppRecommendRequest requestWithUIDs:uids access_token:myDelegate.wbtoken];
-    request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
-                         @"Other_Info_1": [NSNumber numberWithInt:123],
-                         @"Other_Info_2": @[@"obj1", @"obj2"],
-                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    [WeiboSDK sendRequest:request];
-}
-
-- (void)appRecommendButton2Pressed
-{
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    NSString* aTestUserID = @"3320390445";
-    NSArray* uids = [[NSArray alloc] initWithObjects:aTestUserID, nil];
-    
-    WBSDKAppRecommendRequest *request = [WBSDKAppRecommendRequest requestWithUIDs:uids access_token:myDelegate.wbtoken];
-    request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
-                         @"Other_Info_1": [NSNumber numberWithInt:123],
-                         @"Other_Info_2": @[@"obj1", @"obj2"],
-                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
     [WeiboSDK sendRequest:request];
 }
 
@@ -321,29 +186,12 @@
     [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self withTag:@"user1"];
 }
 
-- (void)payButtonPressed
-{
-    WBOrderObject *order = [[WBOrderObject alloc] init];
-    [order setOrderString:@"type=test"];
-    
-    WBPaymentRequest *request = [WBPaymentRequest requestWithOrder:order];
-    [WeiboSDK sendRequest:request];
-}
-
-- (void)requestOpenAPI
-{
-    HttpRequestDemoTableViewController* httpRequestDemoVC = [[HttpRequestDemoTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-
-    [self presentViewController:httpRequestDemoVC animated:YES completion:^{
-    }];
-    
-}
 
 - (void)statisticsAPI
 {
     [WeiboSDK setStatisticsEnabled:YES];
-    //    [WeiboSDK setChannelID:@"SomeChannel"]; //Fill your own data or use default value
-    //    [WeiboSDK setVersion:@"1.0"];        //Fill your own data or use default value
+//    [WeiboSDK setChannelID:@"SomeChannel"]; //Fill your own data or use default value
+//    [WeiboSDK setVersion:@"1.0"];        //Fill your own data or use default value
     
 #ifdef DEBUG
     [WeiboSDK setStatisticsLogEnabled:YES];
@@ -356,23 +204,13 @@
     [self.navigationController pushViewController:statisticDemoRootVC animated:YES];
 }
 
-- (void)checkCommentButtonPressed
+- (void)linkToWeiboAPI
 {
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    commentButton.accessToken = myDelegate.wbtoken;
+    LinkToWeiboViewController* linkToWeiboVC = [[LinkToWeiboViewController alloc] init];
+    
+    [self.navigationController pushViewController:linkToWeiboVC animated:YES];
 }
 
-- (void)checkRelationShipButtonPressed
-{
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    relationshipButton.accessToken = myDelegate.wbtoken;
-    relationshipButton.currentUserID = myDelegate.wbCurrentUserID;
-    [relationshipButton checkCurrentRelationship];
-}
-
-
-#pragma mark -
-#pragma WBHttpRequestDelegate
 
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result
 {
@@ -428,7 +266,7 @@
         webpage.title = NSLocalizedString(@"分享网页标题", nil);
         webpage.description = [NSString stringWithFormat:NSLocalizedString(@"分享网页内容简介-%.0f", nil), [[NSDate date] timeIntervalSince1970]];
         webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
-        webpage.webpageUrl = @"http://sina.cn?a=1";
+        webpage.webpageUrl = @"http://weibo.com/p/1001603849727862021333?rightmod=1&wvr=6&mod=noticeboard";
         message.mediaObject = webpage;
     }
     
