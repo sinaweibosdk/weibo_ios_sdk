@@ -451,7 +451,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  消息的文本内容
  
- @warning 长度小于140个汉字
+ @warning 长度小于2000个汉字
  */
 @property (nonatomic, strong) NSString *text;
 
