@@ -80,7 +80,7 @@
 
 -(void)linkToSingleBlog:(UIButton*)sender
 {
-    [WeiboSDK linkToSingleBlog:@"5655398558" blogID:@"Ec5IFn0qa"];
+    [WeiboSDK linkToSingleBlog:@"5655398558" blogID:@"FaXBjmAPa"];
 }
 
 -(void)linkToArticle:(UIButton*)sender
@@ -95,7 +95,7 @@
 
 -(void)commentToWeibo:(UIButton*)sender
 {
-    [WeiboSDK commentToWeibo:@"Ec5IFn0qa"];
+    [WeiboSDK commentToWeibo:@"FaXBjmAPa"];
 }
 
 -(void)linkToSearch:(UIButton*)sender

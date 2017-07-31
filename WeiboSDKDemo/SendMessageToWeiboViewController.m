@@ -7,11 +7,9 @@
 //
 
 #import "SendMessageToWeiboViewController.h"
-#import "StatisticsDemoRootViewController.h"
 #import "LinkToWeiboViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
-#import "WeiboSDK+Statistics.h"
 
 @interface WBDataTransferObject ()
 //@property (nonatomic, readonly) WeiboSDK3rdApp *app;
@@ -24,13 +22,19 @@
 #endif
 @end
 
-@interface SendMessageToWeiboViewController()<UIScrollViewDelegate>
+@interface SendMessageToWeiboViewController()<UIScrollViewDelegate,WBMediaTransferProtocol>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UISwitch *textSwitch;
 @property (nonatomic, strong) UISwitch *imageSwitch;
 @property (nonatomic, strong) UISwitch *mediaSwitch;
+@property (nonatomic, strong) UISwitch *videoSwitch;
+@property (nonatomic, strong) UISwitch *storySwitch;
+
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+
+@property (nonatomic, strong) WBMessageObject *messageObject;
 
 @end
 
@@ -103,6 +107,22 @@
     [scrollView addSubview:mediaLabel];
     [scrollView addSubview:self.mediaSwitch];
     
+    UILabel *videoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 320, 80, 30)];
+    videoLabel.text = NSLocalizedString(@"视频", nil);
+    videoLabel.backgroundColor = [UIColor clearColor];
+    videoLabel.textAlignment = NSTextAlignmentCenter;
+    self.videoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 320, 120, 30)];
+    [scrollView addSubview:videoLabel];
+    [scrollView addSubview:self.videoSwitch];
+    
+    UILabel *storyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 80, 30)];
+    storyLabel.text = NSLocalizedString(@"story开关", nil);
+    storyLabel.backgroundColor = [UIColor clearColor];
+    storyLabel.textAlignment = NSTextAlignmentCenter;
+    self.storySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 360, 120, 30)];
+    [scrollView addSubview:storyLabel];
+    [scrollView addSubview:self.storySwitch];
+    
     self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.shareButton.titleLabel.numberOfLines = 2;
     self.shareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -110,18 +130,6 @@
     [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     self.shareButton.frame = CGRectMake(210, 200, 90, 110);
     [scrollView addSubview:self.shareButton];
-    
-    UILabel *statisticsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 330, 290, 20)];
-    statisticsLabel.text = NSLocalizedString(@"统计相关API:", nil);
-    statisticsLabel.backgroundColor = [UIColor clearColor];
-    statisticsLabel.textAlignment = NSTextAlignmentLeft;
-    [scrollView addSubview:statisticsLabel];
-    
-    UIButton *statisticsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [statisticsButton setTitle:NSLocalizedString(@"统计相关API Demo", nil) forState:UIControlStateNormal];
-    [statisticsButton addTarget:self action:@selector(statisticsAPI) forControlEvents:UIControlEventTouchUpInside];
-    statisticsButton.frame = CGRectMake(20, 350, 280, 40);
-    [scrollView addSubview:statisticsButton];
     
     UILabel *linkWeiboLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 400, 290, 20)];
     linkWeiboLabel.text = NSLocalizedString(@"链接到微博API:", nil);
@@ -151,7 +159,7 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)shareButtonPressed
+-(void)messageShare
 {
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     
@@ -159,13 +167,39 @@
     authRequest.redirectURI = kRedirectURI;
     authRequest.scope = @"all";
     
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:[self messageToShare] authInfo:authRequest access_token:myDelegate.wbtoken];
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:_messageObject authInfo:authRequest access_token:myDelegate.wbtoken];
     request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
                          @"Other_Info_1": [NSNumber numberWithInt:123],
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    //    request.shouldOpenWeiboAppInstallPageIfNotInstalled = NO;
-    [WeiboSDK sendRequest:request];
+    if (![WeiboSDK sendRequest:request]) {
+        [_indicatorView stopAnimating];
+    }
+}
+
+- (void)shareButtonPressed
+{
+    _messageObject = [self messageToShare];
+    
+    if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on) {
+        //只有文字和多媒体的时候打开分享到story开关，只会呼起发布器，没有意义
+        return;
+    }
+    
+    if (!self.imageSwitch.on && !self.videoSwitch.on) {
+        [self messageShare];
+    }else
+    {
+        if (!_indicatorView) {
+            _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            _indicatorView.center = self.view.center;
+            [self.view addSubview:_indicatorView];
+            _indicatorView.color = [UIColor blueColor];
+        }
+        
+        [_indicatorView startAnimating];
+        [_indicatorView setHidesWhenStopped:YES];
+    }
 }
 
 - (void)ssoButtonPressed
@@ -186,23 +220,6 @@
     [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self withTag:@"user1"];
 }
 
-
-- (void)statisticsAPI
-{
-    [WeiboSDK setStatisticsEnabled:YES];
-//    [WeiboSDK setChannelID:@"SomeChannel"]; //Fill your own data or use default value
-//    [WeiboSDK setVersion:@"1.0"];        //Fill your own data or use default value
-    
-#ifdef DEBUG
-    [WeiboSDK setStatisticsLogEnabled:YES];
-#else
-    [WeiboSDK setStatisticsLogEnabled:NO];
-#endif
-    
-    StatisticsDemoRootViewController* statisticDemoRootVC = [[StatisticsDemoRootViewController alloc] init];
-    
-    [self.navigationController pushViewController:statisticDemoRootVC animated:YES];
-}
 
 - (void)linkToWeiboAPI
 {
@@ -240,7 +257,18 @@
     [alert show];
 }
 
-#pragma mark - 
+-(void)wbsdk_TransferDidReceiveObject:(id)object
+{
+    [_indicatorView stopAnimating];
+    [self messageShare];
+}
+
+-(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error
+{
+    [_indicatorView stopAnimating];
+}
+
+#pragma mark -
 #pragma Internal Method
 
 - (WBMessageObject *)messageToShare
@@ -254,9 +282,22 @@
     
     if (self.imageSwitch.on)
     {
-        WBImageObject *image = [WBImageObject object];
-        image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
-        message.imageObject = image;
+        //        WBImageObject *image = [WBImageObject object];
+        //        image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
+        //        message.imageObject = image;
+        
+        UIImage *image = [UIImage imageNamed:@"WeiboSDK.bundle/images/empty_failed.png"];
+        UIImage *image1 = [UIImage imageNamed:@"WeiboSDK.bundle/images/common_button_white.png"];
+        UIImage *image2 = [UIImage imageNamed:@"WeiboSDK.bundle/images/common_button_white_highlighted.png"];
+        NSArray *imageArray = [NSArray arrayWithObjects:image,image1,image2, nil];
+        WBImageObject *imageObject = [WBImageObject object];
+        if (self.storySwitch.on) {
+            imageObject.isShareToStory = YES;
+            imageArray = [NSArray arrayWithObject:image];
+        }
+        imageObject.delegate = self;
+        [imageObject addImages:imageArray];
+        message.imageObject = imageObject;
     }
     
     if (self.mediaSwitch.on)
@@ -268,6 +309,17 @@
         webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
         webpage.webpageUrl = @"http://weibo.com/p/1001603849727862021333?rightmod=1&wvr=6&mod=noticeboard";
         message.mediaObject = webpage;
+    }
+    
+    if (self.videoSwitch.on) {
+        WBNewVideoObject *videoObject = [WBNewVideoObject object];
+        if (self.storySwitch.on) {
+            videoObject.isShareToStory = YES;
+        }
+        NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"apm" ofType:@"mov"]];
+        videoObject.delegate = self;
+        [videoObject addVideo:videoUrl];
+        message.videoObject = videoObject;
     }
     
     return message;

@@ -5,13 +5,27 @@
 //  Created by Wade Cheng on 4/3/13.
 //  Copyright (c) 2013 SINA iOS Team. All rights reserved.
 //
-
+#define COMPANY_INTERNAL
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #import "WBHttpRequest.h"
-#import "WBHttpRequest+WeiboToken.h"
 
+#ifdef COMPANY_INTERNAL
+typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
+{
+    WeiboSDKResponseStatusCodeSuccess               = 0,//成功
+    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消发送
+    WeiboSDKResponseStatusCodeSentFail              = -2,//发送失败
+    WeiboSDKResponseStatusCodeAuthDeny              = -3,//授权失败
+    WeiboSDKResponseStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端
+    WeiboSDKResponseStatusCodePayFail               = -5,//支付失败
+    WeiboSDKResponseStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
+    WeiboSDKResponseStatusCodeNoTokenInKeyChain     = -20,//快速授权失败,未取到SSOtoken
+    WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
+    WeiboSDKResponseStatusCodeUnknown               = -100,
+};
+#else
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
@@ -24,6 +38,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
 };
+#endif
 
 @protocol WeiboSDKDelegate;
 @protocol WBHttpRequestDelegate;
@@ -33,6 +48,8 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 @class WBImageObject;
 @class WBBaseMediaObject;
 @class WBHttpRequest;
+@class PHAsset;
+@class WBNewVideoObject;
 
 /**
  微博SDK接口类
@@ -64,6 +81,48 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 + (BOOL)openWeiboApp;
 
 
+#ifdef COMPANY_INTERNAL
+
+/**
+ 获取微博客户端中存储的登陆微博用户列表Uid
+ @return  微博客户端中存储的登陆微博用户列表Uid
+ @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
+ */
++ (NSArray *)weiboUserList;
+
+/**
+ 获取微博客户端中存储的当前微博用户昵称,在不建议使用快速授权的情况下无法正确返回
+ @return  微博客户端中存储的当前微博用户昵称
+ @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
+ */
++ (NSString *)weiboNick;
+
+/**
+ 获取微博客户端中存储的当前微博用户头像Url,在不建议使用快速授权的情况下无法正确返回
+ @return  微博客户端中存储的当前微博用户头像Url
+ @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
+ */
++ (NSString *)weiboProfileImageURL;
+
+/**
+ 游客模式,利用设备信息换取登录状态
+ @param delegate 目标页地址URL
+ @param pin      服务器分配的pin
+ @param c        服务器分配的c值
+ @param from     服务器分配的from值
+ */
++ (WBHttpRequest *)guestLogin:(id<WBHttpRequestDelegate>)delegate withPin:(NSString *)pin c:(NSString *)c from:(NSString *)from tag:(NSString *)tag;
+
+/**
+ 使得URL跳转后仍保持用户登陆信息的URL拼装方法
+ @param targetUrl 目标页地址URL
+ @param title     目标页标题，可传空
+ @param token     access_token 用户授权后获取的Token
+ @return 拼装后的URL（可直接调用Webview载入）
+ */
++ (NSString *)getUrl:(NSString *)targetUrl withTitle:(NSString *)title access_token:(NSString *)token;
+#endif
+
 /**
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
@@ -88,6 +147,15 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 + (NSString *)getWeiboAid;
 
+#ifdef COMPANY_INTERNAL
+/**
+ 获取当前微博SDK的SUB
+ 返回的值可能为 nil ,当值为 nil 时会尝试获取 sub 值。
+ 和aid获取调用的是同一个接口（若符合SUB下发条件，aid值为有效值时，sub的值也一定为有效值）
+ @return sub 用于匿名登陆的标识符
+ */
++ (NSString *)getWeiboGuestSub;
+#endif
 
 /**
  向微博客户端程序注册第三方应用
@@ -328,6 +396,35 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 @property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
 
+#ifdef COMPANY_INTERNAL
+/**
+ 新浪内部使用 快速授权设置
+ 
+ @warning 长度小于1K
+ */
+@property (nonatomic, assign) BOOL isQuickAuth;
+
+/**
+ 新浪内部使用 快速授权使用Uid 默认为空即使用微博当前登录账号
+ 
+ @warning 长度小于1K
+ */
+@property (nonatomic, retain) NSString *quickAuthUid;
+
+/**
+ 当用户已经安装微博客户端的时候是否弹出SDK自带的Webview进行授权
+ 
+ 如果设置为YES，当用户安装了符合SSO条件的微博客户端的时候会自动弹出SDK自带的Webview进行授权而不是跳转至微博进行SSO授权。
+ 
+ 如果设置为NO，会跳转至微博客户端进行SSO授权
+ 
+ 默认为NO
+ 
+ @warning 注意，使用快速授权时(isQuickAuth设置为YES的话)不会走授权流程，不会弹出任何授权页面
+ */
+@property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCanSSO;
+#endif
+
 @end
 
 
@@ -444,7 +541,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  微博客户端程序和第三方应用之间传递的消息结构
  
- 一个消息结构由三部分组成：文字、图片和多媒体数据。三部分内容中至少有一项不为空，图片和多媒体数据不能共存。
+ 一个消息结构由三部分组成：文字、图片和多媒体数据。三部分内容中至少有一项不为空，图片和多媒体数据不能共存。(新版的多图和视频属于图片数据，并且图片和视频也不能共存)
  */
 @interface WBMessageObject : NSObject
 
@@ -470,11 +567,45 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 @property (nonatomic, strong) WBBaseMediaObject *mediaObject;
 
 /**
+ 消息的视频内容
+ 
+ @see WBVideoObject
+ */
+@property (nonatomic, strong) WBNewVideoObject *videoObject;
+/**
  返回一个 WBMessageObject 对象
  
  @return 返回一个*自动释放的*WBMessageObject对象
  */
 + (id)message;
+
+@end
+
+/**
+ 图片视频分享时错误枚举
+ */
+
+typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
+{
+    WBSDKMediaTransferAlbumPermissionError              = 0,//相册权限
+    WBSDKMediaTransferAlbumWriteError               = 0,//相册写入错误
+    WBSDKMediaTransferAlbumAssetTypeError               = 0,//资源类型错误
+};
+
+/**
+ 图片视频分享协议
+ */
+@protocol WBMediaTransferProtocol <NSObject>
+
+/**
+ 数据准备成功回调
+ */
+-(void)wbsdk_TransferDidReceiveObject:(id)object;
+
+/**
+ 数据准备失败回调
+ */
+-(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error;
 
 @end
 
@@ -491,6 +622,11 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 @property (nonatomic, strong) NSData *imageData;
 
 /**
+ 是否分享到story
+ */
+@property (nonatomic) BOOL isShareToStory;
+
+/**
  返回一个 WBImageObject 对象
  
  @return 返回一个*自动释放的*WBImageObject对象
@@ -504,7 +640,65 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 - (UIImage *)image;
 
+
+/**
+ 多图分享委托
+ */
+@property(nonatomic,weak)id<WBMediaTransferProtocol> delegate;
+
+/**
+ 图片对象添加图片数组
+ */
+- (void)addImages:(NSArray<UIImage *>*)imageArray;
+
+/**
+ 图片对象添加照片数组
+ */
+- (void)addImageAssets:(NSArray<PHAsset*>*)assetArray;
+
+/**
+ 多图最终传递对象
+ */
+-(NSArray*)finalAssetArray;
+
 @end
+
+@interface WBNewVideoObject : NSObject
+
+/**
+ 返回一个 WBNewVideoObject 对象
+ 
+ @return 返回一个*自动释放的*WBNewVideoObject对象
+ */
++ (id)object;
+
+/**
+ 是否分享到story
+ */
+@property (nonatomic) BOOL isShareToStory;
+
+/**
+ 多图分享委托
+ */
+@property(nonatomic,weak)id<WBMediaTransferProtocol> delegate;
+
+/**
+ 视频对象添加视频
+ */
+-(void)addVideo:(NSURL*)videoUrl;
+
+/**
+ 视频对象添加视频资源
+ */
+-(void)addVideoAsset:(PHAsset*)videoAsset;
+
+/**
+ 视频最终传递对象
+ */
+-(NSString*)finalAsset;
+
+@end
+
 
 #pragma mark - Message Media Objects
 
