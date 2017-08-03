@@ -5,27 +5,13 @@
 //  Created by Wade Cheng on 4/3/13.
 //  Copyright (c) 2013 SINA iOS Team. All rights reserved.
 //
-#define COMPANY_INTERNAL
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #import "WBHttpRequest.h"
 
-#ifdef COMPANY_INTERNAL
-typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
-{
-    WeiboSDKResponseStatusCodeSuccess               = 0,//成功
-    WeiboSDKResponseStatusCodeUserCancel            = -1,//用户取消发送
-    WeiboSDKResponseStatusCodeSentFail              = -2,//发送失败
-    WeiboSDKResponseStatusCodeAuthDeny              = -3,//授权失败
-    WeiboSDKResponseStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端
-    WeiboSDKResponseStatusCodePayFail               = -5,//支付失败
-    WeiboSDKResponseStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
-    WeiboSDKResponseStatusCodeNoTokenInKeyChain     = -20,//快速授权失败,未取到SSOtoken
-    WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
-    WeiboSDKResponseStatusCodeUnknown               = -100,
-};
-#else
+
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
@@ -38,7 +24,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
 };
-#endif
+
 
 @protocol WeiboSDKDelegate;
 @protocol WBHttpRequestDelegate;
@@ -81,47 +67,6 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 + (BOOL)openWeiboApp;
 
 
-#ifdef COMPANY_INTERNAL
-
-/**
- 获取微博客户端中存储的登陆微博用户列表Uid
- @return  微博客户端中存储的登陆微博用户列表Uid
- @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
- */
-+ (NSArray *)weiboUserList;
-
-/**
- 获取微博客户端中存储的当前微博用户昵称,在不建议使用快速授权的情况下无法正确返回
- @return  微博客户端中存储的当前微博用户昵称
- @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
- */
-+ (NSString *)weiboNick;
-
-/**
- 获取微博客户端中存储的当前微博用户头像Url,在不建议使用快速授权的情况下无法正确返回
- @return  微博客户端中存储的当前微博用户头像Url
- @see [WeiboSDK isWeiboAppFullSupportQuickAuth]
- */
-+ (NSString *)weiboProfileImageURL;
-
-/**
- 游客模式,利用设备信息换取登录状态
- @param delegate 目标页地址URL
- @param pin      服务器分配的pin
- @param c        服务器分配的c值
- @param from     服务器分配的from值
- */
-+ (WBHttpRequest *)guestLogin:(id<WBHttpRequestDelegate>)delegate withPin:(NSString *)pin c:(NSString *)c from:(NSString *)from tag:(NSString *)tag;
-
-/**
- 使得URL跳转后仍保持用户登陆信息的URL拼装方法
- @param targetUrl 目标页地址URL
- @param title     目标页标题，可传空
- @param token     access_token 用户授权后获取的Token
- @return 拼装后的URL（可直接调用Webview载入）
- */
-+ (NSString *)getUrl:(NSString *)targetUrl withTitle:(NSString *)title access_token:(NSString *)token;
-#endif
 
 /**
  获取微博客户端程序的itunes安装地址
@@ -147,15 +92,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 + (NSString *)getWeiboAid;
 
-#ifdef COMPANY_INTERNAL
-/**
- 获取当前微博SDK的SUB
- 返回的值可能为 nil ,当值为 nil 时会尝试获取 sub 值。
- 和aid获取调用的是同一个接口（若符合SUB下发条件，aid值为有效值时，sub的值也一定为有效值）
- @return sub 用于匿名登陆的标识符
- */
-+ (NSString *)getWeiboGuestSub;
-#endif
 
 /**
  向微博客户端程序注册第三方应用
@@ -396,34 +332,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 @property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
 
-#ifdef COMPANY_INTERNAL
-/**
- 新浪内部使用 快速授权设置
- 
- @warning 长度小于1K
- */
-@property (nonatomic, assign) BOOL isQuickAuth;
-
-/**
- 新浪内部使用 快速授权使用Uid 默认为空即使用微博当前登录账号
- 
- @warning 长度小于1K
- */
-@property (nonatomic, retain) NSString *quickAuthUid;
-
-/**
- 当用户已经安装微博客户端的时候是否弹出SDK自带的Webview进行授权
- 
- 如果设置为YES，当用户安装了符合SSO条件的微博客户端的时候会自动弹出SDK自带的Webview进行授权而不是跳转至微博进行SSO授权。
- 
- 如果设置为NO，会跳转至微博客户端进行SSO授权
- 
- 默认为NO
- 
- @warning 注意，使用快速授权时(isQuickAuth设置为YES的话)不会走授权流程，不会弹出任何授权页面
- */
-@property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCanSSO;
-#endif
 
 @end
 
