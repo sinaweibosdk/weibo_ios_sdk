@@ -14,7 +14,7 @@
 
 #快速集成
 WeiboSDK支持使用Cocoapods集成，请在Podfile中添加以下语句：
-```ruby
+```
 pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 ```
 #API文档
@@ -38,11 +38,7 @@ pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 ### 3. 登入登出
 微博登入按钮主要是简化用户进行 SSO 登陆，实际上，它内部是对 SSO 认证流程进行了简单的封装。  
 微博登出按钮主要提供一键登出的功能，帮助开发者主动取消用户的授权。
-### 4.OpenAPI通用调用
-OpenAPI通用调用接口，帮助开发者访问开放平台open api(http://open.weibo.com/wiki/微博API)
-此外，还提供了一系列封装了open api调用的接口，方便开发者使用。
-### 5. 社会化评论服务、原生关注组件
-提供社会化评论按钮和原生关注按钮，简化用户进行关注以及评论的流程。
+
 # 适用范围
 使用此SDK需满足以下条件:  
 
