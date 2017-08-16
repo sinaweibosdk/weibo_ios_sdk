@@ -15,7 +15,7 @@
 #快速集成
 WeiboSDK支持使用Cocoapods集成，请在Podfile中添加以下语句：
 ```
-pod "WeiboSDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
+pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 ```
 #API文档
 [http://sinaweibosdk.github.io/weibo_ios_sdk/index.html](http://sinaweibosdk.github.io/weibo_ios_sdk/index.html)
