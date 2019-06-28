@@ -11,7 +11,6 @@
 
 #import "WBHttpRequest.h"
 
-
 typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
 {
     WeiboSDKResponseStatusCodeSuccess               = 0,//成功
@@ -66,8 +65,6 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  */
 + (BOOL)openWeiboApp;
 
-
-
 /**
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
@@ -91,7 +88,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @return aid 用于广告的与设备信息相关的标识符
  */
 + (NSString *)getWeiboAid;
-
 
 /**
  向微博客户端程序注册第三方应用
@@ -332,7 +328,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 @property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
 
-
 @end
 
 
@@ -496,8 +491,8 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 {
     WBSDKMediaTransferAlbumPermissionError              = 0,//相册权限
-    WBSDKMediaTransferAlbumWriteError               = 0,//相册写入错误
-    WBSDKMediaTransferAlbumAssetTypeError               = 0,//资源类型错误
+    WBSDKMediaTransferAlbumWriteError               = 1,//相册写入错误
+    WBSDKMediaTransferAlbumAssetTypeError               = 2,//资源类型错误
 };
 
 /**
@@ -523,7 +518,8 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 @interface WBImageObject : NSObject
 
 /**
- 图片真实数据内容
+ 图片真实数据内容，图片数据与图片数组finalAssetArray只能存在一项，图片数据不能为空并且大小不能超过10M,
+ 网页分享使用图片数据
  
  @warning 大小不能超过10M
  */

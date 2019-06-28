@@ -217,7 +217,7 @@
 				ORGANIZATIONNAME = "SINA iOS Team";
 				TargetAttributes = {
 					18E67EAF17057D8F00DFAD63 = {
-						DevelopmentTeam = MPXZ3AAD6Q;
+						DevelopmentTeam = 3U3XKPF3QC;
 					};
 				};
 			};
@@ -358,7 +358,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
+				DEVELOPMENT_TEAM = 3U3XKPF3QC;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
@@ -372,7 +372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
 				PRODUCT_NAME = SDKDemo;
 				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
-				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_InHouse_Provisioning;
+				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_Development_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s i386 arm64 x86_64";

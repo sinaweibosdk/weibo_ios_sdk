@@ -151,6 +151,10 @@
 {
     self.navigationController.navigationBarHidden = YES;
     [super viewWillAppear:animated];
+    
+    if (_indicatorView.isAnimating) {
+        [_indicatorView stopAnimating];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -162,7 +166,6 @@
 -(void)messageShare
 {
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.redirectURI = kRedirectURI;
     authRequest.scope = @"all";
@@ -172,33 +175,44 @@
                          @"Other_Info_1": [NSNumber numberWithInt:123],
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    if (![WeiboSDK sendRequest:request]) {
-        [_indicatorView stopAnimating];
-    }
+    [WeiboSDK sendRequest:request];
+    [_indicatorView stopAnimating];
 }
 
 - (void)shareButtonPressed
 {
-    _messageObject = [self messageToShare];
-    
-    if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on) {
-        //只有文字和多媒体的时候打开分享到story开关，只会呼起发布器，没有意义
+    //图片、多媒体、视频两两不共存
+    BOOL isAllowShare = ((self.imageSwitch.on && self.mediaSwitch.on)||(self.imageSwitch.on && self.videoSwitch.on)||(self.mediaSwitch.on && self.videoSwitch.on));
+    if (isAllowShare)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"图片、多媒体、视频两两不能组合分享" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
         return;
     }
     
+    //只有文字和多媒体的时候打开分享到story开关，只会呼起发布器，没有意义
+    if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"只有文字、多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    
+    
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _indicatorView.center = self.view.center;
+        [self.view addSubview:_indicatorView];
+        _indicatorView.color = [UIColor blueColor];
+    }
+    
+    [_indicatorView startAnimating];
+    [_indicatorView setHidesWhenStopped:YES];
+    
+    _messageObject = [self messageToShare];
     if (!self.imageSwitch.on && !self.videoSwitch.on) {
         [self messageShare];
-    }else
-    {
-        if (!_indicatorView) {
-            _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-            _indicatorView.center = self.view.center;
-            [self.view addSubview:_indicatorView];
-            _indicatorView.color = [UIColor blueColor];
-        }
-        
-        [_indicatorView startAnimating];
-        [_indicatorView setHidesWhenStopped:YES];
     }
 }
 
@@ -257,15 +271,52 @@
     [alert show];
 }
 
+#pragma WBMediaTransferProtocol
 -(void)wbsdk_TransferDidReceiveObject:(id)object
 {
-    [_indicatorView stopAnimating];
-    [self messageShare];
+    if (![NSThread isMainThread])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_indicatorView stopAnimating];
+            [self messageShare];
+        });
+    }else{
+        [_indicatorView stopAnimating];
+        [self messageShare];
+    }
+    
 }
 
 -(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error
 {
-    [_indicatorView stopAnimating];
+    if (![NSThread isMainThread])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_indicatorView stopAnimating];
+            [self errorAlertDisplayWithErrorCode:errorCode];
+        });
+    }else{
+        [_indicatorView stopAnimating];
+        [self errorAlertDisplayWithErrorCode:errorCode];
+    }
+}
+
+
+-(void)errorAlertDisplayWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode
+{
+    NSString *strTitle = nil;
+    if (errorCode==WBSDKMediaTransferAlbumPermissionError) {
+        strTitle =@"请打开相册权限";
+    }
+    if (errorCode==WBSDKMediaTransferAlbumAssetTypeError) {
+        strTitle =@"资源类型错误";
+    }
+    if (errorCode==WBSDKMediaTransferAlbumWriteError) {
+        strTitle =@"相册写入错误";
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误提示" message:strTitle delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+    
 }
 
 #pragma mark -
@@ -282,20 +333,16 @@
     
     if (self.imageSwitch.on)
     {
-        //        WBImageObject *image = [WBImageObject object];
-        //        image.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
-        //        message.imageObject = image;
-        
-        UIImage *image = [UIImage imageNamed:@"WeiboSDK.bundle/images/empty_failed.png"];
-        UIImage *image1 = [UIImage imageNamed:@"WeiboSDK.bundle/images/common_button_white.png"];
-        UIImage *image2 = [UIImage imageNamed:@"WeiboSDK.bundle/images/common_button_white_highlighted.png"];
-        NSArray *imageArray = [NSArray arrayWithObjects:image,image1,image2, nil];
+        UIImage *image = [UIImage imageNamed:@"image_1.jpg"];
+        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
+        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
         WBImageObject *imageObject = [WBImageObject object];
         if (self.storySwitch.on) {
             imageObject.isShareToStory = YES;
             imageArray = [NSArray arrayWithObject:image];
         }
         imageObject.delegate = self;
+        
         [imageObject addImages:imageArray];
         message.imageObject = imageObject;
     }
