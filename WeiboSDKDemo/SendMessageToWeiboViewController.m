@@ -131,7 +131,7 @@
     self.shareButton.frame = CGRectMake(210, 200, 90, 110);
     [scrollView addSubview:self.shareButton];
     
-    UILabel *linkWeiboLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 400, 290, 20)];
+    UILabel *linkWeiboLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 410, 290, 20)];
     linkWeiboLabel.text = NSLocalizedString(@"链接到微博API:", nil);
     linkWeiboLabel.backgroundColor = [UIColor clearColor];
     linkWeiboLabel.textAlignment = NSTextAlignmentLeft;
@@ -190,137 +190,68 @@
         return;
     }
     
-    //只有文字和多媒体的时候打开分享到story开关，只会呼起发布器，没有意义
+     //只有文字和多媒体(分享内容为网页)的时候打开分享到story开关，只会呼起发布器，没有意义
     if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"只有文字、多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"只有文字或者多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    //未安装微博客户端，支持文字分享以及单张图片分享
+    if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoSwitch.on || self.storySwitch.on))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"未安装微博客户端时，仅支持文字与图片分享" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     
     
-    if (!_indicatorView) {
-        _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _indicatorView.center = self.view.center;
-        [self.view addSubview:_indicatorView];
-        _indicatorView.color = [UIColor blueColor];
-    }
-    
-    [_indicatorView startAnimating];
+    [self.indicatorView startAnimating];
     [_indicatorView setHidesWhenStopped:YES];
     
+    
+    
+    //未安装微博客户端，支持文字分享以及单张图片分享
+      if (![WeiboSDK isCanShareInWeiboAPP] && (self.textSwitch.on || self.imageSwitch.on))
+      {
+          _messageObject = [self messageToShareByWebView];
+          [self messageShare];
+          return;
+      }
+
     _messageObject = [self messageToShare];
+    //注意：安装微博客户端使用多图分享逻辑，分享时在图片、视频准备好的回调方法中分享
     if (!self.imageSwitch.on && !self.videoSwitch.on) {
         [self messageShare];
     }
-}
-
-- (void)ssoButtonPressed
-{
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = kRedirectURI;
-    request.scope = @"all";
-    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
-                         @"Other_Info_1": [NSNumber numberWithInt:123],
-                         @"Other_Info_2": @[@"obj1", @"obj2"],
-                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    [WeiboSDK sendRequest:request];
-}
-
-- (void)ssoOutButtonPressed
-{
-    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self withTag:@"user1"];
-}
-
-
-- (void)linkToWeiboAPI
-{
-    LinkToWeiboViewController* linkToWeiboVC = [[LinkToWeiboViewController alloc] init];
     
-    [self.navigationController pushViewController:linkToWeiboVC animated:YES];
-}
-
-
-- (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result
-{
-    NSString *title = nil;
-    UIAlertView *alert = nil;
-    
-    title = NSLocalizedString(@"收到网络回调", nil);
-    alert = [[UIAlertView alloc] initWithTitle:title
-                                       message:[NSString stringWithFormat:@"%@",result]
-                                      delegate:nil
-                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                             otherButtonTitles:nil];
-    [alert show];
-}
-
-- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
-{
-    NSString *title = nil;
-    UIAlertView *alert = nil;
-    
-    title = NSLocalizedString(@"请求异常", nil);
-    alert = [[UIAlertView alloc] initWithTitle:title
-                                       message:[NSString stringWithFormat:@"%@",error]
-                                      delegate:nil
-                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                             otherButtonTitles:nil];
-    [alert show];
-}
-
-#pragma WBMediaTransferProtocol
--(void)wbsdk_TransferDidReceiveObject:(id)object
-{
-    if (![NSThread isMainThread])
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_indicatorView stopAnimating];
-            [self messageShare];
-        });
-    }else{
-        [_indicatorView stopAnimating];
-        [self messageShare];
-    }
-    
-}
-
--(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error
-{
-    if (![NSThread isMainThread])
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_indicatorView stopAnimating];
-            [self errorAlertDisplayWithErrorCode:errorCode];
-        });
-    }else{
-        [_indicatorView stopAnimating];
-        [self errorAlertDisplayWithErrorCode:errorCode];
-    }
-}
-
-
--(void)errorAlertDisplayWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode
-{
-    NSString *strTitle = nil;
-    if (errorCode==WBSDKMediaTransferAlbumPermissionError) {
-        strTitle =@"请打开相册权限";
-    }
-    if (errorCode==WBSDKMediaTransferAlbumAssetTypeError) {
-        strTitle =@"资源类型错误";
-    }
-    if (errorCode==WBSDKMediaTransferAlbumWriteError) {
-        strTitle =@"相册写入错误";
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误提示" message:strTitle delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-    
+  
 }
 
 #pragma mark -
 #pragma Internal Method
+
+- (WBMessageObject *)messageToShareByWebView
+{
+    WBMessageObject *message = [WBMessageObject message];
+    
+    if (self.textSwitch.on)
+    {
+        message.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
+    }
+    
+    if (self.imageSwitch.on)
+    {
+        message.text = @"使用网页分享";
+        WBImageObject *imageObject = [WBImageObject object];
+        imageObject.imageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_1" ofType:@"jpg"]];
+        imageObject.delegate = self;
+        message.imageObject = imageObject;
+    }
+    return message;
+}
 
 - (WBMessageObject *)messageToShare
 {
@@ -372,5 +303,121 @@
     return message;
 }
 
+
+#pragma mark SSO Authorization
+- (void)ssoButtonPressed
+{
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = kRedirectURI;
+    request.scope = @"all";
+    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    [WeiboSDK sendRequest:request];
+}
+
+- (void)ssoOutButtonPressed
+{
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [WeiboSDK logOutWithToken:myDelegate.wbtoken delegate:self withTag:@"user1"];
+}
+
+
+- (void)linkToWeiboAPI
+{
+    LinkToWeiboViewController* linkToWeiboVC = [[LinkToWeiboViewController alloc] init];
+    [self.navigationController pushViewController:linkToWeiboVC animated:YES];
+}
+
+
+#pragma mark WBHttpRequestDelegate
+- (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result
+{
+    NSString *title = nil;
+    UIAlertView *alert = nil;
+    
+    title = NSLocalizedString(@"收到网络回调", nil);
+    alert = [[UIAlertView alloc] initWithTitle:title
+                                       message:[NSString stringWithFormat:@"%@",result]
+                                      delegate:nil
+                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                             otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
+{
+    NSString *title = nil;
+    UIAlertView *alert = nil;
+    
+    title = NSLocalizedString(@"请求异常", nil);
+    alert = [[UIAlertView alloc] initWithTitle:title
+                                       message:[NSString stringWithFormat:@"%@",error]
+                                      delegate:nil
+                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                             otherButtonTitles:nil];
+    [alert show];
+}
+
+#pragma WBMediaTransferProtocol
+-(void)wbsdk_TransferDidReceiveObject:(id)object
+{
+    if (![NSThread isMainThread])
+    {
+         dispatch_async(dispatch_get_main_queue(), ^{
+           [_indicatorView stopAnimating];
+           [self messageShare];
+        });
+    }else{
+        [_indicatorView stopAnimating];
+        [self messageShare];
+    }
+
+}
+
+-(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error
+{
+    if (![NSThread isMainThread])
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_indicatorView stopAnimating];
+            [self errorAlertDisplayWithErrorCode:errorCode];
+        });
+    }else{
+        [_indicatorView stopAnimating];
+        [self errorAlertDisplayWithErrorCode:errorCode];
+    }
+}
+
+
+-(void)errorAlertDisplayWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode
+{
+    NSString *strTitle = nil;
+    if (errorCode==WBSDKMediaTransferAlbumPermissionError) {
+        strTitle =@"请打开相册权限";
+    }
+    if (errorCode==WBSDKMediaTransferAlbumAssetTypeError) {
+        strTitle =@"资源类型错误";
+    }
+    if (errorCode==WBSDKMediaTransferAlbumWriteError) {
+        strTitle =@"相册写入错误";
+    }
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误提示" message:strTitle delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+    
+}
+
+#pragma mark Getter&&Setter
+-(UIActivityIndicatorView *)indicatorView
+{
+    if (!_indicatorView) {
+        _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _indicatorView.center = self.view.center;
+        [self.view addSubview:_indicatorView];
+        _indicatorView.color = [UIColor blueColor];
+    }
+    return _indicatorView;
+}
 
 @end
