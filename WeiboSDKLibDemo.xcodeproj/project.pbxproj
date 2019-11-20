@@ -35,6 +35,7 @@
 		8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */; };
 		88C2B47A1F2F1661004EF738 /* apm.mov in Resources */ = {isa = PBXBuildFile; fileRef = 88C2B4791F2F1661004EF738 /* apm.mov */; };
 		88C2B47C1F2F198B004EF738 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C2B47B1F2F198B004EF738 /* Photos.framework */; };
+		FAA1207F2384E83B004284DC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA1207E2384E83B004284DC /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkToWeiboViewController.m; sourceTree = "<group>"; };
 		88C2B4791F2F1661004EF738 /* apm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = apm.mov; sourceTree = "<group>"; };
 		88C2B47B1F2F198B004EF738 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		FAA1207E2384E83B004284DC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA1207F2384E83B004284DC /* WebKit.framework in Frameworks */,
 				88C2B47C1F2F198B004EF738 /* Photos.framework in Frameworks */,
 				64247CBF1B09D679000CE2B8 /* libz.dylib in Frameworks */,
 				64247CBD1B09D674000CE2B8 /* libsqlite3.dylib in Frameworks */,
@@ -124,6 +127,7 @@
 		18E67EB217057D9000DFAD63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAA1207E2384E83B004284DC /* WebKit.framework */,
 				88C2B47B1F2F198B004EF738 /* Photos.framework */,
 				64247CBE1B09D679000CE2B8 /* libz.dylib */,
 				64247CBC1B09D674000CE2B8 /* libsqlite3.dylib */,
@@ -226,6 +230,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				"zh-Hans",
 			);
@@ -362,7 +367,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libWeiboSDK",
@@ -375,7 +380,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_Development_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s i386 arm64 x86_64";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -391,7 +396,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
 				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libWeiboSDK",
@@ -404,7 +409,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_InHouse_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s i386 arm64 x86_64";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
