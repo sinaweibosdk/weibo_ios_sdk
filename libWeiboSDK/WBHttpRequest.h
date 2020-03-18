@@ -66,7 +66,7 @@
  */
 @interface WBHttpRequest : NSObject
 {
-    NSURLConnection                 *connection;
+    NSURLSessionDataTask            *sessionDataTask;
     NSMutableData                   *responseData;
 }
 
