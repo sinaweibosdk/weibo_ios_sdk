@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
 
+
+
 @interface WBDataTransferObject ()
 //@property (nonatomic, readonly) WeiboSDK3rdApp *app;
 - (NSString *)validate;
@@ -185,24 +187,21 @@
     BOOL isAllowShare = ((self.imageSwitch.on && self.mediaSwitch.on)||(self.imageSwitch.on && self.videoSwitch.on)||(self.mediaSwitch.on && self.videoSwitch.on));
     if (isAllowShare)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"图片、多媒体、视频两两不能组合分享" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
+        [self alertControllerWithTitle:@"提示" message:@"图片、多媒体、视频两两不能组合分享"  cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
         return;
     }
     
      //只有文字和多媒体(分享内容为网页)的时候打开分享到story开关，只会呼起发布器，没有意义
     if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"只有文字或者多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
+        [self alertControllerWithTitle:@"提示" message:@"只有文字或者多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
         return;
     }
     
     //未安装微博客户端，支持文字分享以及单张图片分享
     if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoSwitch.on || self.storySwitch.on))
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"未安装微博客户端时，仅支持文字与图片分享" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
+        [self alertControllerWithTitle:@"提示" message:@"未安装微博客户端时，仅支持文字与图片分享" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
         return;
     }
     
@@ -226,13 +225,10 @@
     if (!self.imageSwitch.on && !self.videoSwitch.on) {
         [self messageShare];
     }
-    
-  
 }
 
-#pragma mark -
-#pragma Internal Method
 
+#pragma Internal Method
 - (WBMessageObject *)messageToShareByWebView
 {
     WBMessageObject *message = [WBMessageObject message];
@@ -310,6 +306,7 @@
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = kRedirectURI;
     request.scope = @"all";
+   
     request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
                          @"Other_Info_1": [NSNumber numberWithInt:123],
                          @"Other_Info_2": @[@"obj1", @"obj2"],
@@ -334,30 +331,17 @@
 #pragma mark WBHttpRequestDelegate
 - (void)request:(WBHttpRequest *)request didFinishLoadingWithResult:(NSString *)result
 {
-    NSString *title = nil;
-    UIAlertView *alert = nil;
-    
-    title = NSLocalizedString(@"收到网络回调", nil);
-    alert = [[UIAlertView alloc] initWithTitle:title
-                                       message:[NSString stringWithFormat:@"%@",result]
-                                      delegate:nil
-                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                             otherButtonTitles:nil];
-    [alert show];
+   
+    dispatch_async(dispatch_get_main_queue(), ^{
+         [self alertControllerWithTitle:NSLocalizedString(@"收到网络回调", nil) message:[NSString stringWithFormat:@"%@",result] cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
+    });
 }
 
 - (void)request:(WBHttpRequest *)request didFailWithError:(NSError *)error;
 {
-    NSString *title = nil;
-    UIAlertView *alert = nil;
-    
-    title = NSLocalizedString(@"请求异常", nil);
-    alert = [[UIAlertView alloc] initWithTitle:title
-                                       message:[NSString stringWithFormat:@"%@",error]
-                                      delegate:nil
-                             cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                             otherButtonTitles:nil];
-    [alert show];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self alertControllerWithTitle:NSLocalizedString(@"请求异常", nil) message:[NSString stringWithFormat:@"%@",error] cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
+    });
 }
 
 #pragma WBMediaTransferProtocol
@@ -403,10 +387,30 @@
     if (errorCode==WBSDKMediaTransferAlbumWriteError) {
         strTitle =@"相册写入错误";
     }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误提示" message:strTitle delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
+    [self alertControllerWithTitle:@"错误提示" message:strTitle cancelBtnTitle:@"确定" sureBtnTitle:nil];
     
 }
+
+
+#pragma mark other method
+-(void)alertControllerWithTitle:(NSString *)title message:(NSString*)message cancelBtnTitle:(NSString*)cancelBtnTitle sureBtnTitle:(NSString*)sureBtnTitle
+{
+    if (!cancelBtnTitle && !sureBtnTitle) {
+           return;
+       }
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    if (cancelBtnTitle.length > 0)
+    {
+        [controller addAction:[UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:nil]];
+    }
+    if (sureBtnTitle.length > 0)
+    {
+        [controller addAction:[UIAlertAction actionWithTitle:sureBtnTitle style:UIAlertActionStyleDefault handler:nil]];
+    }
+ 
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 
 #pragma mark Getter&&Setter
 -(UIActivityIndicatorView *)indicatorView
@@ -421,3 +425,4 @@
 }
 
 @end
+
