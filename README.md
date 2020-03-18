@@ -208,3 +208,10 @@ the server cannot be made."这样的问题。
 1. 修复部分页面适配问题及iTunes下载链接失效问题
 2. 修复issue中部分问题
 3. 文档修改，增加常见问题解答
+
+# 3.2.7版本更新
+微博移动SDK3.2.7具体的变动如下：
+
+1. 替换NSURLConnection相关API
+2. 替换UIAlertView相关API
+3. 增加i386架构
