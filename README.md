@@ -224,4 +224,5 @@ the server cannot be made."这样的问题。
 2. 修改ios14 分享多图和视频丢数据问题
 3. 可以设置不获取idfa
 4. 去掉分享获取相册权限
+
 注意：更新3.3.0版本一定要在工程scheme白名单添加 weibosdk3.3，不然ios14 配备不生效
