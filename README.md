@@ -9,9 +9,6 @@
 另外，关于SDK的Bug反馈、用户体验、以及好的建议，请大家尽量提交到 Github 上，我们会尽快解决。  
 目前，我们正在逐步完善微博 SDK，争取为第三方开发者提供一个规范、简单易用、可靠、可扩展、可定制的 SDK，敬请期待。
 
-# ios14分享多图和视频问题公告
-ios14分享多图和视频会因为相册可选部分权限，导致分享多图和视频数据会有丢失，我们正在修复，10月中旬左右我们将发布新版SDK解决iOS14分享问题。如果现在已经有在使用WBImageObject  addImages: 添加多图分享方式的，请暂时替换成分享单图的方式WBImageObject imageData。
-
 # 概述
 微博 iOS 平台 SDK 为第三方应用提供了简单易用的微博API调用服务，使第三方客户端无需了解复杂的验证机制即可进行授权登陆，并提供微博分享功能，可直接通过微博官方客户端分享微博。
 
@@ -136,6 +133,7 @@ the server cannot be made."这样的问题。
 		<string>sinaweibo</string>
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
+		<string>weibosdk3.3</string>
 	</array>
 
 ###3.应用瘦身与bitcode
@@ -218,3 +216,12 @@ the server cannot be made."这样的问题。
 1. 替换NSURLConnection相关API
 2. 替换UIAlertView相关API
 3. 增加i386架构
+
+# 3.3.0版本更新
+微博移动SDK3.3.0具体的变动如下：
+
+1. 增加支持universalLink分享跳转
+2. 修改ios14 分享多图和视频丢数据问题
+3. 可以设置不获取idfa
+4. 去掉分享获取相册权限
+注意：更新3.3.0版本一定要在工程scheme白名单添加 weibosdk3.3，不然ios14 配备不生效
