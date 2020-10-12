@@ -32,7 +32,6 @@
 @property (nonatomic, strong) UISwitch *imageSwitch;
 @property (nonatomic, strong) UISwitch *mediaSwitch;
 @property (nonatomic, strong) UISwitch *videoSwitch;
-@property (nonatomic, strong) UISwitch *storySwitch;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -117,32 +116,29 @@
     [scrollView addSubview:videoLabel];
     [scrollView addSubview:self.videoSwitch];
     
-    UILabel *storyLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 80, 30)];
-    storyLabel.text = NSLocalizedString(@"story开关", nil);
-    storyLabel.backgroundColor = [UIColor clearColor];
-    storyLabel.textAlignment = NSTextAlignmentCenter;
-    self.storySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 360, 120, 30)];
-    [scrollView addSubview:storyLabel];
-    [scrollView addSubview:self.storySwitch];
     
     self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.shareButton.titleLabel.numberOfLines = 2;
     self.shareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.shareButton setTitle:NSLocalizedString(@"分享消息到微博", nil) forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    self.shareButton.frame = CGRectMake(210, 200, 90, 110);
+    self.shareButton.frame = CGRectMake(210, 200, 90, 50);
     [scrollView addSubview:self.shareButton];
     
-    UILabel *linkWeiboLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 410, 290, 20)];
-    linkWeiboLabel.text = NSLocalizedString(@"链接到微博API:", nil);
-    linkWeiboLabel.backgroundColor = [UIColor clearColor];
-    linkWeiboLabel.textAlignment = NSTextAlignmentLeft;
-    [scrollView addSubview:linkWeiboLabel];
+    
+    UIButton *checkLinkBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    checkLinkBtn.titleLabel.numberOfLines = 0;
+    checkLinkBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [checkLinkBtn setTitle:NSLocalizedString(@"检查UniversalLink是否有效", nil) forState:UIControlStateNormal];
+    [checkLinkBtn addTarget:self action:@selector(clickUniversalLinkBtn) forControlEvents:UIControlEventTouchUpInside];
+    checkLinkBtn.frame = CGRectMake(210, 360, 90, 80);
+    [scrollView addSubview:checkLinkBtn];
+    
     
     UIButton *linkWeiboButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [linkWeiboButton setTitle:NSLocalizedString(@"链接到微博API Demo", nil) forState:UIControlStateNormal];
     [linkWeiboButton addTarget:self action:@selector(linkToWeiboAPI) forControlEvents:UIControlEventTouchUpInside];
-    linkWeiboButton.frame = CGRectMake(20, 430, 280, 40);
+    linkWeiboButton.frame = CGRectMake(20, 480, 280, 40);
     [scrollView addSubview:linkWeiboButton];
     
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 530)];
@@ -177,12 +173,34 @@
                          @"Other_Info_1": [NSNumber numberWithInt:123],
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    [WeiboSDK sendRequest:request];
-    [_indicatorView stopAnimating];
+    __weak SendMessageToWeiboViewController *weak_self = self;
+    [WeiboSDK sendRequest:request completion:^(BOOL success) {
+        [weak_self.indicatorView stopAnimating];
+    }];
 }
+
+/*- (void)shareMessageToContactPressed
+{
+    //TODO:
+    //1、微博内部添加WBWeiyouObject对象
+    //2、在WeiboSDK.m添加对WBShareMessageToContactRequest的处理
+    WBMessageObject *message = [WBMessageObject message];
+    WBWeiyouObject *weiyouMessage = [WBWeiyouObject object];
+    weiyouMessage.title = @"加油加油";
+    weiyouMessage.url = @"https://36kr.com/newsflashes/678852489543812";
+//    weiyouMessage.url = @"http://tech.sina.com.cn/i/2015-11-19/doc-ifxkwuxx1517374.shtml";
+    weiyouMessage.imageURL = @"http://www.5671.info/hh/image/2845890749/";
+    weiyouMessage.summary = @"为我点赞";
+    message.weiyouObject = weiyouMessage;
+    [WBShareMessageToContactRequest requestWithMessage:message];
+}*/
+
+
 
 - (void)shareButtonPressed
 {
+
+    
     //图片、多媒体、视频两两不共存
     BOOL isAllowShare = ((self.imageSwitch.on && self.mediaSwitch.on)||(self.imageSwitch.on && self.videoSwitch.on)||(self.mediaSwitch.on && self.videoSwitch.on));
     if (isAllowShare)
@@ -191,15 +209,8 @@
         return;
     }
     
-     //只有文字和多媒体(分享内容为网页)的时候打开分享到story开关，只会呼起发布器，没有意义
-    if ((self.textSwitch.on || self.mediaSwitch.on) && (!self.imageSwitch.on && !self.videoSwitch.on) && self.storySwitch.on)
-    {
-        [self alertControllerWithTitle:@"提示" message:@"只有文字或者多媒体的时候打开分享到story开关，只会呼起发布器，没有意义" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
-        return;
-    }
-    
     //未安装微博客户端，支持文字分享以及单张图片分享
-    if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoSwitch.on || self.storySwitch.on))
+    if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoSwitch.on))
     {
         [self alertControllerWithTitle:@"提示" message:@"未安装微博客户端时，仅支持文字与图片分享" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
         return;
@@ -227,6 +238,35 @@
     }
 }
 
+- (void)clickUniversalLinkBtn{
+    [WeiboSDK checkUniversalLink:^(WBULCheckStep step, NSError *error) {
+        NSLog(@"step == %ld  errorCode=%ld  errorReason=%@",(long)step,(long)error.code,error.localizedDescription);
+    }];
+}
+
+/*- (void)sharePanoramic{
+    WBMessageObject *message = [WBMessageObject message];
+    WBImageObject *imageObject = [WBImageObject object];
+    
+    imageObject.panoramaImageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"timg" ofType:@"jpeg"]];;
+    message.imageObject = imageObject;
+    message.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
+    
+    AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.redirectURI = kRedirectURI;
+    authRequest.scope = @"all";
+    
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:myDelegate.wbtoken];
+    request.userInfo = @{@"ShareMessageFrom": @"SendMessageToWeiboViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    __weak SendMessageToWeiboViewController *weak_self = self;
+    [WeiboSDK sendRequest:request completion:^(BOOL success) {
+        [weak_self.indicatorView stopAnimating];
+    }];
+}*/
 
 #pragma Internal Method
 - (WBMessageObject *)messageToShareByWebView
@@ -263,11 +303,9 @@
         UIImage *image = [UIImage imageNamed:@"image_1.jpg"];
         UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
         NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
+
+        
         WBImageObject *imageObject = [WBImageObject object];
-        if (self.storySwitch.on) {
-            imageObject.isShareToStory = YES;
-            imageArray = [NSArray arrayWithObject:image];
-        }
         imageObject.delegate = self;
         
         [imageObject addImages:imageArray];
@@ -287,10 +325,8 @@
     
     if (self.videoSwitch.on) {
         WBNewVideoObject *videoObject = [WBNewVideoObject object];
-        if (self.storySwitch.on) {
-            videoObject.isShareToStory = YES;
-        }
-        NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"apm" ofType:@"mov"]];
+        NSString *videoName = @"apm";
+        NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:videoName ofType:@"mov"]];
         videoObject.delegate = self;
         [videoObject addVideo:videoUrl];
         message.videoObject = videoObject;
@@ -306,12 +342,14 @@
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = kRedirectURI;
     request.scope = @"all";
-   
+    //下面两句测试打开ituns网页
+    request.shouldShowWebViewForAuthIfCannotSSO = YES;
+//    request.shouldOpenWeiboAppInstallPageIfNotInstalled = YES;
     request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
                          @"Other_Info_1": [NSNumber numberWithInt:123],
                          @"Other_Info_2": @[@"obj1", @"obj2"],
                          @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-    [WeiboSDK sendRequest:request];
+    [WeiboSDK sendRequest:request completion:nil];
 }
 
 - (void)ssoOutButtonPressed
@@ -350,11 +388,11 @@
     if (![NSThread isMainThread])
     {
          dispatch_async(dispatch_get_main_queue(), ^{
-           [_indicatorView stopAnimating];
+           
            [self messageShare];
         });
     }else{
-        [_indicatorView stopAnimating];
+        
         [self messageShare];
     }
 
@@ -365,11 +403,11 @@
     if (![NSThread isMainThread])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_indicatorView stopAnimating];
+            
             [self errorAlertDisplayWithErrorCode:errorCode];
         });
     }else{
-        [_indicatorView stopAnimating];
+        
         [self errorAlertDisplayWithErrorCode:errorCode];
     }
 }

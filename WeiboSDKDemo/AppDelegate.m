@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SendMessageToWeiboViewController.h"
-
+#import "WeiboSDK.h"
 
 @interface WBBaseRequest ()
 - (void)debugPrint;
@@ -26,8 +26,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"wmm--%s",__func__);
     [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:kAppKey];
+    [WeiboSDK registerApp:kAppKey universalLink:@"https://myappapi.fun/"];
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -43,28 +44,36 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSLog(@"wmm--%s",__func__);
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"wmm--%s",__func__);
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    
+    NSLog(@"wmm--%s",__func__);
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    
+    NSLog(@"wmm--%s",__func__);
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    
+    NSLog(@"wmm--%s",__func__);
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -110,6 +119,22 @@
         self.wbRefreshToken = [(WBAuthorizeResponse *)response refreshToken];
         
         [[self topViewController] presentViewController:alertcontroller animated:YES completion:nil];
+    }if([response isKindOfClass:WBShareMessageToContactResponse.class])
+    {
+        NSString *title = NSLocalizedString(@"发送结果", nil);
+        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
+       UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertcontroller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"确定", nil) style:UIAlertActionStyleCancel handler:nil]];
+        WBShareMessageToContactResponse* shareMessageToContactResponse = (WBShareMessageToContactResponse*)response;
+        NSString* accessToken = [shareMessageToContactResponse.authResponse accessToken];
+        if (accessToken)
+        {
+            self.wbtoken = accessToken;
+        }
+        NSString* userID = [shareMessageToContactResponse.authResponse userID];
+        if (userID) {
+            self.wbCurrentUserID = userID;
+        }
     }
 }
 
@@ -122,6 +147,12 @@
 {
     return [WeiboSDK handleOpenURL:url delegate:self ];
 }
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler{
+    return [WeiboSDK handleOpenUniversalLink:userActivity delegate:self];
+}
+
+
 
 #pragma mark other method
 - (UIViewController *)topViewController {
