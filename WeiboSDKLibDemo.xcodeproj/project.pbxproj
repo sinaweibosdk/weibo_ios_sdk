@@ -78,6 +78,7 @@
 		8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkToWeiboViewController.m; sourceTree = "<group>"; };
 		88C2B4791F2F1661004EF738 /* apm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = apm.mov; sourceTree = "<group>"; };
 		88C2B47B1F2F198B004EF738 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		EFE06D5E25344066000B9FDF /* SDKDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDKDemo.entitlements; sourceTree = "<group>"; };
 		FAA1207E2384E83B004284DC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -109,6 +110,7 @@
 		18E67EA717057D8F00DFAD63 = {
 			isa = PBXGroup;
 			children = (
+				EFE06D5E25344066000B9FDF /* SDKDemo.entitlements */,
 				64A7C21F19D3B323005463C3 /* libWeiboSDK */,
 				18E67EB917057D9000DFAD63 /* WeiboSDKDemo */,
 				18E67EB217057D9000DFAD63 /* Frameworks */,
@@ -221,7 +223,8 @@
 				ORGANIZATIONNAME = "SINA iOS Team";
 				TargetAttributes = {
 					18E67EAF17057D8F00DFAD63 = {
-						DevelopmentTeam = 3U3XKPF3QC;
+						DevelopmentTeam = MPXZ3AAD6Q;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -360,10 +363,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wei Cheng (P9KMJ2UFM6)";
+				CODE_SIGN_ENTITLEMENTS = SDKDemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3U3XKPF3QC;
+				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
@@ -375,10 +379,10 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SDKDemo;
 				PRODUCT_NAME = SDKDemo;
 				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
-				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_Development_Provisioning;
+				PROVISIONING_PROFILE_SPECIFIER = WeiboSDKDemoDev;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
@@ -390,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = SDKDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
