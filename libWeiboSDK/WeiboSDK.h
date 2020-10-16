@@ -74,7 +74,6 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  */
 + (BOOL)openWeiboApp;
 
-
 /**
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
@@ -105,7 +104,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param universalLink 开发者Universal Link
  @return 注册成功返回YES，失败返回NO
  */
-+ (BOOL)registerApp:(NSString *)appKey universalLink:(NSString *)universalLink;
++ (BOOL)registerApp:(NSString * __nonnull)appKey universalLink:(NSString * __nonnull)universalLink;
 
 /**
  step：检测的步骤
