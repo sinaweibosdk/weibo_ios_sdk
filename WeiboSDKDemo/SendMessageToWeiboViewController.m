@@ -123,13 +123,13 @@
     [scrollView addSubview:videoLabel];
     [scrollView addSubview:self.videoSwitch];
     
-    self.changeVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.videoSwitch.frame.origin.x+self.videoSwitch.frame.size.width+20, self.videoSwitch.frame.origin.y, 80, 30)];
-    [self.changeVideoBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    self.changeVideoBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    self.changeVideoBtn.tag = 0;
-    [self.changeVideoBtn setTitle:@"10MB视频" forState:UIControlStateNormal];
-    [self.changeVideoBtn addTarget:self action:@selector(clickChangeVideo) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:self.changeVideoBtn];
+//    self.changeVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.videoSwitch.frame.origin.x+self.videoSwitch.frame.size.width+20, self.videoSwitch.frame.origin.y, 80, 30)];
+//    [self.changeVideoBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    self.changeVideoBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//    self.changeVideoBtn.tag = 0;
+//    [self.changeVideoBtn setTitle:@"10MB视频" forState:UIControlStateNormal];
+//    [self.changeVideoBtn addTarget:self action:@selector(clickChangeVideo) forControlEvents:UIControlEventTouchUpInside];
+//    [scrollView addSubview:self.changeVideoBtn];
     
     
     UILabel *superTopicLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 80, 30)];
@@ -358,16 +358,16 @@
     if (self.imageSwitch.on)
     {
         UIImage *image = [UIImage imageNamed:@"image_1.jpg"];
-//        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
-//        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
+        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
+        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
         
-        NSMutableArray *imageArray = [NSMutableArray array];
-        for (int i=1; i<10; i++) {
-            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"IMG_%d.jpeg",i]];
-            if(image){
-                [imageArray addObject:image];
-            }
-        }
+//        NSMutableArray *imageArray = [NSMutableArray array];
+//        for (int i=1; i<10; i++) {
+//            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"IMG_%d.jpeg",i]];
+//            if(image){
+//                [imageArray addObject:image];
+//            }
+//        }
 //        UIImage *GIfImage = [UIImage imageNamed:@"testGif.gif"];
 //        if(GIfImage){
 //            [imageArray addObject:GIfImage];
@@ -394,13 +394,13 @@
     if (self.videoSwitch.on) {
         WBNewVideoObject *videoObject = [WBNewVideoObject object];
         NSString *videoName = @"apm";
-        if(self.changeVideoBtn.tag == 1){
-            videoName = @"20MB";
-        }else if(self.changeVideoBtn.tag == 2){
-            videoName = @"30MB";
-        }else if(self.changeVideoBtn.tag == 3){
-            videoName = @"50MB";
-        }
+//        if(self.changeVideoBtn.tag == 1){
+//            videoName = @"20MB";
+//        }else if(self.changeVideoBtn.tag == 2){
+//            videoName = @"30MB";
+//        }else if(self.changeVideoBtn.tag == 3){
+//            videoName = @"50MB";
+//        }
         NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:videoName ofType:@"mov"]];
         videoObject.delegate = self;
         [videoObject addVideo:videoUrl];
