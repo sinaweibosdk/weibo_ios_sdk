@@ -10,7 +10,7 @@
 #import "LinkToWeiboViewController.h"
 #import "AppDelegate.h"
 #import "WeiboSDK.h"
-
+#import "SuperTopicViewController.h"
 
 
 @interface WBDataTransferObject ()
@@ -24,6 +24,7 @@
 #endif
 @end
 
+
 @interface SendMessageToWeiboViewController()<UIScrollViewDelegate,WBMediaTransferProtocol>
 
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -32,6 +33,12 @@
 @property (nonatomic, strong) UISwitch *imageSwitch;
 @property (nonatomic, strong) UISwitch *mediaSwitch;
 @property (nonatomic, strong) UISwitch *videoSwitch;
+@property (nonatomic, strong) UIButton *changeVideoBtn;
+@property (nonatomic, strong) UISwitch *weiyouSwitch;
+@property (nonatomic, strong) UISwitch *superTopicSwitch;
+
+@property (nonatomic, strong) NSString *superTopicName;
+@property (nonatomic, strong) NSString *sectionName;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -116,6 +123,32 @@
     [scrollView addSubview:videoLabel];
     [scrollView addSubview:self.videoSwitch];
     
+    self.changeVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.videoSwitch.frame.origin.x+self.videoSwitch.frame.size.width+20, self.videoSwitch.frame.origin.y, 80, 30)];
+    [self.changeVideoBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    self.changeVideoBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.changeVideoBtn.tag = 0;
+    [self.changeVideoBtn setTitle:@"10MB视频" forState:UIControlStateNormal];
+    [self.changeVideoBtn addTarget:self action:@selector(clickChangeVideo) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:self.changeVideoBtn];
+    
+    
+    UILabel *superTopicLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 80, 30)];
+    superTopicLabel.text = NSLocalizedString(@"超话", nil);
+    superTopicLabel.backgroundColor = [UIColor clearColor];
+    superTopicLabel.textAlignment = NSTextAlignmentCenter;
+    self.superTopicSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 360, 120, 30)];
+    [self.superTopicSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+    [scrollView addSubview:superTopicLabel];
+    [scrollView addSubview:self.superTopicSwitch];
+    
+    
+   /* UILabel *weiyouLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 120, 30)];
+   weiyouLabel.text = NSLocalizedString(@"分享到私信", nil);
+   weiyouLabel.backgroundColor = [UIColor clearColor];
+   weiyouLabel.textAlignment = NSTextAlignmentCenter;
+   self.weiyouSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(130, 360, 120, 30)];
+   [scrollView addSubview:weiyouLabel];
+   [scrollView addSubview:self.weiyouSwitch];*/
     
     self.shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.shareButton.titleLabel.numberOfLines = 2;
@@ -143,6 +176,24 @@
     
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 530)];
     
+}
+
+
+- (void)switchAction:(UISwitch *) s1 {
+    if(self.superTopicSwitch == s1){
+        if(s1.on){
+            SuperTopicViewController *vc = [SuperTopicViewController new];
+               [vc setCompletionBlock:^(NSString * _Nonnull topicName, NSString * _Nonnull sectionName) {
+                   self.superTopicName = topicName;
+                   self.sectionName = sectionName;
+               }];
+               [self.navigationController pushViewController:vc animated:YES];
+
+        }else{
+            self.superTopicName = nil;
+            self.sectionName = nil;
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -199,6 +250,12 @@
 
 - (void)shareButtonPressed
 {
+    
+//    if (self.weiyouSwitch.on)
+//    {
+//        [self shareMessageToContactPressed];
+//        return;
+//    }
 
     
     //图片、多媒体、视频两两不共存
@@ -301,9 +358,20 @@
     if (self.imageSwitch.on)
     {
         UIImage *image = [UIImage imageNamed:@"image_1.jpg"];
-        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
-        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
-
+//        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
+//        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
+        
+        NSMutableArray *imageArray = [NSMutableArray array];
+        for (int i=1; i<10; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"IMG_%d.jpeg",i]];
+            if(image){
+                [imageArray addObject:image];
+            }
+        }
+//        UIImage *GIfImage = [UIImage imageNamed:@"testGif.gif"];
+//        if(GIfImage){
+//            [imageArray addObject:GIfImage];
+//        }
         
         WBImageObject *imageObject = [WBImageObject object];
         imageObject.delegate = self;
@@ -326,13 +394,45 @@
     if (self.videoSwitch.on) {
         WBNewVideoObject *videoObject = [WBNewVideoObject object];
         NSString *videoName = @"apm";
+        if(self.changeVideoBtn.tag == 1){
+            videoName = @"20MB";
+        }else if(self.changeVideoBtn.tag == 2){
+            videoName = @"30MB";
+        }else if(self.changeVideoBtn.tag == 3){
+            videoName = @"50MB";
+        }
         NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:videoName ofType:@"mov"]];
         videoObject.delegate = self;
         [videoObject addVideo:videoUrl];
         message.videoObject = videoObject;
     }
+    if(self.superTopicSwitch.on && self.superTopicName){
+        WBSuperGroupObject *superGroupObject = [WBSuperGroupObject object];
+        superGroupObject.superGroup = self.superTopicName;
+        superGroupObject.section = self.sectionName;
+        superGroupObject.extData = @{@"type":@"SDK 测试"};
+        message.superTopicObject = superGroupObject;
+    }
     
     return message;
+}
+
+- (void)clickChangeVideo{
+    NSString *title = @"10MB视频";
+    if(self.changeVideoBtn.tag == 0){
+        self.changeVideoBtn.tag = 1;
+        title = @"20MB视频";
+    }else if(self.changeVideoBtn.tag == 1){
+        self.changeVideoBtn.tag = 2;
+        title = @"30MB视频";
+    }else if(self.changeVideoBtn.tag == 2){
+        self.changeVideoBtn.tag = 3;
+        title = @"50MB视频";
+    }else if(self.changeVideoBtn.tag == 3){
+        self.changeVideoBtn.tag = 0;
+        title = @"10MB视频";
+    }
+    [self.changeVideoBtn setTitle:title forState:UIControlStateNormal];
 }
 
 

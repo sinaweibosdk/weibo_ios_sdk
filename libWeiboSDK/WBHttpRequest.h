@@ -171,6 +171,7 @@ typedef void (^WBRequestHandler)(WBHttpRequest *httpRequest,
  @param queue 发起请求的NSOperationQueue对象，如queue为nil,则在主线程（[NSOperationQueue mainQueue]）发起请求。
  @param handler 接口请求返回调用的block方法
  */
+
 + (WBHttpRequest *)requestWithAccessToken:(NSString *)accessToken
                                       url:(NSString *)url
                                httpMethod:(NSString *)httpMethod

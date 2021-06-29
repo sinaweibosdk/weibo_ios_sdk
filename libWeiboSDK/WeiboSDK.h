@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
 @class WBHttpRequest;
 @class PHAsset;
 @class WBNewVideoObject;
+@class WBSuperGroupObject;
 
 /**
  微博SDK接口类
@@ -126,7 +127,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /*! @brief 处理微博通过Universal Link启动App时传递的数据
  *
  * 需要在 application:continueUserActivity:restorationHandler:中调用。
- * @param userActivity 微信启动第三方应用时系统API传递过来的userActivity
+ * @param userActivity 微博启动第三方应用时系统API传递过来的userActivity
  * @param delegate  WXApiDelegate对象，用来接收微博触发的消息。
  * @return 成功返回YES，失败返回NO。
  */
@@ -361,6 +362,8 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  */
 @property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
 
+
+
 @end
 
 
@@ -539,6 +542,15 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 @property (nonatomic, strong) WBNewVideoObject *videoObject;
 /**
  
+ /**
+  消息的超话内容
+  
+  @see WBSuperGroupObject
+  */
+@property (nonatomic, strong)WBSuperGroupObject * _Nullable superTopicObject;
+ /**
+ 
+ 
  
  返回一个 WBMessageObject 对象
  
@@ -655,6 +667,22 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  */
 -(NSString*)finalAsset;
 
+@end
+
+
+/**
+ 消息中包含的图片数据对象
+ */
+@interface WBSuperGroupObject : NSObject
+@property (nonatomic, strong) NSString * _Nonnull superGroup;//超话名称,长度不能超过150
+@property (nonatomic, strong) NSString * _Nullable section;//版块名
+@property (nonatomic, strong) NSDictionary * _Nullable extData;//自定义参数
+/**
+ 返回一个 WBSuperGroupObject 对象
+ 
+ @return 返回一个*自动释放的*WBSuperGroupObject对象
+ */
++ (id)object;
 @end
 
 
