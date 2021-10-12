@@ -12,6 +12,11 @@
 #import "WeiboSDK.h"
 #import "SuperTopicViewController.h"
 
+#import <Photos/PHPhotoLibrary.h>
+#import "CTAssetsPickerController.h"
+
+static int kImageShareMaxCount = 9;
+static int kVideoShareMaxCount = 1;
 
 @interface WBDataTransferObject ()
 //@property (nonatomic, readonly) WeiboSDK3rdApp *app;
@@ -25,20 +30,24 @@
 @end
 
 
-@interface SendMessageToWeiboViewController()<UIScrollViewDelegate,WBMediaTransferProtocol>
+@interface SendMessageToWeiboViewController()<UIScrollViewDelegate,WBMediaTransferProtocol,CTAssetsPickerControllerDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UISwitch *textSwitch;
-@property (nonatomic, strong) UISwitch *imageSwitch;
+@property (nonatomic, strong) UILabel *imageCountLabel;
 @property (nonatomic, strong) UISwitch *mediaSwitch;
-@property (nonatomic, strong) UISwitch *videoSwitch;
-@property (nonatomic, strong) UIButton *changeVideoBtn;
+@property (nonatomic, strong) UILabel *videoCountLabel;
 @property (nonatomic, strong) UISwitch *weiyouSwitch;
 @property (nonatomic, strong) UISwitch *superTopicSwitch;
 
 @property (nonatomic, strong) NSString *superTopicName;
 @property (nonatomic, strong) NSString *sectionName;
+
+@property (nonatomic, strong) PHAsset *livePhotoAsset;
+@property (nonatomic, strong) PHAsset *videoAsset;
+
+@property (nonatomic, strong) NSMutableArray <PHAsset *>*imageAssetArray;
 
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -103,9 +112,27 @@
     imageLabel.text = NSLocalizedString(@"图片", nil);
     imageLabel.backgroundColor = [UIColor clearColor];
     imageLabel.textAlignment = NSTextAlignmentCenter;
-    self.imageSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 240, 120, 30)];
+    self.imageCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 240, 60, 30)];
+    self.imageCountLabel.font = [UIFont systemFontOfSize:13];
+    self.imageCountLabel.textAlignment = NSTextAlignmentCenter;
     [scrollView addSubview:imageLabel];
-    [scrollView addSubview:self.imageSwitch];
+    [scrollView addSubview:self.imageCountLabel];
+    
+    UIButton *pickerBtn = [[UIButton alloc] initWithFrame:CGRectMake(180, 240, 50, 30)];
+    [pickerBtn setTitle:@"选相册" forState:UIControlStateNormal];
+    [pickerBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    pickerBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [pickerBtn addTarget:self action:@selector(intoPicker) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:pickerBtn];
+    
+    UIButton *imageDeleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(250, 240, 40, 30)];
+    [imageDeleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [imageDeleteBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    imageDeleteBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [imageDeleteBtn addTarget:self action:@selector(deleteImage) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:imageDeleteBtn];
+    
+    
     
     UILabel *mediaLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 280, 80, 30)];
     mediaLabel.text = NSLocalizedString(@"多媒体", nil);
@@ -119,17 +146,25 @@
     videoLabel.text = NSLocalizedString(@"视频", nil);
     videoLabel.backgroundColor = [UIColor clearColor];
     videoLabel.textAlignment = NSTextAlignmentCenter;
-    self.videoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(100, 320, 120, 30)];
+    self.videoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 320, 60, 30)];
+    self.videoCountLabel.font = [UIFont systemFontOfSize:13];
+    self.videoCountLabel.textAlignment = NSTextAlignmentCenter;
     [scrollView addSubview:videoLabel];
-    [scrollView addSubview:self.videoSwitch];
+    [scrollView addSubview:self.videoCountLabel];
     
-//    self.changeVideoBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.videoSwitch.frame.origin.x+self.videoSwitch.frame.size.width+20, self.videoSwitch.frame.origin.y, 80, 30)];
-//    [self.changeVideoBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    self.changeVideoBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-//    self.changeVideoBtn.tag = 0;
-//    [self.changeVideoBtn setTitle:@"10MB视频" forState:UIControlStateNormal];
-//    [self.changeVideoBtn addTarget:self action:@selector(clickChangeVideo) forControlEvents:UIControlEventTouchUpInside];
-//    [scrollView addSubview:self.changeVideoBtn];
+    UIButton *pickerBtn1 = [[UIButton alloc] initWithFrame:CGRectMake(180, 320, 50, 30)];
+    [pickerBtn1 setTitle:@"选相册" forState:UIControlStateNormal];
+    [pickerBtn1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    pickerBtn1.titleLabel.font = [UIFont systemFontOfSize:15];
+    [pickerBtn1 addTarget:self action:@selector(intoPicker) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:pickerBtn1];
+    
+    UIButton *videoDeleteBtn = [[UIButton alloc] initWithFrame:CGRectMake(250, 320, 40, 30)];
+    [videoDeleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    [videoDeleteBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    videoDeleteBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [videoDeleteBtn addTarget:self action:@selector(deleteVideo) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:videoDeleteBtn];
     
     
     UILabel *superTopicLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 80, 30)];
@@ -140,6 +175,8 @@
     [self.superTopicSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [scrollView addSubview:superTopicLabel];
     [scrollView addSubview:self.superTopicSwitch];
+    
+    
     
     
    /* UILabel *weiyouLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 360, 120, 30)];
@@ -155,7 +192,7 @@
     self.shareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.shareButton setTitle:NSLocalizedString(@"分享消息到微博", nil) forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    self.shareButton.frame = CGRectMake(210, 200, 90, 50);
+    self.shareButton.frame = CGRectMake(80, 410, 90, 50);
     [scrollView addSubview:self.shareButton];
     
     
@@ -176,8 +213,35 @@
     
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 530)];
     
+    [self updatePromptText];
+    
 }
 
+- (void)updatePromptText{
+    self.imageCountLabel.text = [NSString stringWithFormat:@"(0/%d)",kImageShareMaxCount];
+    if(self.livePhotoAsset){
+        self.imageCountLabel.text = @"live(1/1)";
+    }else if(self.imageAssetArray.count){
+        self.imageCountLabel.text = [NSString stringWithFormat:@"(%lu/%d)",(unsigned long)self.imageAssetArray.count,kImageShareMaxCount];
+    }
+    
+    self.videoCountLabel.text = [NSString stringWithFormat:@"(0/%d)",kVideoShareMaxCount];
+    if(self.videoAsset){
+        self.videoCountLabel.text = [NSString stringWithFormat:@"(1/%d)",kVideoShareMaxCount];
+    }
+    
+}
+
+- (void)deleteVideo{
+    self.videoAsset = nil;
+    [self updatePromptText];
+}
+
+- (void)deleteImage{
+    [self.imageAssetArray removeAllObjects];
+    self.livePhotoAsset = nil;
+    [self updatePromptText];
+}
 
 - (void)switchAction:(UISwitch *) s1 {
     if(self.superTopicSwitch == s1){
@@ -214,6 +278,10 @@
 
 -(void)messageShare
 {
+    if (self.textSwitch.on)
+    {
+        self.messageObject.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
+    }
     AppDelegate *myDelegate =(AppDelegate*)[[UIApplication sharedApplication] delegate];
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.redirectURI = kRedirectURI;
@@ -259,7 +327,7 @@
 
     
     //图片、多媒体、视频两两不共存
-    BOOL isAllowShare = ((self.imageSwitch.on && self.mediaSwitch.on)||(self.imageSwitch.on && self.videoSwitch.on)||(self.mediaSwitch.on && self.videoSwitch.on));
+    BOOL isAllowShare = (([self hasImageShare] && self.mediaSwitch.on)||([self hasImageShare] && self.videoAsset)||(self.mediaSwitch.on && self.videoAsset));
     if (isAllowShare)
     {
         [self alertControllerWithTitle:@"提示" message:@"图片、多媒体、视频两两不能组合分享"  cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
@@ -267,7 +335,7 @@
     }
     
     //未安装微博客户端，支持文字分享以及单张图片分享
-    if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoSwitch.on))
+    if (![WeiboSDK isCanShareInWeiboAPP] && (self.mediaSwitch.on || self.videoAsset))
     {
         [self alertControllerWithTitle:@"提示" message:@"未安装微博客户端时，仅支持文字与图片分享" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
         return;
@@ -278,21 +346,30 @@
     [self.indicatorView startAnimating];
     [_indicatorView setHidesWhenStopped:YES];
     
-    
-    
     //未安装微博客户端，支持文字分享以及单张图片分享
-      if (![WeiboSDK isCanShareInWeiboAPP] && (self.textSwitch.on || self.imageSwitch.on))
-      {
-          _messageObject = [self messageToShareByWebView];
-          [self messageShare];
-          return;
-      }
-
-    _messageObject = [self messageToShare];
-    //注意：安装微博客户端使用多图分享逻辑，分享时在图片、视频准备好的回调方法中分享
-    if (!self.imageSwitch.on && !self.videoSwitch.on) {
-        [self messageShare];
+    if (![WeiboSDK isCanShareInWeiboAPP] && (self.textSwitch.on || [self hasImageShare]))
+    {
+        [self messageToShareByWebView];
+    }else if([self hasImageShare]){
+        [self shareMessageToImage];
+    }else if(self.videoAsset){
+        [self shareMessageToVideo];
+    }else if (self.mediaSwitch.on){
+        [self shareMessageToMedia];
+    }else if(self.superTopicSwitch.on && self.superTopicName){
+        [self shareSuperTopic];
+    }else if(self.textSwitch.on){
+        [self shareMessageToText];
+    }else{
+        [self.indicatorView stopAnimating];
     }
+}
+
+- (BOOL)hasImageShare{
+    if(self.livePhotoAsset || self.imageAssetArray.count){
+        return YES;
+    }
+    return NO;
 }
 
 - (void)clickUniversalLinkBtn{
@@ -326,7 +403,15 @@
 }*/
 
 #pragma Internal Method
-- (WBMessageObject *)messageToShareByWebView
+
+- (void)shareMessageToText{
+    WBMessageObject *message = [WBMessageObject message];
+    message.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
+    self.messageObject = message;
+    [self messageShare];
+}
+
+- (void)messageToShareByWebView
 {
     WBMessageObject *message = [WBMessageObject message];
     
@@ -335,7 +420,7 @@
         message.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
     }
     
-    if (self.imageSwitch.on)
+    if ([self hasImageShare])
     {
         message.text = @"使用网页分享";
         WBImageObject *imageObject = [WBImageObject object];
@@ -343,10 +428,11 @@
         imageObject.delegate = self;
         message.imageObject = imageObject;
     }
-    return message;
+    self.messageObject = message;
+    [self messageShare];
 }
 
-- (WBMessageObject *)messageToShare
+- (void)shareMessageToLivePhoto
 {
     WBMessageObject *message = [WBMessageObject message];
     
@@ -355,86 +441,193 @@
         message.text = NSLocalizedString(@"测试通过WeiboSDK发送文字到微博!", nil);
     }
     
-    if (self.imageSwitch.on)
+    if (self.livePhotoAsset)
     {
-        UIImage *image = [UIImage imageNamed:@"image_1.jpg"];
-        UIImage *image1 = [UIImage imageNamed:@"image_2.jpg"];
-        NSArray *imageArray = [NSArray arrayWithObjects:image,image1, nil];
+        WBImageObject *imageObject = [WBImageObject object];
+        message.imageObject = imageObject;
+        self.messageObject = message;
+        [imageObject setLivePhotoAsset:self.livePhotoAsset completion:^(NSString * _Nullable error) {
+            if(!error){
+                [self messageShare];
+            }
+        }];
         
-//        NSMutableArray *imageArray = [NSMutableArray array];
-//        for (int i=1; i<10; i++) {
-//            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"IMG_%d.jpeg",i]];
-//            if(image){
-//                [imageArray addObject:image];
-//            }
-//        }
-//        UIImage *GIfImage = [UIImage imageNamed:@"testGif.gif"];
-//        if(GIfImage){
-//            [imageArray addObject:GIfImage];
-//        }
+    }
+    
+    
+}
+
+- (void )shareMessageToMedia{
+    WBMessageObject *message = [WBMessageObject message];
+    WBWebpageObject *webpage = [WBWebpageObject object];
+    webpage.objectID = @"identifier1";
+    webpage.title = NSLocalizedString(@"分享网页标题", nil);
+    webpage.description = [NSString stringWithFormat:NSLocalizedString(@"分享网页内容简介-%.0f", nil), [[NSDate date] timeIntervalSince1970]];
+    webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
+    webpage.webpageUrl = @"http://weibo.com/p/1001603849727862021333?rightmod=1&wvr=6&mod=noticeboard";
+    message.mediaObject = webpage;
+    self.messageObject = message;
+    [self messageShare];
+}
+
+- (void)shareMessageToImage{
+    if(self.livePhotoAsset){
+        [self shareMessageToLivePhoto];
+    }else{
+        WBMessageObject *message = [WBMessageObject message];
+        NSMutableArray *imageArray = [NSMutableArray array];
+        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+        options.synchronous = YES;
+        options.networkAccessAllowed = YES;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        for (PHAsset *asset in self.imageAssetArray) {
+            [[PHCachingImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                [imageArray addObject:result];
+
+            }];
+        }
         
         WBImageObject *imageObject = [WBImageObject object];
         imageObject.delegate = self;
         
         [imageObject addImages:imageArray];
+        
         message.imageObject = imageObject;
+        self.messageObject = message;
     }
-    
-    if (self.mediaSwitch.on)
-    {
-        WBWebpageObject *webpage = [WBWebpageObject object];
-        webpage.objectID = @"identifier1";
-        webpage.title = NSLocalizedString(@"分享网页标题", nil);
-        webpage.description = [NSString stringWithFormat:NSLocalizedString(@"分享网页内容简介-%.0f", nil), [[NSDate date] timeIntervalSince1970]];
-        webpage.thumbnailData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"image_2" ofType:@"jpg"]];
-        webpage.webpageUrl = @"http://weibo.com/p/1001603849727862021333?rightmod=1&wvr=6&mod=noticeboard";
-        message.mediaObject = webpage;
-    }
-    
-    if (self.videoSwitch.on) {
-        WBNewVideoObject *videoObject = [WBNewVideoObject object];
-        NSString *videoName = @"apm";
-//        if(self.changeVideoBtn.tag == 1){
-//            videoName = @"20MB";
-//        }else if(self.changeVideoBtn.tag == 2){
-//            videoName = @"30MB";
-//        }else if(self.changeVideoBtn.tag == 3){
-//            videoName = @"50MB";
-//        }
-        NSURL *videoUrl = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:videoName ofType:@"mov"]];
-        videoObject.delegate = self;
-        [videoObject addVideo:videoUrl];
-        message.videoObject = videoObject;
-    }
-    if(self.superTopicSwitch.on && self.superTopicName){
-        WBSuperGroupObject *superGroupObject = [WBSuperGroupObject object];
-        superGroupObject.superGroup = self.superTopicName;
-        superGroupObject.section = self.sectionName;
-        superGroupObject.extData = @{@"type":@"SDK 测试"};
-        message.superTopicObject = superGroupObject;
-    }
-    
-    return message;
 }
 
-- (void)clickChangeVideo{
-    NSString *title = @"10MB视频";
-    if(self.changeVideoBtn.tag == 0){
-        self.changeVideoBtn.tag = 1;
-        title = @"20MB视频";
-    }else if(self.changeVideoBtn.tag == 1){
-        self.changeVideoBtn.tag = 2;
-        title = @"30MB视频";
-    }else if(self.changeVideoBtn.tag == 2){
-        self.changeVideoBtn.tag = 3;
-        title = @"50MB视频";
-    }else if(self.changeVideoBtn.tag == 3){
-        self.changeVideoBtn.tag = 0;
-        title = @"10MB视频";
-    }
-    [self.changeVideoBtn setTitle:title forState:UIControlStateNormal];
+- (void)shareMessageToVideo{
+    WBMessageObject *message = [WBMessageObject message];
+    WBNewVideoObject *videoObject = [WBNewVideoObject object];
+    PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+    options.version = PHImageRequestOptionsVersionCurrent;
+    options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+    PHImageManager *manager = [PHImageManager defaultManager];
+    [manager requestAVAssetForVideo:self.videoAsset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+        AVURLAsset *urlAsset = (AVURLAsset *)asset;
+        NSString *pathExtension = [urlAsset.URL pathExtension];
+        NSArray *resources = [PHAssetResource assetResourcesForAsset:self.videoAsset];
+        __block PHAssetResource *videoResource = [resources firstObject];
+        NSString *videoPath = [NSString stringWithFormat:@"%@.%@",[SendMessageToWeiboViewController getCreateCacheFilePath],pathExtension?:@"mov"];
+        [[PHAssetResourceManager defaultManager] writeDataForAssetResource:videoResource toFile:[NSURL fileURLWithPath:videoPath] options:nil completionHandler:^(NSError * _Nullable error) {
+            if(!error){
+                NSURL *videoUrl = [NSURL fileURLWithPath:videoPath];
+                videoObject.delegate = self;
+                [videoObject addVideo:videoUrl];
+                message.videoObject = videoObject;
+                self.messageObject = message;
+            }else{
+                NSLog(@"获取livePhoto资源出错");
+            }
+        }];
+    }];
 }
 
+- (void)shareSuperTopic{
+    WBMessageObject *message = [WBMessageObject message];
+    WBSuperGroupObject *superGroupObject = [WBSuperGroupObject object];
+    superGroupObject.superGroup = self.superTopicName;
+    superGroupObject.section = self.sectionName;
+    superGroupObject.extData = @{@"type":@"SDK 测试"};
+    message.superTopicObject = superGroupObject;
+    self.messageObject = message;
+    [self messageShare];
+}
+
+- (void)intoPicker{
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+
+        if (status != PHAuthorizationStatusAuthorized) return ;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            //弹出控制器
+
+            CTAssetsPickerController *assetPC = [[CTAssetsPickerController alloc] init];
+
+            //隐藏空相册
+
+            assetPC.showsEmptyAlbums=YES;
+
+            //显示图片索引
+
+            assetPC.showsSelectionIndex=YES;
+
+            //显示那些资源
+
+            assetPC.assetCollectionSubtypes = @[@(PHAssetCollectionSubtypeSmartAlbumUserLibrary), @(PHAssetCollectionSubtypeAlbumRegular)];
+
+            assetPC.delegate=self;
+
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) //如果是运行到ipad上面
+
+            {
+
+                assetPC.modalPresentationStyle = UIModalPresentationFormSheet;
+
+
+
+            }
+
+            [self presentViewController:assetPC animated:YES completion:nil];
+
+
+
+        });
+
+    }];
+
+}
+
+#pragma mark - CTAssetsPickerControllerDelegate -
+
+- (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
+
+    NSInteger maxNumber =9;
+
+    if(picker.selectedAssets.count > maxNumber){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%ld张", (long)maxNumber] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [picker presentViewController:alert animated:YES completion:nil];
+
+           return NO;
+    }
+    return YES;
+
+}
+
+- (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    //选择完毕关闭页面
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+    option.resizeMode = PHImageRequestOptionsResizeModeExact;
+    option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+
+    //生成图片
+
+    for(int i =0; i < assets.count; i++){
+
+        PHAsset*asset = assets[i];
+        if(asset.mediaType == PHAssetResourceTypePhoto){
+            if(asset.mediaSubtypes & PHAssetMediaSubtypePhotoLive){
+                self.livePhotoAsset = asset;
+                break;;
+            }else{
+                if(self.imageAssetArray == nil){
+                    self.imageAssetArray = [NSMutableArray array];
+                }
+                [self.imageAssetArray addObject:asset];
+            }
+        }else if(asset.mediaType == PHAssetResourceTypeVideo){
+            self.videoAsset = asset;
+            break;;
+        }
+        
+    }
+    [self updatePromptText];
+}
 
 #pragma mark SSO Authorization
 - (void)ssoButtonPressed
@@ -560,6 +753,36 @@
         _indicatorView.color = [UIColor blueColor];
     }
     return _indicatorView;
+}
+
++ (NSString *)getCreateCacheFilePath{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [self baseCacheShareFilePath];
+    NSError *error = nil;
+    if(![fileManager fileExistsAtPath:path]){
+        [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+    }
+    if(!error){
+        path = [path stringByAppendingPathComponent:[self cacheUUID]];
+    }else{
+        return nil;
+    }
+    return path;
+}
+
++ (NSString *)baseCacheShareFilePath{
+    //获取路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"shareDemo"];
+    return path;
+}
+
+//生成唯一id
+static long long nextId = 0;
++ (NSString *)cacheUUID{
+    long long time_stamp_now = [[NSDate date] timeIntervalSince1970]*1000;
+    nextId++;
+    return [NSString stringWithFormat:@"shareFile%lld",time_stamp_now+nextId];
 }
 
 @end

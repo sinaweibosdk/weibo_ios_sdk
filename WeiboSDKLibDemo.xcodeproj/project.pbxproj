@@ -35,6 +35,44 @@
 		8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */; };
 		88C2B47A1F2F1661004EF738 /* apm.mov in Resources */ = {isa = PBXBuildFile; fileRef = 88C2B4791F2F1661004EF738 /* apm.mov */; };
 		88C2B47C1F2F198B004EF738 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C2B47B1F2F198B004EF738 /* Photos.framework */; };
+		EF7FE93227157A2400647458 /* CTAssetSelectionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8C627157A2300647458 /* CTAssetSelectionLabel.m */; };
+		EF7FE93327157A2400647458 /* CTAssetsGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8C727157A2300647458 /* CTAssetsGridViewCell.m */; };
+		EF7FE93427157A2400647458 /* CTAssetItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8C827157A2300647458 /* CTAssetItemViewController.m */; };
+		EF7FE93527157A2400647458 /* CTAssetsPickerNoAssetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8CA27157A2300647458 /* CTAssetsPickerNoAssetsView.m */; };
+		EF7FE93627157A2400647458 /* CTAssetScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8CB27157A2300647458 /* CTAssetScrollView.m */; };
+		EF7FE93727157A2400647458 /* CTAssetThumbnailStacks.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8CC27157A2300647458 /* CTAssetThumbnailStacks.m */; };
+		EF7FE93827157A2400647458 /* CTAssetsPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8CD27157A2300647458 /* CTAssetsPageView.m */; };
+		EF7FE93927157A2400647458 /* CTAssetsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8D027157A2300647458 /* CTAssetsPageViewController.m */; };
+		EF7FE93A27157A2400647458 /* CTAssetsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8D227157A2300647458 /* CTAssetsNavigationController.m */; };
+		EF7FE93B27157A2400647458 /* CTAssetsGridViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8D527157A2300647458 /* CTAssetsGridViewLayout.m */; };
+		EF7FE93C27157A2400647458 /* CTAssetsGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8D827157A2300647458 /* CTAssetsGridView.m */; };
+		EF7FE93D27157A2400647458 /* CTAssetsPicker.strings in Resources */ = {isa = PBXBuildFile; fileRef = EF7FE8DA27157A2300647458 /* CTAssetsPicker.strings */; };
+		EF7FE93E27157A2400647458 /* CTAssetsPicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7FE8F327157A2300647458 /* CTAssetsPicker.xcassets */; };
+		EF7FE93F27157A2400647458 /* CTAssetThumbnailOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8F427157A2300647458 /* CTAssetThumbnailOverlay.m */; };
+		EF7FE94027157A2400647458 /* CTAssetsPickerAccessDeniedView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8F527157A2300647458 /* CTAssetsPickerAccessDeniedView.m */; };
+		EF7FE94127157A2400647458 /* CTAssetCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8F627157A2300647458 /* CTAssetCollectionViewController.m */; };
+		EF7FE94227157A2400647458 /* CTAssetsViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8FA27157A2300647458 /* CTAssetsViewControllerTransition.m */; };
+		EF7FE94327157A2400647458 /* CTAssetsGridSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8FB27157A2300647458 /* CTAssetsGridSelectedView.m */; };
+		EF7FE94427157A2400647458 /* CTAssetsGridViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE90127157A2300647458 /* CTAssetsGridViewFooter.m */; };
+		EF7FE94527157A2400647458 /* CTAssetCheckmark.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE90427157A2300647458 /* CTAssetCheckmark.m */; };
+		EF7FE94627157A2400647458 /* CTAssetThumbnailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE90527157A2300647458 /* CTAssetThumbnailView.m */; };
+		EF7FE94727157A2400647458 /* CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE90727157A2300647458 /* CTAssetsPickerController.m */; };
+		EF7FE94827157A2400647458 /* CTAssetCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE90827157A2300647458 /* CTAssetCollectionViewCell.m */; };
+		EF7FE94927157A2400647458 /* PHAssetCollection+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91027157A2300647458 /* PHAssetCollection+CTAssetsPickerController.m */; };
+		EF7FE94A27157A2400647458 /* UIImage+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91327157A2300647458 /* UIImage+CTAssetsPickerController.m */; };
+		EF7FE94B27157A2400647458 /* NSNumberFormatter+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91427157A2300647458 /* NSNumberFormatter+CTAssetsPickerController.m */; };
+		EF7FE94C27157A2400647458 /* NSBundle+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91827157A2300647458 /* NSBundle+CTAssetsPickerController.m */; };
+		EF7FE94D27157A2400647458 /* UICollectionView+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91927157A2300647458 /* UICollectionView+CTAssetsPickerController.m */; };
+		EF7FE94E27157A2400647458 /* PHAsset+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE91E27157A2300647458 /* PHAsset+CTAssetsPickerController.m */; };
+		EF7FE94F27157A2400647458 /* NSIndexSet+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92027157A2400647458 /* NSIndexSet+CTAssetsPickerController.m */; };
+		EF7FE95027157A2400647458 /* NSDateFormatter+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92227157A2400647458 /* NSDateFormatter+CTAssetsPickerController.m */; };
+		EF7FE95127157A2400647458 /* PHImageManager+CTAssetsPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92327157A2400647458 /* PHImageManager+CTAssetsPickerController.m */; };
+		EF7FE95227157A2400647458 /* CTAssetSelectionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92427157A2400647458 /* CTAssetSelectionButton.m */; };
+		EF7FE95327157A2400647458 /* CTAssetsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92527157A2400647458 /* CTAssetsGridViewController.m */; };
+		EF7FE95427157A2400647458 /* CTAssetPlayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92627157A2400647458 /* CTAssetPlayButton.m */; };
+		EF7FE95527157A2400647458 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92E27157A2400647458 /* NSLayoutConstraint+PureLayout.m */; };
+		EF7FE95627157A2400647458 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE92F27157A2400647458 /* ALView+PureLayout.m */; };
+		EF7FE95727157A2400647458 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE93127157A2400647458 /* NSArray+PureLayout.m */; };
 		EFBB26FE268B0A0900D86505 /* SuperTopicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFBB26FC268B0A0900D86505 /* SuperTopicViewController.m */; };
 		FAA1207F2384E83B004284DC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA1207E2384E83B004284DC /* WebKit.framework */; };
 /* End PBXBuildFile section */
@@ -79,6 +117,109 @@
 		8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkToWeiboViewController.m; sourceTree = "<group>"; };
 		88C2B4791F2F1661004EF738 /* apm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = apm.mov; sourceTree = "<group>"; };
 		88C2B47B1F2F198B004EF738 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		EF7FE8C627157A2300647458 /* CTAssetSelectionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetSelectionLabel.m; sourceTree = "<group>"; };
+		EF7FE8C727157A2300647458 /* CTAssetsGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewCell.m; sourceTree = "<group>"; };
+		EF7FE8C827157A2300647458 /* CTAssetItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetItemViewController.m; sourceTree = "<group>"; };
+		EF7FE8C927157A2300647458 /* CTAssetsGridViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewFooter.h; sourceTree = "<group>"; };
+		EF7FE8CA27157A2300647458 /* CTAssetsPickerNoAssetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerNoAssetsView.m; sourceTree = "<group>"; };
+		EF7FE8CB27157A2300647458 /* CTAssetScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetScrollView.m; sourceTree = "<group>"; };
+		EF7FE8CC27157A2300647458 /* CTAssetThumbnailStacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetThumbnailStacks.m; sourceTree = "<group>"; };
+		EF7FE8CD27157A2300647458 /* CTAssetsPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageView.m; sourceTree = "<group>"; };
+		EF7FE8CE27157A2300647458 /* CTAssetsGridSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridSelectedView.h; sourceTree = "<group>"; };
+		EF7FE8CF27157A2300647458 /* CTAssetsViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsViewControllerTransition.h; sourceTree = "<group>"; };
+		EF7FE8D027157A2300647458 /* CTAssetsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPageViewController.m; sourceTree = "<group>"; };
+		EF7FE8D127157A2300647458 /* CTAssetsPickerDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerDefines.h; sourceTree = "<group>"; };
+		EF7FE8D227157A2300647458 /* CTAssetsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsNavigationController.m; sourceTree = "<group>"; };
+		EF7FE8D327157A2300647458 /* CTAssetCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetCollectionViewCell.h; sourceTree = "<group>"; };
+		EF7FE8D427157A2300647458 /* CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerController.h; sourceTree = "<group>"; };
+		EF7FE8D527157A2300647458 /* CTAssetsGridViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewLayout.m; sourceTree = "<group>"; };
+		EF7FE8D627157A2300647458 /* CTAssetThumbnailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailView.h; sourceTree = "<group>"; };
+		EF7FE8D727157A2300647458 /* CTAssetCheckmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetCheckmark.h; sourceTree = "<group>"; };
+		EF7FE8D827157A2300647458 /* CTAssetsGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridView.m; sourceTree = "<group>"; };
+		EF7FE8DB27157A2300647458 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8DC27157A2300647458 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8DD27157A2300647458 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8DE27157A2300647458 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8DF27157A2300647458 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E027157A2300647458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E127157A2300647458 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E227157A2300647458 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E327157A2300647458 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E427157A2300647458 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E527157A2300647458 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E627157A2300647458 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8E727157A2300647458 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8E827157A2300647458 /* hi-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "hi-IN"; path = "hi-IN.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8E927157A2300647458 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8EA27157A2300647458 /* nl-NL */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nl-NL"; path = "nl-NL.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8EB27157A2300647458 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8EC27157A2300647458 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8ED27157A2300647458 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8EE27157A2300647458 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8EF27157A2300647458 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8F027157A2300647458 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8F127157A2300647458 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/CTAssetsPicker.strings; sourceTree = "<group>"; };
+		EF7FE8F227157A2300647458 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/CTAssetsPicker.strings"; sourceTree = "<group>"; };
+		EF7FE8F327157A2300647458 /* CTAssetsPicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CTAssetsPicker.xcassets; sourceTree = "<group>"; };
+		EF7FE8F427157A2300647458 /* CTAssetThumbnailOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetThumbnailOverlay.m; sourceTree = "<group>"; };
+		EF7FE8F527157A2300647458 /* CTAssetsPickerAccessDeniedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerAccessDeniedView.m; sourceTree = "<group>"; };
+		EF7FE8F627157A2300647458 /* CTAssetCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetCollectionViewController.m; sourceTree = "<group>"; };
+		EF7FE8F727157A2300647458 /* CTAssetPlayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetPlayButton.h; sourceTree = "<group>"; };
+		EF7FE8F827157A2300647458 /* CTAssetsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewController.h; sourceTree = "<group>"; };
+		EF7FE8F927157A2300647458 /* CTAssetSelectionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetSelectionButton.h; sourceTree = "<group>"; };
+		EF7FE8FA27157A2300647458 /* CTAssetsViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsViewControllerTransition.m; sourceTree = "<group>"; };
+		EF7FE8FB27157A2300647458 /* CTAssetsGridSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridSelectedView.m; sourceTree = "<group>"; };
+		EF7FE8FC27157A2300647458 /* CTAssetsPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageView.h; sourceTree = "<group>"; };
+		EF7FE8FD27157A2300647458 /* CTAssetScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetScrollView.h; sourceTree = "<group>"; };
+		EF7FE8FE27157A2300647458 /* CTAssetThumbnailStacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailStacks.h; sourceTree = "<group>"; };
+		EF7FE8FF27157A2300647458 /* CTAssetsPickerNoAssetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerNoAssetsView.h; sourceTree = "<group>"; };
+		EF7FE90027157A2300647458 /* CTAssetItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetItemViewController.h; sourceTree = "<group>"; };
+		EF7FE90127157A2300647458 /* CTAssetsGridViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewFooter.m; sourceTree = "<group>"; };
+		EF7FE90227157A2300647458 /* CTAssetsGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewCell.h; sourceTree = "<group>"; };
+		EF7FE90327157A2300647458 /* CTAssetSelectionLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetSelectionLabel.h; sourceTree = "<group>"; };
+		EF7FE90427157A2300647458 /* CTAssetCheckmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetCheckmark.m; sourceTree = "<group>"; };
+		EF7FE90527157A2300647458 /* CTAssetThumbnailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetThumbnailView.m; sourceTree = "<group>"; };
+		EF7FE90627157A2300647458 /* CTAssetsGridViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridViewLayout.h; sourceTree = "<group>"; };
+		EF7FE90727157A2300647458 /* CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsPickerController.m; sourceTree = "<group>"; };
+		EF7FE90827157A2300647458 /* CTAssetCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetCollectionViewCell.m; sourceTree = "<group>"; };
+		EF7FE90927157A2300647458 /* CTAssetsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsNavigationController.h; sourceTree = "<group>"; };
+		EF7FE90A27157A2300647458 /* CTAssetsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPageViewController.h; sourceTree = "<group>"; };
+		EF7FE90B27157A2300647458 /* CTAssetsPickerAccessDeniedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsPickerAccessDeniedView.h; sourceTree = "<group>"; };
+		EF7FE90C27157A2300647458 /* CTAssetCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetCollectionViewController.h; sourceTree = "<group>"; };
+		EF7FE90D27157A2300647458 /* CTAssetThumbnailOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetThumbnailOverlay.h; sourceTree = "<group>"; };
+		EF7FE90E27157A2300647458 /* CTAssetsGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTAssetsGridView.h; sourceTree = "<group>"; };
+		EF7FE91027157A2300647458 /* PHAssetCollection+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAssetCollection+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91127157A2300647458 /* UICollectionView+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91227157A2300647458 /* PHAsset+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAsset+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91327157A2300647458 /* UIImage+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91427157A2300647458 /* NSNumberFormatter+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumberFormatter+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91527157A2300647458 /* NSIndexSet+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91627157A2300647458 /* PHImageManager+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHImageManager+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91727157A2300647458 /* NSDateFormatter+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91827157A2300647458 /* NSBundle+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91927157A2300647458 /* UICollectionView+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91A27157A2300647458 /* PHAssetCollection+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHAssetCollection+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91B27157A2300647458 /* CTAssetsPageViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPageViewController+Internal.h"; sourceTree = "<group>"; };
+		EF7FE91C27157A2300647458 /* UIImage+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91D27157A2300647458 /* NSNumberFormatter+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumberFormatter+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE91E27157A2300647458 /* PHAsset+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHAsset+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE91F27157A2300647458 /* CTAssetsPickerController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAssetsPickerController+Internal.h"; sourceTree = "<group>"; };
+		EF7FE92027157A2400647458 /* NSIndexSet+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE92127157A2400647458 /* NSBundle+CTAssetsPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+CTAssetsPickerController.h"; sourceTree = "<group>"; };
+		EF7FE92227157A2400647458 /* NSDateFormatter+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE92327157A2400647458 /* PHImageManager+CTAssetsPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHImageManager+CTAssetsPickerController.m"; sourceTree = "<group>"; };
+		EF7FE92427157A2400647458 /* CTAssetSelectionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetSelectionButton.m; sourceTree = "<group>"; };
+		EF7FE92527157A2400647458 /* CTAssetsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewController.m; sourceTree = "<group>"; };
+		EF7FE92627157A2400647458 /* CTAssetPlayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetPlayButton.m; sourceTree = "<group>"; };
+		EF7FE92927157A2400647458 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
+		EF7FE92A27157A2400647458 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
+		EF7FE92B27157A2400647458 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		EF7FE92C27157A2400647458 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		EF7FE92D27157A2400647458 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
+		EF7FE92E27157A2400647458 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		EF7FE92F27157A2400647458 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
+		EF7FE93027157A2400647458 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
+		EF7FE93127157A2400647458 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
 		EFBB26FC268B0A0900D86505 /* SuperTopicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperTopicViewController.m; sourceTree = "<group>"; };
 		EFBB26FD268B0A0900D86505 /* SuperTopicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperTopicViewController.h; sourceTree = "<group>"; };
 		EFE06D5E25344066000B9FDF /* SDKDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDKDemo.entitlements; sourceTree = "<group>"; };
@@ -161,6 +302,8 @@
 				8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */,
 				EFBB26FD268B0A0900D86505 /* SuperTopicViewController.h */,
 				EFBB26FC268B0A0900D86505 /* SuperTopicViewController.m */,
+				EF7FE8C527157A2300647458 /* CTAssetsPickerController */,
+				EF7FE92727157A2400647458 /* PureLayout */,
 				18E67EBA17057D9000DFAD63 /* Supporting Files */,
 			);
 			path = WeiboSDKDemo;
@@ -198,6 +341,124 @@
 			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
+		EF7FE8C527157A2300647458 /* CTAssetsPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE8C627157A2300647458 /* CTAssetSelectionLabel.m */,
+				EF7FE8C727157A2300647458 /* CTAssetsGridViewCell.m */,
+				EF7FE8C827157A2300647458 /* CTAssetItemViewController.m */,
+				EF7FE8C927157A2300647458 /* CTAssetsGridViewFooter.h */,
+				EF7FE8CA27157A2300647458 /* CTAssetsPickerNoAssetsView.m */,
+				EF7FE8CB27157A2300647458 /* CTAssetScrollView.m */,
+				EF7FE8CC27157A2300647458 /* CTAssetThumbnailStacks.m */,
+				EF7FE8CD27157A2300647458 /* CTAssetsPageView.m */,
+				EF7FE8CE27157A2300647458 /* CTAssetsGridSelectedView.h */,
+				EF7FE8CF27157A2300647458 /* CTAssetsViewControllerTransition.h */,
+				EF7FE8D027157A2300647458 /* CTAssetsPageViewController.m */,
+				EF7FE8D127157A2300647458 /* CTAssetsPickerDefines.h */,
+				EF7FE8D227157A2300647458 /* CTAssetsNavigationController.m */,
+				EF7FE8D327157A2300647458 /* CTAssetCollectionViewCell.h */,
+				EF7FE8D427157A2300647458 /* CTAssetsPickerController.h */,
+				EF7FE8D527157A2300647458 /* CTAssetsGridViewLayout.m */,
+				EF7FE8D627157A2300647458 /* CTAssetThumbnailView.h */,
+				EF7FE8D727157A2300647458 /* CTAssetCheckmark.h */,
+				EF7FE8D827157A2300647458 /* CTAssetsGridView.m */,
+				EF7FE8D927157A2300647458 /* Resources */,
+				EF7FE8F427157A2300647458 /* CTAssetThumbnailOverlay.m */,
+				EF7FE8F527157A2300647458 /* CTAssetsPickerAccessDeniedView.m */,
+				EF7FE8F627157A2300647458 /* CTAssetCollectionViewController.m */,
+				EF7FE8F727157A2300647458 /* CTAssetPlayButton.h */,
+				EF7FE8F827157A2300647458 /* CTAssetsGridViewController.h */,
+				EF7FE8F927157A2300647458 /* CTAssetSelectionButton.h */,
+				EF7FE8FA27157A2300647458 /* CTAssetsViewControllerTransition.m */,
+				EF7FE8FB27157A2300647458 /* CTAssetsGridSelectedView.m */,
+				EF7FE8FC27157A2300647458 /* CTAssetsPageView.h */,
+				EF7FE8FD27157A2300647458 /* CTAssetScrollView.h */,
+				EF7FE8FE27157A2300647458 /* CTAssetThumbnailStacks.h */,
+				EF7FE8FF27157A2300647458 /* CTAssetsPickerNoAssetsView.h */,
+				EF7FE90027157A2300647458 /* CTAssetItemViewController.h */,
+				EF7FE90127157A2300647458 /* CTAssetsGridViewFooter.m */,
+				EF7FE90227157A2300647458 /* CTAssetsGridViewCell.h */,
+				EF7FE90327157A2300647458 /* CTAssetSelectionLabel.h */,
+				EF7FE90427157A2300647458 /* CTAssetCheckmark.m */,
+				EF7FE90527157A2300647458 /* CTAssetThumbnailView.m */,
+				EF7FE90627157A2300647458 /* CTAssetsGridViewLayout.h */,
+				EF7FE90727157A2300647458 /* CTAssetsPickerController.m */,
+				EF7FE90827157A2300647458 /* CTAssetCollectionViewCell.m */,
+				EF7FE90927157A2300647458 /* CTAssetsNavigationController.h */,
+				EF7FE90A27157A2300647458 /* CTAssetsPageViewController.h */,
+				EF7FE90B27157A2300647458 /* CTAssetsPickerAccessDeniedView.h */,
+				EF7FE90C27157A2300647458 /* CTAssetCollectionViewController.h */,
+				EF7FE90D27157A2300647458 /* CTAssetThumbnailOverlay.h */,
+				EF7FE90E27157A2300647458 /* CTAssetsGridView.h */,
+				EF7FE90F27157A2300647458 /* Categories */,
+				EF7FE92427157A2400647458 /* CTAssetSelectionButton.m */,
+				EF7FE92527157A2400647458 /* CTAssetsGridViewController.m */,
+				EF7FE92627157A2400647458 /* CTAssetPlayButton.m */,
+			);
+			path = CTAssetsPickerController;
+			sourceTree = "<group>";
+		};
+		EF7FE8D927157A2300647458 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE8DA27157A2300647458 /* CTAssetsPicker.strings */,
+				EF7FE8F327157A2300647458 /* CTAssetsPicker.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		EF7FE90F27157A2300647458 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE91027157A2300647458 /* PHAssetCollection+CTAssetsPickerController.m */,
+				EF7FE91127157A2300647458 /* UICollectionView+CTAssetsPickerController.h */,
+				EF7FE91227157A2300647458 /* PHAsset+CTAssetsPickerController.h */,
+				EF7FE91327157A2300647458 /* UIImage+CTAssetsPickerController.m */,
+				EF7FE91427157A2300647458 /* NSNumberFormatter+CTAssetsPickerController.m */,
+				EF7FE91527157A2300647458 /* NSIndexSet+CTAssetsPickerController.h */,
+				EF7FE91627157A2300647458 /* PHImageManager+CTAssetsPickerController.h */,
+				EF7FE91727157A2300647458 /* NSDateFormatter+CTAssetsPickerController.h */,
+				EF7FE91827157A2300647458 /* NSBundle+CTAssetsPickerController.m */,
+				EF7FE91927157A2300647458 /* UICollectionView+CTAssetsPickerController.m */,
+				EF7FE91A27157A2300647458 /* PHAssetCollection+CTAssetsPickerController.h */,
+				EF7FE91B27157A2300647458 /* CTAssetsPageViewController+Internal.h */,
+				EF7FE91C27157A2300647458 /* UIImage+CTAssetsPickerController.h */,
+				EF7FE91D27157A2300647458 /* NSNumberFormatter+CTAssetsPickerController.h */,
+				EF7FE91E27157A2300647458 /* PHAsset+CTAssetsPickerController.m */,
+				EF7FE91F27157A2300647458 /* CTAssetsPickerController+Internal.h */,
+				EF7FE92027157A2400647458 /* NSIndexSet+CTAssetsPickerController.m */,
+				EF7FE92127157A2400647458 /* NSBundle+CTAssetsPickerController.h */,
+				EF7FE92227157A2400647458 /* NSDateFormatter+CTAssetsPickerController.m */,
+				EF7FE92327157A2400647458 /* PHImageManager+CTAssetsPickerController.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		EF7FE92727157A2400647458 /* PureLayout */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE92827157A2400647458 /* include */,
+				EF7FE92E27157A2400647458 /* NSLayoutConstraint+PureLayout.m */,
+				EF7FE92F27157A2400647458 /* ALView+PureLayout.m */,
+				EF7FE93027157A2400647458 /* PureLayout+Internal.h */,
+				EF7FE93127157A2400647458 /* NSArray+PureLayout.m */,
+			);
+			path = PureLayout;
+			sourceTree = "<group>";
+		};
+		EF7FE92827157A2400647458 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				EF7FE92927157A2400647458 /* PureLayoutDefines.h */,
+				EF7FE92A27157A2400647458 /* ALView+PureLayout.h */,
+				EF7FE92B27157A2400647458 /* NSArray+PureLayout.h */,
+				EF7FE92C27157A2400647458 /* NSLayoutConstraint+PureLayout.h */,
+				EF7FE92D27157A2400647458 /* PureLayout.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -228,8 +489,8 @@
 				ORGANIZATIONNAME = "SINA iOS Team";
 				TargetAttributes = {
 					18E67EAF17057D8F00DFAD63 = {
-						DevelopmentTeam = MPXZ3AAD6Q;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 9Z2YMELEUJ;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -241,6 +502,28 @@
 				English,
 				en,
 				"zh-Hans",
+				de,
+				he,
+				ar,
+				ja,
+				es,
+				da,
+				it,
+				sv,
+				ko,
+				"zh-Hant",
+				hu,
+				"hi-IN",
+				tr,
+				"nl-NL",
+				"es-MX",
+				ru,
+				fr,
+				fi,
+				id,
+				nl,
+				pt,
+				"pt-PT",
 			);
 			mainGroup = 18E67EA717057D8F00DFAD63;
 			productRefGroup = 18E67EB117057D9000DFAD63 /* Products */;
@@ -263,7 +546,9 @@
 				18E67ECA17057D9000DFAD63 /* Default-568h@2x.png in Resources */,
 				18CD553D1709E5CF00ECF584 /* image_1.jpg in Resources */,
 				64FB915019D1168B00DA7598 /* Localizable.strings in Resources */,
+				EF7FE93D27157A2400647458 /* CTAssetsPicker.strings in Resources */,
 				18CD553E1709E5CF00ECF584 /* image_2.jpg in Resources */,
+				EF7FE93E27157A2400647458 /* CTAssetsPicker.xcassets in Resources */,
 				64247CBB1B09D663000CE2B8 /* WeiboSDK.bundle in Resources */,
 				18E66A3E170BCEB700E0740F /* icon.png in Resources */,
 				88C2B47A1F2F1661004EF738 /* apm.mov in Resources */,
@@ -278,11 +563,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7FE93F27157A2400647458 /* CTAssetThumbnailOverlay.m in Sources */,
 				8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */,
+				EF7FE95527157A2400647458 /* NSLayoutConstraint+PureLayout.m in Sources */,
+				EF7FE95627157A2400647458 /* ALView+PureLayout.m in Sources */,
+				EF7FE93927157A2400647458 /* CTAssetsPageViewController.m in Sources */,
+				EF7FE93627157A2400647458 /* CTAssetScrollView.m in Sources */,
+				EF7FE93227157A2400647458 /* CTAssetSelectionLabel.m in Sources */,
 				EFBB26FE268B0A0900D86505 /* SuperTopicViewController.m in Sources */,
+				EF7FE93727157A2400647458 /* CTAssetThumbnailStacks.m in Sources */,
+				EF7FE94327157A2400647458 /* CTAssetsGridSelectedView.m in Sources */,
+				EF7FE93B27157A2400647458 /* CTAssetsGridViewLayout.m in Sources */,
+				EF7FE95327157A2400647458 /* CTAssetsGridViewController.m in Sources */,
+				EF7FE94127157A2400647458 /* CTAssetCollectionViewController.m in Sources */,
+				EF7FE93427157A2400647458 /* CTAssetItemViewController.m in Sources */,
+				EF7FE95027157A2400647458 /* NSDateFormatter+CTAssetsPickerController.m in Sources */,
+				EF7FE94427157A2400647458 /* CTAssetsGridViewFooter.m in Sources */,
+				EF7FE94C27157A2400647458 /* NSBundle+CTAssetsPickerController.m in Sources */,
+				EF7FE93C27157A2400647458 /* CTAssetsGridView.m in Sources */,
+				EF7FE94A27157A2400647458 /* UIImage+CTAssetsPickerController.m in Sources */,
+				EF7FE94727157A2400647458 /* CTAssetsPickerController.m in Sources */,
+				EF7FE94027157A2400647458 /* CTAssetsPickerAccessDeniedView.m in Sources */,
+				EF7FE93327157A2400647458 /* CTAssetsGridViewCell.m in Sources */,
+				EF7FE94627157A2400647458 /* CTAssetThumbnailView.m in Sources */,
+				EF7FE95427157A2400647458 /* CTAssetPlayButton.m in Sources */,
+				EF7FE93827157A2400647458 /* CTAssetsPageView.m in Sources */,
+				EF7FE93A27157A2400647458 /* CTAssetsNavigationController.m in Sources */,
 				18E67EC017057D9000DFAD63 /* main.m in Sources */,
+				EF7FE94F27157A2400647458 /* NSIndexSet+CTAssetsPickerController.m in Sources */,
 				18E67EC417057D9000DFAD63 /* AppDelegate.m in Sources */,
+				EF7FE94227157A2400647458 /* CTAssetsViewControllerTransition.m in Sources */,
 				18E67ECD17057D9000DFAD63 /* SendMessageToWeiboViewController.m in Sources */,
+				EF7FE94527157A2400647458 /* CTAssetCheckmark.m in Sources */,
+				EF7FE94D27157A2400647458 /* UICollectionView+CTAssetsPickerController.m in Sources */,
+				EF7FE94B27157A2400647458 /* NSNumberFormatter+CTAssetsPickerController.m in Sources */,
+				EF7FE95127157A2400647458 /* PHImageManager+CTAssetsPickerController.m in Sources */,
+				EF7FE94E27157A2400647458 /* PHAsset+CTAssetsPickerController.m in Sources */,
+				EF7FE95227157A2400647458 /* CTAssetSelectionButton.m in Sources */,
+				EF7FE94827157A2400647458 /* CTAssetCollectionViewCell.m in Sources */,
+				EF7FE94927157A2400647458 /* PHAssetCollection+CTAssetsPickerController.m in Sources */,
+				EF7FE93527157A2400647458 /* CTAssetsPickerNoAssetsView.m in Sources */,
+				EF7FE95727157A2400647458 /* NSArray+PureLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +625,37 @@
 				64FB915319D1169700DA7598 /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		EF7FE8DA27157A2300647458 /* CTAssetsPicker.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EF7FE8DB27157A2300647458 /* de */,
+				EF7FE8DC27157A2300647458 /* he */,
+				EF7FE8DD27157A2300647458 /* ar */,
+				EF7FE8DE27157A2300647458 /* zh-Hans */,
+				EF7FE8DF27157A2300647458 /* ja */,
+				EF7FE8E027157A2300647458 /* en */,
+				EF7FE8E127157A2300647458 /* es */,
+				EF7FE8E227157A2300647458 /* da */,
+				EF7FE8E327157A2300647458 /* it */,
+				EF7FE8E427157A2300647458 /* sv */,
+				EF7FE8E527157A2300647458 /* ko */,
+				EF7FE8E627157A2300647458 /* zh-Hant */,
+				EF7FE8E727157A2300647458 /* hu */,
+				EF7FE8E827157A2300647458 /* hi-IN */,
+				EF7FE8E927157A2300647458 /* tr */,
+				EF7FE8EA27157A2300647458 /* nl-NL */,
+				EF7FE8EB27157A2300647458 /* es-MX */,
+				EF7FE8EC27157A2300647458 /* ru */,
+				EF7FE8ED27157A2300647458 /* fr */,
+				EF7FE8EE27157A2300647458 /* fi */,
+				EF7FE8EF27157A2300647458 /* id */,
+				EF7FE8F027157A2300647458 /* nl */,
+				EF7FE8F127157A2300647458 /* pt */,
+				EF7FE8F227157A2300647458 /* pt-PT */,
+			);
+			name = CTAssetsPicker.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -371,9 +723,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = SDKDemo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
+				DEVELOPMENT_TEAM = 9Z2YMELEUJ;
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
@@ -385,10 +737,10 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.p.11;
 				PRODUCT_NAME = SDKDemo;
-				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
-				PROVISIONING_PROFILE_SPECIFIER = WeiboSDKDemoDev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
@@ -401,10 +753,10 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = SDKDemo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sina.Com Technology (China) Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPXZ3AAD6Q;
+				DEVELOPMENT_TEAM = 9Z2YMELEUJ;
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
@@ -417,7 +769,7 @@
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
 				PRODUCT_NAME = SDKDemo;
-				PROVISIONING_PROFILE = "ec68c66d-61d7-4faa-86b7-36be7f899380";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "68651D66-3D0A-4B4B-9223-B15F00149092";
 				PROVISIONING_PROFILE_SPECIFIER = SinaAllProduct_InHouse_Provisioning;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -79,17 +79,23 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
  */
-+ (NSString *)getWeiboAppInstallUrl;
++ (NSString *_Nullable)getWeiboAppInstallUrl;
 
 /**
- 获取当前微博SDK的版本号
+ getSDKVersion 已弃用
+ 获取sdk版本号使用 getWeiboSDKVersion
+ */
++ (NSString *_Nullable)getSDKVersion;
+
+/**
+ 新的获取当前微博SDK的版本号
  @return 当前微博SDK的版本号
  */
-+ (NSString *)getSDKVersion;
++ (NSString *_Nullable)getWeiboSDKVersion;
 
 
-extern NSString * const WeiboSDKGetAidSucessNotification;
-extern NSString * const WeiboSDKGetAidFailNotification;
+extern NSString * _Nullable const WeiboSDKGetAidSucessNotification;
+extern NSString * _Nullable const WeiboSDKGetAidFailNotification;
 /**
  获取当前微博SDK的aid
  返回的aid值可能为 nil ,当值为 nil 时会尝试获取 aid 值。
@@ -97,7 +103,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  当获取失败时，SDK会发出名为 WeiboSDKGetAidFailNotification 的通知，通知中带有 NSError 对象。
  @return aid 用于广告的与设备信息相关的标识符
  */
-+ (NSString *)getWeiboAid;
++ (NSString *_Nullable)getWeiboAid;
 
 /**
  向微博客户端程序注册第三方应用
@@ -111,7 +117,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  step：检测的步骤
  error：universalLink是否有效，error为nil universalLink有效，不为nil为无效universalLink
  */
-+ (void)checkUniversalLink:(void (^)(WBULCheckStep step, NSError *error))checkBlock;
++ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock;
 
 /**
  处理微博客户端程序通过URL启动第三方应用时传递的数据
@@ -121,7 +127,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param delegate WeiboSDKDelegate对象，用于接收微博触发的消息
  @see WeiboSDKDelegate
  */
-+ (BOOL)handleOpenURL:(NSURL *)url delegate:(id<WeiboSDKDelegate>)delegate;
++ (BOOL)handleOpenURL:(NSURL *_Nullable)url delegate:(id<WeiboSDKDelegate>_Nullable)delegate;
 
 
 /*! @brief 处理微博通过Universal Link启动App时传递的数据
@@ -131,7 +137,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  * @param delegate  WXApiDelegate对象，用来接收微博触发的消息。
  * @return 成功返回YES，失败返回NO。
  */
-+ (BOOL)handleOpenUniversalLink:(NSUserActivity *)userActivity delegate:(nullable id<WeiboSDKDelegate>)delegate;
++ (BOOL)handleOpenUniversalLink:(NSUserActivity *_Nullable)userActivity delegate:(nullable id<WeiboSDKDelegate>)delegate;
 
 /**
  发送请求给微博客户端程序，并切换到微博
@@ -144,7 +150,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @see WBBaseResponse
  @param completion 调用结果回调block
  */
-+ (void)sendRequest:(WBBaseRequest *)request completion:(void (^ __nullable)(BOOL success))completion;
++ (void)sendRequest:(WBBaseRequest *_Nullable)request completion:(void (^ __nullable)(BOOL success))completion;
 
 /**
  收到微博客户端程序的请求后，发送对应的应答给微博客户端端程序，并切换到微博
@@ -155,7 +161,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @see WBBaseRequest
  @param completion 调用结果回调block
  */
-+ (void)sendResponse:(WBBaseResponse *)response  completion:(void (^ __nullable)(BOOL success))completion;
++ (void)sendResponse:(WBBaseResponse *_Nullable)response  completion:(void (^ __nullable)(BOOL success))completion;
 
 /**
  设置WeiboSDK的调试模式
@@ -178,7 +184,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param tag 用户自定义TAG,将通过回调WBHttpRequest实例的tag属性返回
  
  */
-+ (void)logOutWithToken:(NSString *)token delegate:(id<WBHttpRequestDelegate>)delegate withTag:(NSString*)tag;
++ (void)logOutWithToken:(NSString *_Nonnull)token delegate:(id<WBHttpRequestDelegate>_Nullable)delegate withTag:(NSString*_Nullable)tag;
 
 /**
  呼起微博客户端或打开微博H5页面，SDK自动检测是否安装微博客户端，当调用SDK相关方法时：
@@ -191,22 +197,22 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 */
 
 //连接到指定用户的微博个人主页，连接后可进行加关注等互动
-+ (void)linkToUser:(NSString *)uid;
++ (void)linkToUser:(NSString *_Nullable)uid;
 
 //连接到指定的单条微博详情页，连接后可对这条微博进行转、评、赞等互动
-+ (void)linkToSingleBlog:(NSString *)uid blogID:(NSString *)mid;
++ (void)linkToSingleBlog:(NSString *_Nullable)uid blogID:(NSString *_Nullable)mid;
 
 //连接到指定的微博头条文章页
-+ (void)linkToArticle:(NSString *)aid;
++ (void)linkToArticle:(NSString *_Nullable)aid;
 
 //分享到微博
-+ (void)shareToWeibo:(NSString *)content;
++ (void)shareToWeibo:(NSString *_Nullable)content;
 
 //评论指定的微博
-+ (void)commentToWeibo:(NSString *)mid;
++ (void)commentToWeibo:(NSString *_Nullable)mid;
 
 //连接到微博搜索内容流
-+ (void)linkToSearch:(NSString *)keyword;
++ (void)linkToSearch:(NSString *_Nullable)keyword;
 
 //连接到我的微博消息流
 + (void)linkToTimeLine;
@@ -227,7 +233,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  收到微博的请求后，第三方应用应该按照请求类型进行处理，处理完后必须通过 [WeiboSDK sendResponse:] 将结果回传给微博
  @param request 具体的请求对象
  */
-- (void)didReceiveWeiboRequest:(WBBaseRequest *)request;
+- (void)didReceiveWeiboRequest:(WBBaseRequest *_Nullable)request;
 
 /**
  收到一个来自微博客户端程序的响应
@@ -235,7 +241,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  收到微博的响应后，第三方应用可以通过响应类型、响应的数据和 WBBaseResponse.userInfo 中的数据完成自己的功能
  @param response 具体的响应对象
  */
-- (void)didReceiveWeiboResponse:(WBBaseResponse *)response;
+- (void)didReceiveWeiboResponse:(WBBaseResponse *_Nullable)response;
 
 @end
 
@@ -255,7 +261,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @warning userInfo中的数据必须是实现了 `NSCoding` 协议的对象，必须保证能序列化和反序列化
  @warning 序列化后的数据不能大于10M
  */
-@property (nonatomic, strong) NSDictionary *userInfo;
+@property (nonatomic, strong) NSDictionary * _Nullable userInfo;
 
 
 /**
@@ -263,7 +269,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  如果数据对象是自己生成的，则sdkVersion为当前SDK的版本号；如果是接收到的数据对象，则sdkVersion为数据发送方SDK版本号
  */
-@property (strong, nonatomic, readonly) NSString *sdkVersion;
+@property (strong, nonatomic, readonly) NSString * _Nullable sdkVersion;
 
 
 /**
@@ -287,7 +293,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @return 返回一个*自动释放的*WBBaseRequest对象
  */
-+ (id)request;
++ (id _Nonnull )request;
 
 @end
 
@@ -304,7 +310,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @see WBBaseRequest.userInfo
  */
-@property (strong, nonatomic, readonly) NSDictionary *requestUserInfo;
+@property (strong, nonatomic, readonly) NSDictionary * _Nullable requestUserInfo;
 
 /**
  响应状态码
@@ -318,7 +324,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @return 返回一个*自动释放的*WBBaseResponse对象
  */
-+ (id)response;
++ (id _Nonnull )response;
 
 @end
 
@@ -340,7 +346,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @warning 必须保证和在微博开放平台应用管理界面配置的“授权回调页”地址一致，如未进行配置则默认为`http://`
  @warning 不能为空，长度小于1K
  */
-@property (nonatomic, strong) NSString *redirectURI;
+@property (nonatomic, strong) NSString * _Nullable redirectURI;
 
 /**
  微博开放平台第三方应用scope，多个scrope用逗号分隔
@@ -349,7 +355,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 长度小于1K
  */
-@property (nonatomic, strong) NSString *scope;
+@property (nonatomic, strong) NSString * _Nullable scope;
 
 /**
  当用户没有安装微博客户端或微博客户端过低无法支持SSO的时候是否弹出SDK自带的Webview进行授权
@@ -361,8 +367,6 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  默认为YES
  */
 @property (nonatomic, assign) BOOL shouldShowWebViewForAuthIfCannotSSO;
-
-
 
 @end
 
@@ -377,22 +381,22 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  用户ID
  */
-@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString * _Nullable userID;
 
 /**
  认证口令
  */
-@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSString * _Nullable accessToken;
 
 /**
  认证过期时间
  */
-@property (nonatomic, strong) NSDate *expirationDate;
+@property (nonatomic, strong) NSDate * _Nullable expirationDate;
 
 /**
  当认证口令过期时用于换取认证口令的更新口令
  */
-@property (nonatomic, strong) NSString *refreshToken;
+@property (nonatomic, strong) NSString * _Nullable refreshToken;
 
 @end
 
@@ -413,14 +417,14 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  提供给微博客户端的消息
  */
-@property (nonatomic, strong) WBMessageObject *message;
+@property (nonatomic, strong) WBMessageObject * _Nonnull message;
 
 /**
  返回一个 WBProvideMessageForWeiboResponse 对象
  @param message 需要回送给微博客户端程序的消息对象
  @return 返回一个*自动释放的*WBProvideMessageForWeiboResponse对象
  */
-+ (id)responseWithMessage:(WBMessageObject *)message;
++ (id _Nullable )responseWithMessage:(WBMessageObject *_Nullable)message;
 
 @end
 
@@ -434,7 +438,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  发送给微博客户端的消息
  */
-@property (nonatomic, strong) WBMessageObject *message;
+@property (nonatomic, strong) WBMessageObject * _Nonnull message;
 
 /**
  返回一个 WBSendMessageToWeiboRequest 对象
@@ -443,7 +447,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param message 需要发送给微博客户端的消息对象
  @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
  */
-+ (id)requestWithMessage:(WBMessageObject *)message;
++ (id _Nullable )requestWithMessage:(WBMessageObject *_Nullable)message;
 
 /**
  返回一个 WBSendMessageToWeiboRequest 对象
@@ -456,9 +460,9 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param access_token 第三方应用之前申请的Token,当此值不为空并且无法通过客户端分享的时候,会使用此token进行分享。
  @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
  */
-+ (id)requestWithMessage:(WBMessageObject *)message
-                authInfo:(WBAuthorizeRequest *)authRequest
-            access_token:(NSString *)access_token;
++ (id _Nullable )requestWithMessage:(WBMessageObject *_Nullable)message
+                authInfo:(WBAuthorizeRequest *_Nullable)authRequest
+            access_token:(NSString *_Nullable)access_token;
 
 @end
 
@@ -470,7 +474,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  可能在分享过程中用户进行了授权操作，当此值不为空时，为用户相应授权信息
  */
-@property (nonatomic,strong) WBAuthorizeResponse *authResponse;
+@property (nonatomic,strong) WBAuthorizeResponse * _Nullable authResponse;
 @end
 
 #pragma mark - ShareMessageToContact Request/Response
@@ -482,7 +486,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  分享链接的消息
  */
-@property (nonatomic, strong) WBMessageObject *message;
+@property (nonatomic, strong) WBMessageObject * _Nonnull message;
 
 /**
  返回一个 WBShareMessageToContactRequest 对象
@@ -490,7 +494,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  @param message 需要发送给微博客户端的消息对象
  @return 返回一个*自动释放的*WBSendMessageToWeiboRequest对象
  */
-+ (void)requestWithMessage:(WBMessageObject *)message;
++ (void)requestWithMessage:(WBMessageObject *_Nullable)message;
 @end
 
 /**
@@ -501,7 +505,7 @@ extern NSString * const WeiboSDKGetAidFailNotification;
 /**
  可能在分享过程中用户进行了授权操作，当此值不为空时，为用户相应授权信息
  */
-@property (nonatomic,strong) WBAuthorizeResponse *authResponse;
+@property (nonatomic,strong) WBAuthorizeResponse * _Nullable authResponse;
 @end
 
 #pragma mark - MessageObject / ImageObject
@@ -518,45 +522,43 @@ extern NSString * const WeiboSDKGetAidFailNotification;
  
  @warning 长度小于2000个汉字
  */
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString * _Nullable text;
 
 /**
  消息的图片内容
  
  @see WBImageObject
  */
-@property (nonatomic, strong) WBImageObject *imageObject;
+@property (nonatomic, strong) WBImageObject * _Nullable imageObject;
 
 /**
  消息的多媒体内容
  
  @see WBBaseMediaObject
  */
-@property (nonatomic, strong) WBBaseMediaObject *mediaObject;
+@property (nonatomic, strong) WBBaseMediaObject * _Nullable mediaObject;
 
 /**
  消息的视频内容
  
  @see WBVideoObject
  */
-@property (nonatomic, strong) WBNewVideoObject *videoObject;
+@property (nonatomic, strong) WBNewVideoObject * _Nullable videoObject;
+
 /**
- 
- /**
   消息的超话内容
   
   @see WBSuperGroupObject
-  */
+*/
 @property (nonatomic, strong)WBSuperGroupObject * _Nullable superTopicObject;
+
  /**
- 
- 
  
  返回一个 WBMessageObject 对象
  
  @return 返回一个*自动释放的*WBMessageObject对象
  */
-+ (id)message;
++ (id _Nonnull )message;
 
 @end
 
@@ -579,12 +581,12 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 /**
  数据准备成功回调
  */
--(void)wbsdk_TransferDidReceiveObject:(id)object;
+-(void)wbsdk_TransferDidReceiveObject:(id _Nullable )object;
 
 /**
  数据准备失败回调
  */
--(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*)error;
+-(void)wbsdk_TransferDidFailWithErrorCode:(WBSDKMediaTransferErrorCode)errorCode andError:(NSError*_Nullable)error;
 
 @end
 
@@ -599,7 +601,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @warning 大小不能超过10M
  */
-@property (nonatomic, strong) NSData *imageData;
+@property (nonatomic, strong) NSData * _Nullable imageData;
 
 /**
  是否分享到story
@@ -611,30 +613,41 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @return 返回一个*自动释放的*WBImageObject对象
  */
-+ (id)object;
++ (id _Nullable )object;
 
 /**
  返回一个 UIImage 对象
  
  @return 返回一个*自动释放的*UIImage对象
  */
-- (UIImage *)image;
+- (UIImage *_Nullable)image;
 
 
 /**
  多图分享委托
  */
-@property(nonatomic,weak)id<WBMediaTransferProtocol> delegate;
+@property(nonatomic,weak)id<WBMediaTransferProtocol> _Nullable delegate;
 
 /**
  图片对象添加图片数组  图片数据一共不能超过30MB
  */
-- (void)addImages:(NSArray<UIImage *>*)imageArray;
+- (void)addImages:(NSArray<UIImage *>*_Nullable)imageArray;
+
+/**
+ 添加分享livePhoto图片 大小不能超过40MB  支持 ios9.1以上系统
+ */
+
+- (void)setLivePhotoAsset:(PHAsset *_Nonnull)livePhotoAsset  completion:(void (^ __nullable)(NSString * _Nullable error))completion;
+
+/**
+ 分享livePhoto格式图片， image不能超过10MB， video不能超过30MB_Nonnull
+ */
+- (void)setLivePhotoImageUrl:(NSURL *_Nonnull)imageUrl livePhotoVideoUrl:(NSURL *_Nonnull)videoUrl;
 
 /**
  多图最终传递对象
  */
--(NSArray*)finalAssetArray;
+-(NSArray*_Nullable)finalAssetArray;
 
 @end
 
@@ -645,7 +658,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @return 返回一个*自动释放的*WBNewVideoObject对象
  */
-+ (id)object;
++ (id _Nullable )object;
 
 /**
  是否分享到story
@@ -655,17 +668,17 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 /**
  多图分享委托
  */
-@property(nonatomic,weak)id<WBMediaTransferProtocol> delegate;
+@property(nonatomic,weak)id<WBMediaTransferProtocol> _Nullable delegate;
 
 /**
  视频对象添加视频  视频数据不能超过50MB
  */
--(void)addVideo:(NSURL*)videoUrl;
+-(void)addVideo:(NSURL*_Nonnull)videoUrl;
 
 /**
  视频最终传递对象
  */
--(NSString*)finalAsset;
+-(NSString*_Nullable)finalAsset;
 
 @end
 
@@ -682,7 +695,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @return 返回一个*自动释放的*WBSuperGroupObject对象
  */
-+ (id)object;
++ (id _Nonnull )object;
 @end
 
 
