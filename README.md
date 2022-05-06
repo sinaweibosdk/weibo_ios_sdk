@@ -237,3 +237,7 @@ the server cannot be made."这样的问题。
 # 3.3.2版本支持分享livephoto
 
 注意：使用分享livephoto功能，微博app必须升级到 11.7.2版本以上（包含）
+
+# 3.3.3下线获取设备信息
+
+注意：sdk不再获取用户设备信息，如果：idfa、idfv等

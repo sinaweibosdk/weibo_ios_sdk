@@ -75,6 +75,7 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  */
 + (BOOL)openWeiboApp;
 
+
 /**
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
@@ -92,18 +93,6 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  @return 当前微博SDK的版本号
  */
 + (NSString *_Nullable)getWeiboSDKVersion;
-
-
-extern NSString * _Nullable const WeiboSDKGetAidSucessNotification;
-extern NSString * _Nullable const WeiboSDKGetAidFailNotification;
-/**
- 获取当前微博SDK的aid
- 返回的aid值可能为 nil ,当值为 nil 时会尝试获取 aid 值。
- 当获取成功（ aid 值变为有效值）时，SDK会发出名为 WeiboSDKGetAidSucessNotification 的通知，通知中带有 aid 值。
- 当获取失败时，SDK会发出名为 WeiboSDKGetAidFailNotification 的通知，通知中带有 NSError 对象。
- @return aid 用于广告的与设备信息相关的标识符
- */
-+ (NSString *_Nullable)getWeiboAid;
 
 /**
  向微博客户端程序注册第三方应用
