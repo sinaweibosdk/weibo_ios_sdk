@@ -86,7 +86,7 @@
 		18E67EB317057D9000DFAD63 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		18E67EB517057D9000DFAD63 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18E67EB717057D9000DFAD63 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		18E67EBB17057D9000DFAD63 /* WeiboSDKDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WeiboSDKDemo-Info.plist"; sourceTree = "<group>"; };
+		18E67EBB17057D9000DFAD63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18E67EBD17057D9000DFAD63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		18E67EBF17057D9000DFAD63 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18E67EC117057D9000DFAD63 /* WeiboSDKDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeiboSDKDemo-Prefix.pch"; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 				18E66A3D170BCEB700E0740F /* icon@2x.png */,
 				18CD553B1709E5CF00ECF584 /* image_1.jpg */,
 				18CD553C1709E5CF00ECF584 /* image_2.jpg */,
-				18E67EBB17057D9000DFAD63 /* WeiboSDKDemo-Info.plist */,
+				18E67EBB17057D9000DFAD63 /* Info.plist */,
 				88C2B4791F2F1661004EF738 /* apm.mov */,
 				18E67EBC17057D9000DFAD63 /* InfoPlist.strings */,
 				18E67EBF17057D9000DFAD63 /* main.m */,
@@ -733,7 +733,7 @@
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
-				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
+				INFOPLIST_FILE = WeiboSDKDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,7 +764,7 @@
 				ENABLE_BITCODE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeiboSDKDemo/WeiboSDKDemo-Prefix.pch";
-				INFOPLIST_FILE = "WeiboSDKDemo/WeiboSDKDemo-Info.plist";
+				INFOPLIST_FILE = WeiboSDKDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
