@@ -245,8 +245,7 @@ the server cannot be made."这样的问题。
 # 3.3.4 iOS16 适配
 更新内容：
 
-1. 修改底层跳转逻辑
-2. 修改底层数据传输逻辑
-3. 适配iOS16
-4. 解决当前已知bug
-5. 去掉了+ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock api
+1. 适配iOS16
+2. 解决当前已知bug，明确了部分注释的含义
+3. 去掉了+ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock 接口
+4. 跳转微博12.9.3以及之后版本，返回时会在response内收到对应的操作信息。 
