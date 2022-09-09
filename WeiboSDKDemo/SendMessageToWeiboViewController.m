@@ -195,16 +195,6 @@ static int kVideoShareMaxCount = 1;
     self.shareButton.frame = CGRectMake(80, 410, 90, 50);
     [scrollView addSubview:self.shareButton];
     
-    
-    UIButton *checkLinkBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    checkLinkBtn.titleLabel.numberOfLines = 0;
-    checkLinkBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [checkLinkBtn setTitle:NSLocalizedString(@"检查UniversalLink是否有效", nil) forState:UIControlStateNormal];
-    [checkLinkBtn addTarget:self action:@selector(clickUniversalLinkBtn) forControlEvents:UIControlEventTouchUpInside];
-    checkLinkBtn.frame = CGRectMake(210, 360, 90, 80);
-    [scrollView addSubview:checkLinkBtn];
-    
-    
     UIButton *linkWeiboButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [linkWeiboButton setTitle:NSLocalizedString(@"链接到微博API Demo", nil) forState:UIControlStateNormal];
     [linkWeiboButton addTarget:self action:@selector(linkToWeiboAPI) forControlEvents:UIControlEventTouchUpInside];
@@ -370,12 +360,6 @@ static int kVideoShareMaxCount = 1;
         return YES;
     }
     return NO;
-}
-
-- (void)clickUniversalLinkBtn{
-    [WeiboSDK checkUniversalLink:^(WBULCheckStep step, NSError *error) {
-        NSLog(@"step == %ld  errorCode=%ld  errorReason=%@",(long)step,(long)error.code,error.localizedDescription);
-    }];
 }
 
 /*- (void)sharePanoramic{

@@ -241,3 +241,12 @@ the server cannot be made."这样的问题。
 # 3.3.3下线获取设备信息
 
 注意：sdk不再获取用户设备信息，如果：idfa、idfv等
+
+# 3.3.4 iOS16 适配
+更新内容：
+
+1. 修改底层跳转逻辑
+2. 修改底层数据传输逻辑
+3. 适配iOS16
+4. 解决当前已知bug
+5. 去掉了+ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock api

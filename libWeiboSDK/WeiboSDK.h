@@ -17,21 +17,10 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
     WeiboSDKResponseStatusCodeSentFail              = -2,//发送失败
     WeiboSDKResponseStatusCodeAuthDeny              = -3,//授权失败
     WeiboSDKResponseStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端
+    WeiboSDKResponseStatusCodePasteboardUnenable    = -6,//剪贴板未授权
     WeiboSDKResponseStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
     WeiboSDKResponseStatusCodeUnsupport             = -99,//不支持的请求
     WeiboSDKResponseStatusCodeUnknown               = -100,
-};
-
-typedef NS_ENUM(NSInteger, WBULCheckStep)
-{
-    WBULCheckStepNone              = 0, //默认
-    WBULCheckStepParams            = 1, //参数检查
-    WBULCheckStepSystemVersion     = 2, //当前系统版本检查
-    WBULCheckStepWeiboVersion     = 3, //微博客户端版本检查
-    WBULCheckStepSDKInnerOperation = 4, //微博SDK内部操作检查
-    WBULCheckStepLaunchWeibo       = 5, //App拉起微博检查
-    WBULCheckStepBackToCurrentApp  = 6, //由微博返回当前App检查
-    WBULCheckStepFinal             = 7 //最终检查,也代表检测结果合法有效
 };
 
 @protocol WeiboSDKDelegate;
@@ -75,7 +64,6 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  */
 + (BOOL)openWeiboApp;
 
-
 /**
  获取微博客户端程序的itunes安装地址
  @return 微博客户端程序的itunes安装地址
@@ -83,16 +71,10 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
 + (NSString *_Nullable)getWeiboAppInstallUrl;
 
 /**
- getSDKVersion 已弃用
+ getSDKVersion
  获取sdk版本号使用 getWeiboSDKVersion
  */
 + (NSString *_Nullable)getSDKVersion;
-
-/**
- 新的获取当前微博SDK的版本号
- @return 当前微博SDK的版本号
- */
-+ (NSString *_Nullable)getWeiboSDKVersion;
 
 /**
  向微博客户端程序注册第三方应用
@@ -101,12 +83,6 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  @return 注册成功返回YES，失败返回NO
  */
 + (BOOL)registerApp:(NSString * __nonnull)appKey universalLink:(NSString * __nonnull)universalLink;
-
-/**
- step：检测的步骤
- error：universalLink是否有效，error为nil universalLink有效，不为nil为无效universalLink
- */
-+ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock;
 
 /**
  处理微博客户端程序通过URL启动第三方应用时传递的数据
@@ -137,7 +113,7 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  
  @see [WeiboSDKDelegate didReceiveWeiboResponse:]
  @see WBBaseResponse
- @param completion 调用结果回调block
+ @param completion 调用结果在主线程回调block
  */
 + (void)sendRequest:(WBBaseRequest *_Nullable)request completion:(void (^ __nullable)(BOOL success))completion;
 
@@ -148,7 +124,7 @@ typedef NS_ENUM(NSInteger, WBULCheckStep)
  
  @param response 具体的应答内容
  @see WBBaseRequest
- @param completion 调用结果回调block
+ @param completion 调用结果在主线程回调block
  */
 + (void)sendResponse:(WBBaseResponse *_Nullable)response  completion:(void (^ __nullable)(BOOL success))completion;
 
@@ -595,7 +571,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 /**
  是否分享到story
  */
-@property (nonatomic) BOOL isShareToStory DEPRECATED_MSG_ATTRIBUTE("shareToStory is deprecated");
+@property (nonatomic) BOOL isShareToStory DEPRECATED_MSG_ATTRIBUTE("shareToStory is no longer being maintained");
 
 /**
  返回一个 WBImageObject 对象
@@ -652,7 +628,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
 /**
  是否分享到story
  */
-@property (nonatomic) BOOL isShareToStory DEPRECATED_MSG_ATTRIBUTE("shareToStory is deprecated");
+@property (nonatomic) BOOL isShareToStory DEPRECATED_MSG_ATTRIBUTE("shareToStory is no longer being maintained");
 
 /**
  多图分享委托
@@ -702,13 +678,13 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  当第三方应用分享多媒体内容到微博时，应该将此参数设置为被分享的内容在自己的系统中的唯一标识
  @warning 不能为空，长度小于255
  */
-@property (nonatomic, strong) NSString * _Nullable objectID;
+@property (nonatomic, strong) NSString * _Nonnull objectID;
 
 /**
  多媒体内容标题
  @warning 不能为空且长度小于1k
  */
-@property (nonatomic, strong) NSString * _Nullable title;
+@property (nonatomic, strong) NSString * _Nonnull title;
 
 /**
  多媒体内容描述
@@ -733,7 +709,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @return 返回一个*自动释放的*WBBaseMediaObject对象
  */
-+ (id _Nullable )object DEPRECATED_MSG_ATTRIBUTE("WBBaseMediaObject is deprecated");
++ (id _Nullable )object DEPRECATED_MSG_ATTRIBUTE("WBBaseMediaObject is no longer being maintained");
 
 @end
 
@@ -750,7 +726,7 @@ typedef NS_ENUM(NSInteger, WBSDKMediaTransferErrorCode)
  
  @warning 不能为空且长度不能超过255
  */
-@property (nonatomic, strong) NSString * _Nullable webpageUrl DEPRECATED_MSG_ATTRIBUTE("webpageUrl is deprecated");
+@property (nonatomic, strong) NSString * _Nullable webpageUrl DEPRECATED_MSG_ATTRIBUTE("webpageUrl is no longer being maintained");
 
 @end
 
