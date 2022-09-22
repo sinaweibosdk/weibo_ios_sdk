@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                    DESC
   s.author       = { "xingda" => "xingda@staff.weibo.com" }
   s.version      = "3.3.4"
-  s.source       = { :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => "3.3.5" }
+  s.source       = { :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => "3.3.4" }
   s.platform     = :ios, '9.0'
   s.requires_arc = false
   s.license      = 'MIT'
