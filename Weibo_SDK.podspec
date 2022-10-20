@@ -6,12 +6,12 @@ Pod::Spec.new do |s|
                    New weibosdk pod.
                    DESC
   s.author       = { "xingda" => "xingda@staff.weibo.com" }
-  s.version      = "3.3.4"
+  s.version      = "3.3.5"
   s.source       = { :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git", :tag => "3.3.4" }
   s.platform     = :ios, '9.0'
   s.requires_arc = false
   s.license      = 'MIT'
-  s.source_files = 'libWeiboSDK/*.{h,m}'
+  s.source_files = 'libWeiboSDK/*.{h,m,a}'
   s.resource     = 'libWeiboSDK/WeiboSDK.bundle'
   s.vendored_libraries  = 'libWeiboSDK/libWeiboSDK.a'
   s.frameworks   = 'Photos', 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony','WebKit'

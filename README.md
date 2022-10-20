@@ -249,3 +249,8 @@ the server cannot be made."这样的问题。
 2. 解决当前已知bug，明确了部分注释的含义
 3. 去掉了+ (void)checkUniversalLink:(void (^_Nullable)(WBULCheckStep step, NSError * _Nullable error))checkBlock 接口
 4. 跳转微博12.9.3以及之后版本，返回时会在response内收到对应的操作信息。 
+
+# 3.3.5 下掉获取idfa代码
+更新内容：
+
+在代码层，下掉了idfa获取代码
