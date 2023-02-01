@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '9.0'
   s.requires_arc = false
   s.license      = 'MIT'
-  s.source_files = 'libWeiboSDK/*.{h,m,a}'
+  s.source_files = 'libWeiboSDK/*.{h,m}'
   s.resource     = 'libWeiboSDK/WeiboSDK.bundle'
   s.vendored_libraries  = 'libWeiboSDK/libWeiboSDK.a'
   s.frameworks   = 'Photos', 'ImageIO', 'SystemConfiguration', 'CoreText', 'QuartzCore', 'Security', 'UIKit', 'Foundation', 'CoreGraphics','CoreTelephony','WebKit'
