@@ -70,11 +70,17 @@ static int kVideoShareMaxCount = 1;
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 40)];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.numberOfLines = 3;
     [scrollView addSubview:self.titleLabel];
     self.titleLabel.text = NSLocalizedString(@"微博SDK示例", nil);
+    
+    UILabel *versonLb = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 12)];
+    versonLb.font = [UIFont systemFontOfSize:12];
+    versonLb.text = [NSString stringWithFormat:@"v-%@",[WeiboSDK getSDKVersion]];
+    versonLb.textAlignment = NSTextAlignmentCenter;
+    [scrollView addSubview:versonLb];
     
     UILabel *loginTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 70, 290, 20)];
     loginTextLabel.text = NSLocalizedString(@"登录:", nil);
@@ -502,7 +508,10 @@ static int kVideoShareMaxCount = 1;
                 message.videoObject = videoObject;
                 self.messageObject = message;
             }else{
-                NSLog(@"获取livePhoto资源出错");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.indicatorView stopAnimating];
+                    [self alertControllerWithTitle:@"提示" message:@"获取相册视频出错，试试换其它一个视频" cancelBtnTitle:NSLocalizedString(@"确定", nil) sureBtnTitle:nil];
+                });
             }
         }];
     }];
