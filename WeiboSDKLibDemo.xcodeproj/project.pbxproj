@@ -33,7 +33,6 @@
 		64CC07F6194DCBC300F94BB8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64CC07F5194DCBC300F94BB8 /* SystemConfiguration.framework */; };
 		64FB915019D1168B00DA7598 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64FB915219D1168B00DA7598 /* Localizable.strings */; };
 		8834C3DE1EA5B93F009E59EF /* LinkToWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */; };
-		88C2B47A1F2F1661004EF738 /* apm.mov in Resources */ = {isa = PBXBuildFile; fileRef = 88C2B4791F2F1661004EF738 /* apm.mov */; };
 		88C2B47C1F2F198B004EF738 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C2B47B1F2F198B004EF738 /* Photos.framework */; };
 		EF7FE93227157A2400647458 /* CTAssetSelectionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8C627157A2300647458 /* CTAssetSelectionLabel.m */; };
 		EF7FE93327157A2400647458 /* CTAssetsGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7FE8C727157A2300647458 /* CTAssetsGridViewCell.m */; };
@@ -115,7 +114,6 @@
 		64FB915319D1169700DA7598 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		8834C3DC1EA5B93F009E59EF /* LinkToWeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkToWeiboViewController.h; sourceTree = "<group>"; };
 		8834C3DD1EA5B93F009E59EF /* LinkToWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkToWeiboViewController.m; sourceTree = "<group>"; };
-		88C2B4791F2F1661004EF738 /* apm.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = apm.mov; sourceTree = "<group>"; };
 		88C2B47B1F2F198B004EF738 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		EF7FE8C627157A2300647458 /* CTAssetSelectionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetSelectionLabel.m; sourceTree = "<group>"; };
 		EF7FE8C727157A2300647458 /* CTAssetsGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTAssetsGridViewCell.m; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 				18CD553B1709E5CF00ECF584 /* image_1.jpg */,
 				18CD553C1709E5CF00ECF584 /* image_2.jpg */,
 				18E67EBB17057D9000DFAD63 /* Info.plist */,
-				88C2B4791F2F1661004EF738 /* apm.mov */,
 				18E67EBC17057D9000DFAD63 /* InfoPlist.strings */,
 				18E67EBF17057D9000DFAD63 /* main.m */,
 				18E67EC117057D9000DFAD63 /* WeiboSDKDemo-Prefix.pch */,
@@ -551,7 +548,6 @@
 				EF7FE93E27157A2400647458 /* CTAssetsPicker.xcassets in Resources */,
 				64247CBB1B09D663000CE2B8 /* WeiboSDK.bundle in Resources */,
 				18E66A3E170BCEB700E0740F /* icon.png in Resources */,
-				88C2B47A1F2F1661004EF738 /* apm.mov in Resources */,
 				18E66A3F170BCEB700E0740F /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
