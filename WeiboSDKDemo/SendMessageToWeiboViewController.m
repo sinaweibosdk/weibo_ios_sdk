@@ -14,7 +14,6 @@
 
 #import <Photos/PHPhotoLibrary.h>
 #import "CTAssetsPickerController.h"
-
 static int kImageShareMaxCount = 9;
 static int kVideoShareMaxCount = 1;
 
@@ -43,6 +42,7 @@ static int kVideoShareMaxCount = 1;
 
 @property (nonatomic, strong) NSString *superTopicName;
 @property (nonatomic, strong) NSString *sectionName;
+@property (nonatomic, strong) NSString *extra;
 
 @property (nonatomic, strong) PHAsset *livePhotoAsset;
 @property (nonatomic, strong) PHAsset *videoAsset;
@@ -57,7 +57,6 @@ static int kVideoShareMaxCount = 1;
 
 @implementation SendMessageToWeiboViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,17 +69,11 @@ static int kVideoShareMaxCount = 1;
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 40)];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.numberOfLines = 3;
     [scrollView addSubview:self.titleLabel];
     self.titleLabel.text = NSLocalizedString(@"微博SDK示例", nil);
-    
-    UILabel *versonLb = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 12)];
-    versonLb.font = [UIFont systemFontOfSize:12];
-    versonLb.text = [NSString stringWithFormat:@"v-%@",[WeiboSDK getSDKVersion]];
-    versonLb.textAlignment = NSTextAlignmentCenter;
-    [scrollView addSubview:versonLb];
     
     UILabel *loginTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 70, 290, 20)];
     loginTextLabel.text = NSLocalizedString(@"登录:", nil);
@@ -198,14 +191,21 @@ static int kVideoShareMaxCount = 1;
     self.shareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.shareButton setTitle:NSLocalizedString(@"分享消息到微博", nil) forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(shareButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    self.shareButton.frame = CGRectMake(80, 410, 90, 50);
+    self.shareButton.frame = CGRectMake(80, 400, 90, 50);
     [scrollView addSubview:self.shareButton];
     
     UIButton *linkWeiboButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [linkWeiboButton setTitle:NSLocalizedString(@"链接到微博API Demo", nil) forState:UIControlStateNormal];
     [linkWeiboButton addTarget:self action:@selector(linkToWeiboAPI) forControlEvents:UIControlEventTouchUpInside];
-    linkWeiboButton.frame = CGRectMake(20, 480, 280, 40);
+    linkWeiboButton.frame = CGRectMake(20, 460, 280, 40);
     [scrollView addSubview:linkWeiboButton];
+    
+    UILabel *versonLb = [[UILabel alloc] initWithFrame:CGRectMake(0, 500, self.view.frame.size.width, 20)];
+    versonLb.textAlignment = NSTextAlignmentCenter;
+    versonLb.font = [UIFont systemFontOfSize:11];
+    versonLb.textColor = [UIColor grayColor];
+    versonLb.text = [NSString stringWithFormat:@"SDK版本-%@",[WeiboSDK getSDKVersion]];
+    [scrollView addSubview:versonLb];
     
     [scrollView setContentSize:CGSizeMake(self.view.frame.size.width, 530)];
     
@@ -243,15 +243,17 @@ static int kVideoShareMaxCount = 1;
     if(self.superTopicSwitch == s1){
         if(s1.on){
             SuperTopicViewController *vc = [SuperTopicViewController new];
-               [vc setCompletionBlock:^(NSString * _Nonnull topicName, NSString * _Nonnull sectionName) {
+               [vc setCompletionBlock:^(NSString *topicName, NSString *sectionName, NSString *extra) {
                    self.superTopicName = topicName;
                    self.sectionName = sectionName;
+                   self.extra = extra;
                }];
                [self.navigationController pushViewController:vc animated:YES];
 
         }else{
             self.superTopicName = nil;
             self.sectionName = nil;
+            self.extra = nil;
         }
     }
 }
@@ -517,12 +519,32 @@ static int kVideoShareMaxCount = 1;
     }];
 }
 
+- (NSDictionary *)dictionaryWithJSON:(id)json {
+    if (!json || json == (id)kCFNull) return nil;
+    NSDictionary *dic = nil;
+    NSData *jsonData = nil;
+    if ([json isKindOfClass:[NSDictionary class]]) {
+        dic = json;
+    } 
+    else if ([json isKindOfClass:[NSString class]]) {
+        jsonData = [(NSString *)json dataUsingEncoding : NSUTF8StringEncoding];
+    } 
+    else if ([json isKindOfClass:[NSData class]]) {
+        jsonData = json;
+    }
+    if (jsonData) {
+        dic = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:NULL];
+        if (![dic isKindOfClass:[NSDictionary class]]) dic = nil;
+    }
+    return dic;
+}
+
 - (void)shareSuperTopic{
     WBMessageObject *message = [WBMessageObject message];
     WBSuperGroupObject *superGroupObject = [WBSuperGroupObject object];
     superGroupObject.superGroup = self.superTopicName;
     superGroupObject.section = self.sectionName;
-    superGroupObject.extData = @{@"type":@"SDK 测试"};
+    superGroupObject.extData = [self dictionaryWithJSON:self.extra];
     message.superTopicObject = superGroupObject;
     self.messageObject = message;
     [self messageShare];
@@ -576,10 +598,8 @@ static int kVideoShareMaxCount = 1;
 #pragma mark - CTAssetsPickerControllerDelegate -
 
 - (BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
-
-    NSInteger maxNumber =9;
-
-    if(picker.selectedAssets.count > maxNumber){
+    NSInteger maxNumber = 9;
+    if((self.imageAssetArray.count + picker.selectedAssets.count) > (maxNumber - 1)){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"最多选择%ld张", (long)maxNumber] preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
         [picker presentViewController:alert animated:YES completion:nil];

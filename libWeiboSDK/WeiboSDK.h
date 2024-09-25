@@ -5,7 +5,6 @@
 //  Created by Wade Cheng on 4/3/13.
 //  Copyright (c) 2013 SINA iOS Team. All rights reserved.
 //
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
@@ -63,7 +62,7 @@ typedef NS_ENUM(NSInteger, WeiboSDKResponseStatusCode)
  打开微博客户端程序
  @return 成功打开返回YES，失败返回NO
  */
-+ (BOOL)openWeiboApp;
++ (void)openWeiboApp:(void(^_Nullable)(BOOL success))complection;
 
 /**
  获取微博客户端程序的itunes安装地址

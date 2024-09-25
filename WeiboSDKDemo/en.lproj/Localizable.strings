@@ -9,7 +9,6 @@
 "请求微博认证（SSO授权）"="Request SSO Authorize";
 "邀请好友"="Invite Friends";
 "刷Feed"="Fetch Feed";
-"支付"="Payment";
 "微博SDK示例"="WeiboSDK Demo";
 "分享消息到微博"="Share status to Weibo";
 "请输入被邀请人的UID"="Please Enter invitor's UID";
@@ -26,15 +25,10 @@
 "调用OpenAPI"="Request For OpenAPI";
 "发送结果"="Share Result";
 "认证结果"="Authorize Result";
-"支付结果"="Payment Result";
 "响应状态"="Response Status";
 "响应UserInfo数据"="Response's UserInfo Data";
 "原请求UserInfo数据"="Request's UserInfo Data";
 "登录:"="Login:";
 "分享:"="Share:";
-"支付:"="Payment:";
-"Open API:"="Open API:";
-"统计相关API:"="Statistics API:";
-"统计相关API Demo"="Statistics API Demo";
 "关闭"="Close";
 

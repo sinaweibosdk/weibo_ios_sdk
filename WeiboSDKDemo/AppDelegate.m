@@ -28,7 +28,10 @@
 {
     NSLog(@"wmm--%s",__func__);
     [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:kAppKey universalLink:@"https://myappapi.fun/"];
+//    [WeiboSDK registerApp:kAppKey universalLink:@"https://myappapi.fun/"];
+//    [WeiboSDK registerApp:kAppKey universalLink:@"https://app.weibo.com/"];
+    [WeiboSDK registerApp:kAppKey universalLink:@"https://guodang.xyz/"];
+    
     
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -119,7 +122,8 @@
         self.wbRefreshToken = [(WBAuthorizeResponse *)response refreshToken];
         
         [[self topViewController] presentViewController:alertcontroller animated:YES completion:nil];
-    }if([response isKindOfClass:WBShareMessageToContactResponse.class])
+    }
+    else if([response isKindOfClass:WBShareMessageToContactResponse.class])
     {
         NSString *title = NSLocalizedString(@"发送结果", nil);
         NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
@@ -135,6 +139,15 @@
         if (userID) {
             self.wbCurrentUserID = userID;
         }
+    }
+    else if ([response isKindOfClass:WBBaseResponse.class]) {
+        NSString *title = NSLocalizedString(@"发送结果", nil);
+        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
+        
+        UIAlertController *alertcontroller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertcontroller addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"确定", nil) style:UIAlertActionStyleCancel handler:nil]];
+        
+        [[self topViewController] presentViewController:alertcontroller animated:YES completion:nil];
     }
 }
 

@@ -11,6 +11,7 @@
 @interface SuperTopicViewController ()
 @property (nonatomic, strong)UITextField *nameTF;
 @property (nonatomic, strong)UITextField *sectionTF;
+@property (nonatomic, strong)UITextField *extraTF;
 
 @end
 
@@ -31,11 +32,15 @@
     self.sectionTF = [[UITextField alloc] initWithFrame:CGRectMake(20, 64+80, self.view.frame.size.width-40, 40)];
     self.sectionTF.placeholder = @"请输入版块名（可选）";
     [self.view addSubview:self.sectionTF];
+    
+    self.extraTF = [[UITextField alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.sectionTF.frame)+20, self.view.frame.size.width-40, 40)];
+    self.extraTF.placeholder = @"请输入携带信息（可选）";
+    [self.view addSubview:self.extraTF];
 }
 
 - (void)done {
     if (self.completionBlock) {
-        self.completionBlock(self.nameTF.text, self.sectionTF.text);
+        self.completionBlock(self.nameTF.text, self.sectionTF.text, self.extraTF.text);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

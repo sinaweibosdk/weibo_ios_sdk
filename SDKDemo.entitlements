@@ -4,7 +4,9 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:myappapi.fun</string>
+		<string>applinks:dangguo.xyz</string>
+		<string>applinks:app.weibo.com</string>
+		<string>applinks:guodang.xyz</string>
 	</array>
 </dict>
 </plist>
