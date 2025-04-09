@@ -1,4 +1,11 @@
 # ReadMe
+
+SDK名称：微博SDK
+
+开发者：北京微梦创科网络技术有限公司
+
+主要功能：实现微博登录、分享功能
+
 为了方便第三方开发者快速集成微博 SDK，我们提供了以下联系方式，协助开发者进行集成：  
 **QQ群：453830884（iOS 请加此群）**
 **226214250（此群已满）**
@@ -47,6 +54,8 @@ pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 - 已选择应用为iOS平台，并正确填写Bundle id和appple id
 
 注: 关于授权回调页对移动客户端应用来说对用户是不可见的，所以定义为何种形式都将不影响，但是没有定义将无法使用SDK认证登录。建议使用默认回调页 https://api.weibo.com/oauth2/default.html 
+
+微博SDK隐私政策说明 [https://open.weibo.com/wiki/Sdk/privacy](https://open.weibo.com/wiki/Sdk/privacy)
 
 # iOS9的适配问题
 由于iOS9的发布影响了微博SDK与应用的集成方式，为了确保好的应用体验，我们需要采取如下措施：
