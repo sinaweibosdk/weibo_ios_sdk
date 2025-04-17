@@ -19,15 +19,15 @@ SDK名称：微博SDK
 # 概述
 微博 iOS 平台 SDK 为第三方应用提供了简单易用的微博API调用服务，使第三方客户端无需了解复杂的验证机制即可进行授权登陆，并提供微博分享功能，可直接通过微博官方客户端分享微博。
 
-#快速集成
+# 快速集成
 WeiboSDK支持使用Cocoapods集成，请在Podfile中添加以下语句：
 ```
 pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git" 
 ```
-#API文档
+# API文档
 [http://sinaweibosdk.github.io/weibo_ios_sdk/index.html](http://sinaweibosdk.github.io/weibo_ios_sdk/index.html)
 
-#常见问题 FAQ
+# 常见问题 FAQ
 [https://github.com/sinaweibosdk/weibo_ios_sdk/blob/master/FAQ.md](https://github.com/sinaweibosdk/weibo_ios_sdk/blob/master/FAQ.md)
 # 名词解释
 | 名词        | 注解    | 
@@ -59,11 +59,11 @@ pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 
 # iOS9的适配问题
 由于iOS9的发布影响了微博SDK与应用的集成方式，为了确保好的应用体验，我们需要采取如下措施：
-###1.对传输安全的支持
+### 1.对传输安全的支持
 在新一代的iOS系统中，默认需要为每次网络传输建立SSL。解决这个问题有两种方法：
 
-- A.建立白名单并添加到你的app的plsit中
-- 
+#### A.建立白名单并添加到你的app的plsit中
+```xml
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -120,22 +120,25 @@ pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 			</dict>
 		</dict>
 	</dict>
+````
 
 如果没有添加可能会遇到"An SSL error has occurred and a secure connection to
 the server cannot be made."这样的问题。
 
-- B.强制将NSAllowsArbitraryLoads属性设置为YES，并添加到你应用的plist中
-- 
+#### B.强制将NSAllowsArbitraryLoads属性设置为YES，并添加到你应用的plist中
+
+```xml
 	<key>NSAppTransportSecurity</key>
 	<dict>
 	<key>NSAllowsArbitraryLoads</key>
 	</true>
 	</dict>
+```
 
-###2.对应用跳转的支持
+### 2.对应用跳转的支持
 如果你需要用到微博的相关功能，如登陆，分享等。并且需要实现跳转到微博的功能，在iOS9系统中就需要在你的app的plist中添加下列键值对。否则在canOpenURL函数执行时，就会返回NO。了解详情请至[https://developer.apple.com/videos/wwdc/2015/?id=703](https://developer.apple.com/videos/wwdc/2015/?id=703)
 
--
+```xml
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibohd</string>
@@ -144,8 +147,9 @@ the server cannot be made."这样的问题。
 		<string>weibosdk2.5</string>
 		<string>weibosdk3.3</string>
 	</array>
+```
 
-###3.应用瘦身与bitcode
+### 3.应用瘦身与bitcode
 苹果在iOS9的SDK中添加了对应用的瘦身的支持，其中就包括bitcode。我们也在最新的代码中添加了对bitcode的支持
 
 # 关于ADSupport集成的问题
@@ -166,7 +170,7 @@ the server cannot be made."这样的问题。
 
 由于iOS10的发布，原有ATS设置在iOS10上会出现https网络访问限制的问题，为了确保好的应用体验，我们需要采取如下措施：
 
--
+```xml
 			<key>sina.com.cn</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -178,6 +182,7 @@ the server cannot be made."这样的问题。
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
+```
 
 需要在每一个域名下添加NSExceptionMinimumTLSVersion这样的key，值的部分为TLSv1.0
 
