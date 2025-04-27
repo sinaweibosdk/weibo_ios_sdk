@@ -51,7 +51,7 @@ pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
 
 - 在新浪微博开放平台注册并创建应用
 - 已定义本应用的授权回调页  
-- 已选择应用为iOS平台，并正确填写Bundle id和appple id
+- 已选择应用为iOS平台，并正确填写Bundle ID和Apple ID
 
 注: 关于授权回调页对移动客户端应用来说对用户是不可见的，所以定义为何种形式都将不影响，但是没有定义将无法使用SDK认证登录。建议使用默认回调页 https://api.weibo.com/oauth2/default.html 
 
